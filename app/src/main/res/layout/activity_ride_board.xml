@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.g13.shotgun.DriveBoard">
+    tools:context="com.g13.shotgun.RideBoard">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -29,16 +29,10 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <Button
-                android:text="Menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button" />
-
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_drive_board" />
+    <include layout="@layout/content_ride_board" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

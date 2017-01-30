@@ -6,16 +6,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class DriveBoard extends AppCompatActivity {
+public class RideBoard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drive_board);
+        setContentView(R.layout.activity_ride_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -23,15 +23,11 @@ public class DriveBoard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your OWN action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-
-
-        //*test*
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -47,11 +43,11 @@ public class DriveBoard extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.driveboard) {}
-        if (id == R.id.rideboard) {
-            Intent intent = new Intent(DriveBoard.this, RideBoard.class);
+        if (id == R.id.driveboard) {
+            Intent intent = new Intent(RideBoard.this, DriveBoard.class);
             startActivity(intent);;
         }
+        if (id == R.id.rideboard) {}
         return super.onOptionsItemSelected(item);
     }
 }
