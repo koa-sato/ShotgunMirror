@@ -17,15 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
+import java.sql.Time;
+import java.util.Date;
 
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView listView;
-    static ArrayList<Ride> rides;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +35,66 @@ public class DriveBoard extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DriveBoard.this, Post.class);
-                startActivity(i);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
 
         listView = (ListView) findViewById(R.id.list);
-        String[] values = new String[] { "Android List View", "Adapter implementation", "Simple List View In Android", "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View", "Android List View", "Adapter implementation", "Simple List View In Android", "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View"};
-        rides = new ArrayList<Ride>();
-        ArrayAdapter<Ride> adapter = new ArrayAdapter<Ride>(this,
-                android.R.layout.simple_list_item_1, rides);
-        listView.setAdapter(adapter);
+        Post[] posts = new Post[]
+        {
+                new Post("Santa Barbara", new Date (2017, 2, 16),
+                        new Time(12, 12, 12), "FirstName LastName"),
+
+                new Post("Goleta", new Date (2000, 1, 1),
+                        new Time (1, 1, 1), "Bob Smith"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"),
+
+                new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross")
+
+        };
+        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -56,7 +102,7 @@ public class DriveBoard extends AppCompatActivity
                                     int position, long id) {
 
                 // ListView Clicked item value
-                String  itemValue    = listView.getItemAtPosition(position).toString();
+                String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),

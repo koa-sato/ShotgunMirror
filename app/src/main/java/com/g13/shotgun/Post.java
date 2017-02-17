@@ -1,126 +1,77 @@
 package com.g13.shotgun;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.EditText;
+/**
+ * Created by Dominic on 2/16/2017.
+ */
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+
+import java.sql.Time;
 import java.util.Date;
+import java.util.Calendar;
+import java.util.Random;
 
-public class Post extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 
-    EditText location;
-    EditText destination;
-    CalendarView calendar;
+/**
+ * Created by Dominic on 2/14/2017.
+ */
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+@DynamoDBTable(tableName = "Shotgun_Posts")
+public class Post {
+    private String city;
+    private Date the_date2;
+    private int the_date;
+    private Time the_time;
+    private String user;
+    private String key;
 
-        location = (EditText)findViewById(R.id.location);
-        destination = (EditText)findViewById(R.id.destination);
-        calendar = (CalendarView)findViewById(R.id.calendarView);
+    public Post()
+    {
+        Random r = new Random(10);
+        key = Integer.toString(r.nextInt());
 
-        Button save = (Button) findViewById(R.id.save);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    }
+    
+    public Post(String __city, Date __the_date, Time __the_time, String __user) {
+        city = __city;
+        the_date2 = __the_date;
+        the_time = __the_time;
+        user = __user;
     }
 
-    public void saveFunction(View view) {
-        Ride r = new Ride(location.getText().toString(), destination.getText().toString(), new Date(calendar.getDate()), new String("Joseph"));
-        DriveBoard.rides.add(r);
+    @DynamoDBHashKey(attributeName = "Key")
+    public String get_key(){ return key;}
+    public void set_key(String d){ key = d;}
+
+
+    @DynamoDBIndexHashKey(attributeName = "Date")
+    public int get_date(){ return the_date;}
+    public void set_date(int d){ the_date = d;}
+
+
+    @DynamoDBIndexRangeKey(attributeName = "City")
+    public String get_city(){
+        return city;
     }
+    public void set_city(String c){ city = c;}
 
+
+    @DynamoDBIndexRangeKey(attributeName = "Time")
+    public void set_time(Time t){ the_time = t;}
+    public Time get_time(){ return the_time;}
+
+    @DynamoDBAttribute(attributeName = "User")
+    public String get_user(){ return user;}
+    public void set_user(String u){ user = u;}
+    
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.driveboard) {
-            Intent intent = new Intent(Post.this, DriveBoard.class);
-            startActivity(intent);
-        } else if (id == R.id.rideboard) {
-            Intent intent = new Intent(Post.this, RideBoard.class);
-            startActivity(intent);
-        } else if (id == R.id.messenger) {
-            Intent intent = new Intent(Post.this, Messenger.class);
-            startActivity(intent);
-        } else if (id == R.id.profile) {
-            Intent intent = new Intent(Post.this, UserProfile.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    public String toString() {
+        String retString = "";
+        Calendar calendar = Calendar.getInstance();
+        retString = get_city() + "\t\t" + calendar.MONTH + "/" + calendar.DAY_OF_MONTH + "/" + calendar.YEAR;
+        return retString;
     }
 }
