@@ -70,5 +70,12 @@ public class Post {
     @DynamoDBAttribute(attributeName = "User")
     public String get_user(){ return user;}
     public void set_user(String u){ user = u;}
-
+    
+    @Override
+    public String toString() {
+        String retString = "";
+        Calendar calendar = Calendar.getInstance();
+        retString = get_city() + "\t\t" + calendar.MONTH + "/" + calendar.DAY_OF_MONTH + "/" + calendar.YEAR;
+        return retString;
+    }
 }
