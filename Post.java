@@ -38,6 +38,13 @@ public class Post {
         key = Integer.toString(r.nextInt());
 
     }
+    
+    public Post(String __city, Date __the_date, Time __the_time, String __user) {
+        city = __city;
+        the_date = __the_date;
+        the_time = __the_time;
+        user = __user;
+    }
 
     @DynamoDBHashKey(attributeName = "Key")
     public String get_key(){ return key;}
