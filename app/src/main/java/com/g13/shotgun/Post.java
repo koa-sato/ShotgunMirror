@@ -13,23 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
 
-import java.util.ArrayList;
+import java.util.Date;
 
-public class DriveBoard extends AppCompatActivity
+public class Post extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView listView;
-    static ArrayList<Ride> rides;
+    EditText location;
+    EditText destination;
+    CalendarView calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drive_board);
+        setContentView(R.layout.activity_post);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -37,34 +37,16 @@ public class DriveBoard extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DriveBoard.this, Post.class);
-                startActivity(i);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
+        location = (EditText)findViewById(R.id.location);
+        destination = (EditText)findViewById(R.id.destination);
+        calendar = (CalendarView)findViewById(R.id.calendarView);
 
-        listView = (ListView) findViewById(R.id.list);
-        String[] values = new String[] { "Android List View", "Adapter implementation", "Simple List View In Android", "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View", "Android List View", "Adapter implementation", "Simple List View In Android", "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View"};
-        rides = new ArrayList<Ride>();
-        ArrayAdapter<Ride> adapter = new ArrayAdapter<Ride>(this,
-                android.R.layout.simple_list_item_1, rides);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // ListView Clicked item value
-                String  itemValue    = listView.getItemAtPosition(position).toString();
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-            }
-
-        });
+        Button save = (Button) findViewById(R.id.save);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,6 +56,11 @@ public class DriveBoard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void saveFunction(View view) {
+        Ride r = new Ride(location.getText().toString(), destination.getText().toString(), new Date(calendar.getDate()), new String("Joseph"));
+        DriveBoard.rides.add(r);
     }
 
     @Override
@@ -115,15 +102,16 @@ public class DriveBoard extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.driveboard) {
-
+            Intent intent = new Intent(Post.this, DriveBoard.class);
+            startActivity(intent);
         } else if (id == R.id.rideboard) {
-            Intent intent = new Intent(DriveBoard.this, RideBoard.class);
+            Intent intent = new Intent(Post.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(DriveBoard.this, Messenger.class);
+            Intent intent = new Intent(Post.this, Messenger.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(DriveBoard.this, UserProfile.class);
+            Intent intent = new Intent(Post.this, UserProfile.class);
             startActivity(intent);
         } else if (id == R.id.nav_share) {
 

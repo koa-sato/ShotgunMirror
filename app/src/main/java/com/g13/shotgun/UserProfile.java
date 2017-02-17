@@ -13,23 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-
-public class DriveBoard extends AppCompatActivity
+public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    ListView listView;
-    static ArrayList<Ride> rides;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drive_board);
+        setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -37,33 +28,9 @@ public class DriveBoard extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DriveBoard.this, Post.class);
-                startActivity(i);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
-        });
-
-
-        listView = (ListView) findViewById(R.id.list);
-        String[] values = new String[] { "Android List View", "Adapter implementation", "Simple List View In Android", "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View", "Android List View", "Adapter implementation", "Simple List View In Android", "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View"};
-        rides = new ArrayList<Ride>();
-        ArrayAdapter<Ride> adapter = new ArrayAdapter<Ride>(this,
-                android.R.layout.simple_list_item_1, rides);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // ListView Clicked item value
-                String  itemValue    = listView.getItemAtPosition(position).toString();
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-            }
-
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -115,16 +82,16 @@ public class DriveBoard extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.driveboard) {
-
+            Intent intent = new Intent(UserProfile.this, DriveBoard.class);
+            startActivity(intent);
         } else if (id == R.id.rideboard) {
-            Intent intent = new Intent(DriveBoard.this, RideBoard.class);
+            Intent intent = new Intent(UserProfile.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(DriveBoard.this, Messenger.class);
+            Intent intent = new Intent(UserProfile.this, Messenger.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(DriveBoard.this, UserProfile.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
