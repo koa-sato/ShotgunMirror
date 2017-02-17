@@ -8,6 +8,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRan
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.Random;
@@ -70,8 +71,10 @@ public class Post {
     @Override
     public String toString() {
         String retString = "";
-        Calendar calendar = Calendar.getInstance();
-        retString = get_city() + "\t\t" + calendar.MONTH + "/" + calendar.DAY_OF_MONTH + "/" + calendar.YEAR;
+        //Calendar calendar = Calendar.getInstance();
+        //retString = get_city() + "\t\t" + calendar.MONTH + "/" + calendar.DAY_OF_MONTH + "/" + calendar.YEAR;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        retString = get_city() + "\n" + sdf.format(new Date());
         return retString;
     }
 }
