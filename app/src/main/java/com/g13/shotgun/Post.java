@@ -1,4 +1,4 @@
-package edu.ucsb.cs.cs185.dkirby.awshelp3;
+package com.g13.shotgun;
 
 /**
  * Created by Dominic on 2/16/2017.
@@ -9,11 +9,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.sql.Time;
 import java.util.Date;
-
-
-
-import java.sql.Time;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Random;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
@@ -26,9 +22,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 @DynamoDBTable(tableName = "Shotgun_Posts")
 public class Post {
     private String city;
-    //private Date the_date;
+    private Date the_date2;
     private int the_date;
-   // private Time the_time;
+    private Time the_time;
     private String user;
     private String key;
 
@@ -41,7 +37,7 @@ public class Post {
     
     public Post(String __city, Date __the_date, Time __the_time, String __user) {
         city = __city;
-        the_date = __the_date;
+        the_date2 = __the_date;
         the_time = __the_time;
         user = __user;
     }
@@ -63,9 +59,9 @@ public class Post {
     public void set_city(String c){ city = c;}
 
 
-    /*@DynamoDBIndexRangeKey(attributeName = "Time")
+    @DynamoDBIndexRangeKey(attributeName = "Time")
     public void set_time(Time t){ the_time = t;}
-    public Time get_time(){ return the_time;}*/
+    public Time get_time(){ return the_time;}
 
     @DynamoDBAttribute(attributeName = "User")
     public String get_user(){ return user;}
