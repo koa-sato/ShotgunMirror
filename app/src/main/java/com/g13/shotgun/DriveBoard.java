@@ -3,9 +3,8 @@ package com.g13.shotgun;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,11 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DriveBoard extends AppCompatActivity
@@ -42,56 +44,53 @@ public class DriveBoard extends AppCompatActivity
 
 
         listView = (ListView) findViewById(R.id.list);
-        Post[] posts = new Post[]
-        {
-                new Post("Santa Barbara", new Date (2017, 2, 16),
-                        new Time(12, 12, 12), "FirstName LastName"),
+        ArrayList<Post> posts = new ArrayList<Post>();
+                posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
+                        new Time(12, 12, 12), "FirstName LastName"));
+                posts.add(new Post("Goleta", new Date (2000, 1, 1),
+                        new Time (1, 1, 1), "Bob Smith"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
+                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                        new Time (5, 5, 5), "Bob Ross"));
 
-                new Post("Goleta", new Date (2000, 1, 1),
-                        new Time (1, 1, 1), "Bob Smith"),
 
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"),
-
-                new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross")
-
-        };
         ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
