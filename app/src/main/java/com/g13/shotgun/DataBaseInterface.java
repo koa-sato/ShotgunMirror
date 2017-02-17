@@ -7,7 +7,6 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,8 +53,5 @@ public class DataBaseInterface {
         for(int i = 0; i < posts.size(); i++)
             mapper.save(posts.get(i));
     }
-
-
-
 
 }

@@ -30,10 +30,6 @@
             android:name=".UserProfile"
             android:label="@string/title_activity_user_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Post"
-            android:label="@string/title_activity_post"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

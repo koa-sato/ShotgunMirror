@@ -3,19 +3,29 @@ package com.g13.shotgun;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class RideBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView listView;
+    ArrayList<Post> posts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +43,74 @@ public class RideBoard extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        listView = (ListView) findViewById(R.id.list);
+        posts = new ArrayList<Post>();
+        posts.add(new Post("Santa Barbara", new Date(2017, 2, 16),
+                new Time(12, 12, 12), "FirstName LastName"));
+        posts.add(new Post("Goleta", new Date(2000, 1, 1),
+                new Time(1, 1, 1), "Bob Smith"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time(5, 5, 5), "Bob Ross"));
+
+
+        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item value
+                String itemValue = (String) listView.getItemAtPosition(position);
+
+                // Show Alert
+                Toast.makeText(getApplicationContext(),
+                        "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();
+            }
+
+        });
     }
 
     @Override

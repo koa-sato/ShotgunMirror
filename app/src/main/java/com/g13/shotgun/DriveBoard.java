@@ -26,6 +26,8 @@ public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView listView;
+    ArrayList<Post> posts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class DriveBoard extends AppCompatActivity
 
 
         listView = (ListView) findViewById(R.id.list);
-        ArrayList<Post> posts = new ArrayList<Post>();
+        posts = new ArrayList<Post>();
                 posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
                         new Time(12, 12, 12), "FirstName LastName"));
                 posts.add(new Post("Goleta", new Date (2000, 1, 1),
