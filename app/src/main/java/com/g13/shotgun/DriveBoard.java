@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +42,13 @@ public class DriveBoard extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listView = (ListView) findViewById(R.id.list);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         final ArrayList<Post> posts = new ArrayList<Post>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +71,7 @@ public class DriveBoard extends AppCompatActivity
                         new Time(12, 12, 12), "FirstName LastName"));
                 posts.add(new Post("Goleta", new Date (2000, 1, 1),
                         new Time (1, 1, 1), "Bob Smith"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                posts.add(new Post("San Francisco", new Date(1990, 3,   4),
                         new Time (5, 5, 5), "Bob Ross"));
                 posts.add(new Post("San Francisco", new Date(1990, 3, 4),
                         new Time (5, 5, 5), "Bob Ross"));
@@ -195,4 +203,6 @@ public class DriveBoard extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
