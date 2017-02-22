@@ -42,6 +42,7 @@ public class Post implements Serializable{
         the_date2 = __the_date;
         the_time = __the_time;
         user = __user;
+        key = "HELP";
     }
 
     @DynamoDBHashKey(attributeName = "Key")
