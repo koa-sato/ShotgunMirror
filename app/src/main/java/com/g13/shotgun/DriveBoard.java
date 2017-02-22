@@ -124,12 +124,13 @@ public class DriveBoard extends AppCompatActivity
                                     int position, long id) {
 
                 // ListView Clicked item value
-                String  itemValue    = (String) listView.getItemAtPosition(position);
+                /*String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
+                        */
             }
 
         });
