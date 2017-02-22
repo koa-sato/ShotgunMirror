@@ -26,12 +26,29 @@ import java.util.Date;
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ArrayList<Post> posts;
 
     public void updateList(ArrayList<Post> posts){
         ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent i) {
+
+        if (requestCode == 1) {
+            if(resultCode == DriveBoard.RESULT_OK){
+                Post p = (Post)i.getSerializableExtra("the_new_post");
+                if (p != null)
+                    posts.add(p);
+                updateList(posts);
+            }
+            if (resultCode == CreatePostActivity.RESULT_CANCELED) {
+                ;
+            }
+        }
     }
 
     ListView listView;
@@ -49,19 +66,13 @@ public class DriveBoard extends AppCompatActivity
                 return false;
             }
         });
-        final ArrayList<Post> posts = new ArrayList<Post>();
+        posts = new ArrayList<Post>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
-                startActivity(i);
-                i = getIntent();
-                Post p = (Post)i.getSerializableExtra("the_new_post");
-                posts.add(p);
-                //posts.add(new Post("Chicago", new Date(2017,2,15), new Time(12,12,12), "ED"));
-                updateList(posts);
-
+                startActivityForResult(i, 1);
             }
         });
 
