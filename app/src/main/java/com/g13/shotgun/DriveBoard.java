@@ -25,28 +25,40 @@ import java.util.Date;
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView listView;
-    ArrayList<Post> posts;
 
+    public void updateList(ArrayList<Post> posts){
+        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
+
+    }
+
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        listView = (ListView) findViewById(R.id.list);
+        final ArrayList<Post> posts = new ArrayList<Post>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                startActivity(i);
+                i = getIntent();
+                Post p = (Post)i.getSerializableExtra("the_new_post");
+                posts.add(p);
+               // posts.add(new Post("Chicago", new Date(2017,2,15), new Time(12,12,12), "ED"));
+                updateList(posts);
+
             }
         });
 
 
-        listView = (ListView) findViewById(R.id.list);
-        posts = new ArrayList<Post>();
+
                 posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
                         new Time(12, 12, 12), "FirstName LastName"));
                 posts.add(new Post("Goleta", new Date (2000, 1, 1),
@@ -93,9 +105,10 @@ public class DriveBoard extends AppCompatActivity
                         new Time (5, 5, 5), "Bob Ross"));
 
 
-        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
-        listView.setAdapter(postAdapter);
+
+        updateList(posts);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
