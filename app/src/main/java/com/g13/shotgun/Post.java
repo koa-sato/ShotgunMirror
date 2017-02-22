@@ -26,7 +26,7 @@ public class Post implements Serializable{
     private String city;
     private Date the_date2;
     private int the_date;
-    private Time the_time;
+    private Date the_time;
     private String user;
     private String key;
 
@@ -36,13 +36,15 @@ public class Post implements Serializable{
         key = Integer.toString(r.nextInt());
 
     }
+
+    //public post(String __city ,int __date, String __user )
     
     public Post(String __city, Date __the_date, Time __the_time, String __user) {
         city = __city;
         the_date2 = __the_date;
         the_time = __the_time;
         user = __user;
-        key = "HELP";
+        key = "HELP " + __city;
     }
 
     @DynamoDBHashKey(attributeName = "Key")
@@ -50,7 +52,7 @@ public class Post implements Serializable{
     public void set_key(String d){ key = d;}
 
 
-    @DynamoDBIndexHashKey(attributeName = "Date")
+   // @DynamoDBIndexHashKey(attributeName = "Date")
     public int get_date(){ return the_date;}
     public void set_date(int d){ the_date = d;}
 
@@ -62,9 +64,9 @@ public class Post implements Serializable{
     public void set_city(String c){ city = c;}
 
 
-    @DynamoDBIndexRangeKey(attributeName = "Time")
-    public void set_time(Time t){ the_time = t;}
-    public Time get_time(){ return the_time;}
+    //@DynamoDBIndexRangeKey(attributeName = "Time")
+    public void set_time(Date t){ the_time = t;}
+    public Date get_time(){ return the_time;}
 
     @DynamoDBAttribute(attributeName = "User")
     public String get_user(){ return user;}
