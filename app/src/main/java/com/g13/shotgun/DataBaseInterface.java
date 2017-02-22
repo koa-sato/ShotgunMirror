@@ -36,16 +36,16 @@ public class DataBaseInterface {
 
 
     }
-//hate
+
 
     public List<Post> get_posts()
     {
 
         Runnable runnable = new Runnable() {
-            public void run() {
-                posts = mapper.scan(Post.class, new DynamoDBScanExpression());
-            }
-        };
+            public void run(){
+                posts = mapper.scan(Post.class, new DynamoDBScanExpression());}
+            };
+
 
         Thread mythread = new Thread(runnable);
         mythread.start();
