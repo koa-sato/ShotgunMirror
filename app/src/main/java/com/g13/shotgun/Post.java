@@ -4,16 +4,17 @@ package com.g13.shotgun;
  * Created by Dominic on 2/16/2017.
  */
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.Random;
-
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 
 /**
  * Created by Dominic on 2/14/2017.
@@ -21,7 +22,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 
 
 @DynamoDBTable(tableName = "Shotgun_Posts")
-public class Post {
+public class Post implements Serializable{
     private String city;
     private Date the_date2;
     private int the_date;
