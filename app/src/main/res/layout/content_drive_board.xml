@@ -20,19 +20,10 @@
         tools:context="com.g13.shotgun.DriveBoard"
         tools:showIn="@layout/app_bar_drive_board">
 
-        <ScrollView
+        <ListView
+            android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+            android:layout_height="600dp" />
 
-                <ListView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp" />
-            </LinearLayout>
-        </ScrollView>
     </RelativeLayout>
 </LinearLayout>
