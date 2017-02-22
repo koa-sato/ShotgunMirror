@@ -36,7 +36,7 @@ public class DataBaseInterface {
 
 
     }
-
+//hate
 
     public List<Post> get_posts()
     {
