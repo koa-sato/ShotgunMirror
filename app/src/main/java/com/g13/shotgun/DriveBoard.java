@@ -59,7 +59,7 @@ public class DriveBoard extends AppCompatActivity
                 i = getIntent();
                 Post p = (Post)i.getSerializableExtra("the_new_post");
                 posts.add(p);
-               // posts.add(new Post("Chicago", new Date(2017,2,15), new Time(12,12,12), "ED"));
+                //posts.add(new Post("Chicago", new Date(2017,2,15), new Time(12,12,12), "ED"));
                 updateList(posts);
 
             }
@@ -109,13 +109,10 @@ public class DriveBoard extends AppCompatActivity
                         new Time (5, 5, 5), "Bob Ross"));
                 posts.add(new Post("San Francisco", new Date(1990, 3, 4),
                         new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                posts.add(new Post("Last", new Date(1990, 3, 4),
                         new Time (5, 5, 5), "Bob Ross"));
 
-
-
         updateList(posts);
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

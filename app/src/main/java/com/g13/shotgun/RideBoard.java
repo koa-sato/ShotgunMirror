@@ -39,8 +39,8 @@ public class RideBoard extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 
@@ -89,7 +89,7 @@ public class RideBoard extends AppCompatActivity
                         new Time(5, 5, 5), "Bob Ross"));
                 posts.add(new Post("San Francisco", new Date(1990, 3, 4),
                         new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                posts.add(new Post("Last", new Date(1990, 3, 4),
                         new Time(5, 5, 5), "Bob Ross"));
 
 
@@ -101,7 +101,7 @@ public class RideBoard extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
+            /*
                 // ListView Clicked item value
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
@@ -109,6 +109,7 @@ public class RideBoard extends AppCompatActivity
                 Toast.makeText(getApplicationContext(),
                         "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
+                        */
             }
 
         });
