@@ -1,0 +1,8 @@
+# Shotgun
+Rideshare Application in Java
+
+To run Shotgun, you will need a Java editor capable of making projects with gradle. We recommend using Android Studio, as this is the environment that we developed the project in.You will need to have an Android Emulator set up on your machine in order to run the program as it should run on a mobile device. In Android Studio, you can simply click the green "play" button in the toolbar to run the program. You will need to have an Android Emulator set up on your machine in order to run the program as it should run on a mobile device. You can do this by clicking "Create New Virtual Device" at the bottom left of the window that opens up after clicking the run button, and selecting "Nexus 6" or any other mobile device. Alternatively, you can also connect an android device to your computer and run it directly, provided that you have developer mode and USB debugging selected. 
+
+Once the application is running, you will be prompted for your login/registration information. Enter any valid email address and password to enter the driveboard. Here, you will see the current list of posts on the DriveBoard. You can add a post by clicking the blue car in the bottom right corner of the screen. Here, you can enter a city, date, and time for your drive. After clicking "Add Post," you will see your post appear on the list of posts within the Driveboard. This also works in the Rideboard, where you can make similar posts. 
+
+The User Profile, Messenger, and Settings options currently do not have any functionality, as we are in the process of developing them.
