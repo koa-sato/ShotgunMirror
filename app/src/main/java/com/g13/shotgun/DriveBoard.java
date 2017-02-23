@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -24,8 +29,17 @@ import java.util.Date;
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ArrayList<Post> posts;
-    ArrayAdapter<Post> postAdapter;
+  ArrayList<Post> posts;
+    ArrayList<Post> d_posts;
+
+    public void updateList(ArrayList<Post> posts){
+        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
+
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
@@ -33,9 +47,21 @@ public class DriveBoard extends AppCompatActivity
         if (requestCode == 1) {
             if(resultCode == DriveBoard.RESULT_OK){
                 Post p = (Post)i.getSerializableExtra("the_new_post");
-                if (p != null)
+                if (p != null) {
                     posts.add(p);
-                postAdapter.notifyDataSetChanged();
+                    CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                            getApplicationContext(),
+                            "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
+                            Regions.US_WEST_2 // Region
+                    );
+                    DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
+                    dbi.push_post(p);
+                }
+
+
+
+
+                updateList(posts);
             }
             if (resultCode == CreatePostActivity.RESULT_CANCELED) {
                 ;
@@ -45,10 +71,19 @@ public class DriveBoard extends AppCompatActivity
 
     ListView listView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
+                Regions.US_WEST_2 // Region
+        );
+        DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
+        d_posts = new ArrayList<Post>(dbi.get_posts());
+        //
+        android.os.SystemClock.sleep(1000);
         setSupportActionBar(toolbar);
         listView = (ListView) findViewById(R.id.list);
         listView.setOnTouchListener(new View.OnTouchListener() {
@@ -58,10 +93,7 @@ public class DriveBoard extends AppCompatActivity
                 return false;
             }
         });
-        posts = new ArrayList<>();
-        postAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
-        listView.setAdapter(postAdapter);
+        posts = new ArrayList<Post>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +103,24 @@ public class DriveBoard extends AppCompatActivity
             }
         });
 
+       /* FloatingActionButton rfab = (FloatingActionButton) findViewById(R.id.rfab);
+        rfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i = 0; i < d_posts.size(); i++){
+                    if(!posts.contains(d_posts.get(i)))
+                        posts.add(d_posts.get(i));
+                }
+
+                updateList(posts);
+            }
+        });*/
 
 
-                posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
+
+
+
+               /* posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
                         new Time(12, 12, 12), "FirstName LastName"));
                 posts.add(new Post("Goleta", new Date (2000, 1, 1),
                         new Time (1, 1, 1), "Bob Smith"));
@@ -116,9 +163,12 @@ public class DriveBoard extends AppCompatActivity
                 posts.add(new Post("San Francisco", new Date(1990, 3, 4),
                         new Time (5, 5, 5), "Bob Ross"));
                 posts.add(new Post("Last", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-
-        postAdapter.notifyDataSetChanged();
+                        new Time (5, 5, 5), "Bob Ross"));*/
+        for(int i = 0; i < d_posts.size(); i++){
+            if(!posts.contains(d_posts.get(i)))
+                posts.add(d_posts.get(i));
+        }
+        updateList(posts);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
