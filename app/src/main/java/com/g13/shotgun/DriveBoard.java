@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -27,13 +25,7 @@ public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Post> posts;
-
-    public void updateList(ArrayList<Post> posts){
-        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
-        listView.setAdapter(postAdapter);
-
-    }
+    ArrayAdapter<Post> postAdapter;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
@@ -43,7 +35,7 @@ public class DriveBoard extends AppCompatActivity
                 Post p = (Post)i.getSerializableExtra("the_new_post");
                 if (p != null)
                     posts.add(p);
-                updateList(posts);
+                postAdapter.notifyDataSetChanged();
             }
             if (resultCode == CreatePostActivity.RESULT_CANCELED) {
                 ;
@@ -66,7 +58,10 @@ public class DriveBoard extends AppCompatActivity
                 return false;
             }
         });
-        posts = new ArrayList<Post>();
+        posts = new ArrayList<>();
+        postAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +118,7 @@ public class DriveBoard extends AppCompatActivity
                 posts.add(new Post("Last", new Date(1990, 3, 4),
                         new Time (5, 5, 5), "Bob Ross"));
 
-        updateList(posts);
+        postAdapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

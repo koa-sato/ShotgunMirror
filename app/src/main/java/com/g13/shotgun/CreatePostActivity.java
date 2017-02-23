@@ -40,9 +40,6 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Post p = new Post(tx.getText().toString(), the_date, the_time, "FRED");
-                /*Intent i = new Intent(getApplicationContext(), DriveBoard.class);
-                i.putExtra("the_new_post", p);
-                startActivity(i);*/
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
                 setResult(DriveBoard.RESULT_OK, returnIntent);
