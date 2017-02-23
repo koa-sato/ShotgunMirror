@@ -98,6 +98,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_user_profile">User Profile</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="create_post_label">Add Post</string>
+    <string name="create_post_hint">City</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
