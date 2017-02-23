@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,98 +11,125 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.g13.shotgun.R.id.rideboard;
+
 public class RideBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView listView;
     ArrayList<Post> posts;
+    ArrayAdapter<Post> postAdapter;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent i) {
+
+        if (requestCode == 1) {
+            if(resultCode == RideBoard.RESULT_OK){
+                Post p = (Post)i.getSerializableExtra("the_new_post");
+                if (p != null)
+                    posts.add(p);
+                postAdapter.notifyDataSetChanged();
+            }
+            if (resultCode == CreatePostActivity.RESULT_CANCELED) {
+                ;
+            }
+        }
+    }
+
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ride_board);
+        setContentView(R.layout.activity_drive_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        listView = (ListView) findViewById(R.id.list);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+        posts = new ArrayList<>();
+        postAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                startActivityForResult(i, 1);
             }
         });
 
 
-        listView = (ListView) findViewById(R.id.list);
-        posts = new ArrayList<Post>();
-                posts.add(new Post("Santa Barbara", new Date(2017, 2, 16),
-                        new Time(12, 12, 12), "FirstName LastName"));
-                posts.add(new Post("Goleta", new Date(2000, 1, 1),
-                        new Time(1, 1, 1), "Bob Smith"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
-                posts.add(new Post("Last", new Date(1990, 3, 4),
-                        new Time(5, 5, 5), "Bob Ross"));
 
+        posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
+                new Time(12, 12, 12), "FirstName LastName"));
+        posts.add(new Post("Goleta", new Date (2000, 1, 1),
+                new Time (1, 1, 1), "Bob Smith"));
+        posts.add(new Post("San Francisco", new Date(1990, 3,   4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
+        posts.add(new Post("Last", new Date(1990, 3, 4),
+                new Time (5, 5, 5), "Bob Ross"));
 
-        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
-        listView.setAdapter(postAdapter);
+        postAdapter.notifyDataSetChanged();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-            /*
+
                 // ListView Clicked item value
-                String  itemValue    = (String) listView.getItemAtPosition(position);
+                /*String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
@@ -122,7 +148,6 @@ public class RideBoard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -166,8 +191,8 @@ public class RideBoard extends AppCompatActivity
         if (id == R.id.driveboard) {
             Intent intent = new Intent(RideBoard.this, DriveBoard.class);
             startActivity(intent);
-        } else if (id == R.id.rideboard) {
-
+        } else if (id == rideboard) {
+            ;
         } else if (id == R.id.messenger) {
             Intent intent = new Intent(RideBoard.this, Messenger.class);
             startActivity(intent);
@@ -184,4 +209,6 @@ public class RideBoard extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
