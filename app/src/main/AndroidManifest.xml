@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.g13.shotgun">
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -19,15 +19,13 @@
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".DriveBoard"
             android:label="@string/title_activity_drive_board"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RideBoard"
             android:label="@string/title_activity_ride_board"
@@ -44,6 +42,26 @@
             android:name=".CreatePostActivity"
             android:label="Create Post Activity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.g13.shotgun.SignInActivity"
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".userpools.SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".userpools.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".userpools.SignUpConfirmActivity"
+            android:label="@string/title_activity_sign_up_confirm"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".userpools.MFAActivity"
+            android:label="@string/title_activity_mfa"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -40,8 +40,6 @@ public class DriveBoard extends AppCompatActivity
 
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
 
@@ -58,9 +56,6 @@ public class DriveBoard extends AppCompatActivity
                     DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
                     dbi.push_post(p);
                 }
-
-
-
 
                 updateList(posts);
             }
