@@ -282,9 +282,8 @@ import java.util.ArrayList;
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-  ArrayList<Post> posts;
+    ArrayList<Post> posts;
     ArrayList<Post> d_posts;
-
 
     public void updateList(ArrayList<Post> posts){
         ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
@@ -305,7 +304,7 @@ public class DriveBoard extends AppCompatActivity
                     posts.add(p);
                     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                             getApplicationContext(),
-                            "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
+                            "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
                             Regions.US_WEST_2 // Region
                     );
                     DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
@@ -331,7 +330,7 @@ public class DriveBoard extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
-                "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
+                "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
                 Regions.US_WEST_2 // Region
         );
         DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
@@ -365,7 +364,6 @@ public class DriveBoard extends AppCompatActivity
                     if(!posts.contains(d_posts.get(i)))
                         posts.add(d_posts.get(i));
                 }
-
                 updateList(posts);
             }
         });*/
@@ -432,7 +430,6 @@ public class DriveBoard extends AppCompatActivity
 
                 // ListView Clicked item value
                 /*String  itemValue    = (String) listView.getItemAtPosition(position);
-
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)

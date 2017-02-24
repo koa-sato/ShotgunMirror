@@ -1,20 +1,13 @@
 package com.g13.shotgun;
 
-import org.junit.Test;
-import java.util.Date;
-import java.sql.Time;
-
-import static org.junit.Assert.*;
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-
-    public Post testPost = new Post("Santa Barbara", new Date (2017, 2, 16),
-            new Time(12, 12, 12), "FirstName LastName");
+/*
+    public Post testPost = new Post("Santa Barbara", 1, 2, 2020, 7, 17, 0, "FirstName LastName");
 
     @Test
     public void get_city_isCorrect() {
@@ -45,5 +38,5 @@ public class ExampleUnitTest {
         tester.get_user_isCorrect();
 
     }
-
+*/
 }

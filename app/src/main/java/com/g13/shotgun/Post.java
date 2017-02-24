@@ -14,10 +14,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRan
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by Dominic on 2/14/2017.
@@ -62,11 +58,10 @@ public class Post implements Serializable{
     {
         Random r = new Random(10);
         key = Integer.toString(r.nextInt());
-
     }*/
 
     //public post(String __city ,int __date, String __user )
-    
+
     public Post(String __city, int __month, int __day, int __year, int __hour, int __minute,
                 int __am, String __user) {
         city = __city;
@@ -119,7 +114,7 @@ public class Post implements Serializable{
     @DynamoDBAttribute(attributeName = "AM")
     public void set_am(int t){ am = t;}
     public int get_am(){ return am;}
-    
+
     @Override
     public String toString() {
         //String retString = "";

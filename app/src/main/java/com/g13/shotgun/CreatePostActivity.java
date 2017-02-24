@@ -28,18 +28,20 @@ public class CreatePostActivity extends AppCompatActivity {
         Button b = (Button) findViewById(R.id.add_button);
         TimePicker tp = (TimePicker) findViewById(R.id.tptp);
         final TextView tx = (TextView) findViewById(R.id.city);
-        int day = dp.getDayOfMonth();
-        int month = dp.getMonth();
-        int year =  dp.getYear();
+        final int day = dp.getDayOfMonth();
+        final int month = dp.getMonth();
+        final int year =  dp.getYear();
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         final Date the_date = calendar.getTime();
+        final int hour = the_date.getHours();
+        final int minute = the_date.getMinutes();
         final Time the_time = new Time(tp.getCurrentHour(), tp.getCurrentMinute(),0);
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Post p = new Post(tx.getText().toString(), the_date, the_time, "FRED");
+                Post p = new Post(tx.getText().toString(), month, day, year, hour, minute, 0, "FRED");
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
                 setResult(DriveBoard.RESULT_OK, returnIntent);

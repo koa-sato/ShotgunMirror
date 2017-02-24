@@ -17,9 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.g13.shotgun.R.id.rideboard;
 
@@ -74,7 +72,7 @@ public class RideBoard extends AppCompatActivity
         });
 
 
-
+/*
         posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
                 new Time(12, 12, 12), "FirstName LastName"));
         posts.add(new Post("Goleta", new Date (2000, 1, 1),
@@ -119,7 +117,7 @@ public class RideBoard extends AppCompatActivity
                 new Time (5, 5, 5), "Bob Ross"));
         posts.add(new Post("Last", new Date(1990, 3, 4),
                 new Time (5, 5, 5), "Bob Ross"));
-
+*/
         postAdapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
