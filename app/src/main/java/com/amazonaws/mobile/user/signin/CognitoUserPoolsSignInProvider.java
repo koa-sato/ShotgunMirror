@@ -62,16 +62,6 @@ import static com.g13.shotgun.R.string.title_activity_sign_up;
 import static com.g13.shotgun.R.string.title_activity_sign_up_confirm;
 
 
-/*
-import com.mysampleapp.R;
-import com.mysampleapp.demo.userpools.ForgotPasswordActivity;
-import com.mysampleapp.demo.userpools.MFAActivity;
-import com.mysampleapp.demo.userpools.SignUpActivity;
-import com.mysampleapp.demo.userpools.SignUpConfirmActivity;
-import com.mysampleapp.util.ViewHelper;
-*/
-
-
 /**
  * Manages sign-in using Cognito User Pools.
  */
@@ -264,12 +254,18 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             String idToken = cognitoUserSession.getIdToken().getJWTToken();
 
             // Create a credentials provider, or use the existing provider.
-            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(context, "us-west-2_aiV3GvgnJ",
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    context,
+                    "208475174974",
+                    "us-west-2_aiV3GvgnJ",
+                    "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolAuth_Role",
+                    "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolUnauth_Role",
                     Regions.US_WEST_2);
 
             // Set up as a credentials provider.
             Map<String, String> logins = new HashMap<String, String>();
-            logins.put("cognito-idp.us-west-2.amazon.com/us-west-2_aiV3GvgnJ", cognitoUserSession.getIdToken().getJWTToken());
+            //logins.put("cognito-idp.us-west-2.amazon.com/us-west-2_aiV3GvgnJ", cognitoUserSession.getIdToken().getJWTToken());
+            logins.put(getCognitoLoginKey(), cognitoUserSession.getIdToken().getJWTToken());
             credentialsProvider.setLogins(logins);
 
             AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient(credentialsProvider);
