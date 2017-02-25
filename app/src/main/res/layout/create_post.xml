@@ -1,45 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
 
     <EditText
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
         android:id="@+id/city"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="170dp"
-        android:layout_marginLeft="170dp"
-        android:hint="@string/create_post_hint"/>
+        android:layout_marginLeft="140dp"
+        android:hint="City"/>
 
     <DatePicker
-        android:id="@+id/dpdp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tptp"
         android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:datePickerMode="spinner"
-        android:layout_marginLeft="80dp"
-        android:layout_marginStart="80dp"
-        android:calendarViewShown="false">
+        android:layout_height="120dp"
+        android:layout_marginLeft="72dp"
+        >
 
     </DatePicker>
 
-    <TimePicker
-        android:id="@+id/tptp"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
-        android:timePickerMode="spinner">
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    </TimePicker>
+        <Button
+            android:background="@color/white"
+            android:layout_marginLeft="120dp"
+            android:id="@+id/set"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Set Date"/>
+
+        <DatePicker
+
+            android:id="@+id/dpdp"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:datePickerMode="spinner"
+            android:layout_marginLeft="80dp"
+            android:calendarViewShown="true"
+            android:visibility="gone">
+
+
+
+
+        </DatePicker>
+
+
+
+    </LinearLayout>
+
+
 
     <Button
+        android:background="@color/white"
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
-        android:text="@string/create_post_label"/>
+        android:text="Add Post"/>
 
 
 </LinearLayout>
