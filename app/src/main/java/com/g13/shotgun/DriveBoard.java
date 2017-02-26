@@ -25,11 +25,11 @@ import java.util.ArrayList;
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-  ArrayList<Post> posts;
-    ArrayList<Post> d_posts;
+  ArrayList<DriveBoardPost> posts;
+    ArrayList<DriveBoardPost> d_posts;
 
-    public void updateList(ArrayList<Post> posts){
-        ArrayAdapter<Post> postAdapter = new ArrayAdapter<Post>(this,
+    public void updateList(ArrayList<DriveBoardPost> posts){
+        ArrayAdapter<DriveBoardPost> postAdapter = new ArrayAdapter<DriveBoardPost>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
@@ -40,7 +40,7 @@ public class DriveBoard extends AppCompatActivity
 
         if (requestCode == 1) {
             if(resultCode == DriveBoard.RESULT_OK){
-                Post p = (Post)i.getSerializableExtra("the_new_post");
+                DriveBoardPost p = (DriveBoardPost)(i.getSerializableExtra("the_new_post"));
                 if (p != null) {
                     posts.add(p);
                     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
@@ -48,13 +48,13 @@ public class DriveBoard extends AppCompatActivity
                             "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
                             Regions.US_WEST_2 // Region
                     );
-                    DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
+                    DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
                     dbi.push_post(p);
                 }
 
                 updateList(posts);
             }
-            if (resultCode == CreatePostActivity.RESULT_CANCELED) {
+            if (resultCode == CreateDriveBoardPostActivity.RESULT_CANCELED) {
                 ;
             }
         }
@@ -71,8 +71,8 @@ public class DriveBoard extends AppCompatActivity
                 "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
                 Regions.US_WEST_2 // Region
         );
-        DataBaseInterface dbi = new DataBaseInterface(credentialsProvider);
-        d_posts = new ArrayList<Post>(dbi.get_posts());
+        DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+        d_posts = new ArrayList<DriveBoardPost>(dbi.get_posts());
         //
         android.os.SystemClock.sleep(1000);
         setSupportActionBar(toolbar);
@@ -84,12 +84,12 @@ public class DriveBoard extends AppCompatActivity
                 return false;
             }
         });
-        posts = new ArrayList<Post>();
+        posts = new ArrayList<DriveBoardPost>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                Intent i = new Intent(getApplicationContext(), CreateDriveBoardPostActivity.class);
                 startActivityForResult(i, 1);
             }
         });
@@ -107,54 +107,6 @@ public class DriveBoard extends AppCompatActivity
             }
         });*/
 
-
-
-
-
-               /* posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
-                        new Time(12, 12, 12), "FirstName LastName"));
-                posts.add(new Post("Goleta", new Date (2000, 1, 1),
-                        new Time (1, 1, 1), "Bob Smith"));
-                posts.add(new Post("San Francisco", new Date(1990, 3,   4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));
-                posts.add(new Post("Last", new Date(1990, 3, 4),
-                        new Time (5, 5, 5), "Bob Ross"));*/
         for(int i = 0; i < d_posts.size(); i++){
             if(!posts.contains(d_posts.get(i)))
                 posts.add(d_posts.get(i));

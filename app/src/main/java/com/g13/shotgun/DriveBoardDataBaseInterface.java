@@ -10,12 +10,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Dominic on 2/16/2017.
- */
-
-public class DataBaseInterface {
-    List<Post> posts;
+public class DriveBoardDataBaseInterface {
+    List<DriveBoardPost> posts;
     /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
             getApplicationContext(),
             "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
@@ -25,27 +21,22 @@ public class DataBaseInterface {
     private AmazonDynamoDBClient ddbClient;
     private DynamoDBMapper mapper;
 
-    public DataBaseInterface(CognitoCachingCredentialsProvider cp)
+    public DriveBoardDataBaseInterface(CognitoCachingCredentialsProvider cp)
     {
-
         credentialsProvider = cp;
 
         ddbClient = new AmazonDynamoDBClient(credentialsProvider);
         ddbClient.setRegion(Region.getRegion(Regions.US_WEST_2));
         mapper = new DynamoDBMapper(ddbClient);
-
-
     }
 
-
-    public List<Post> get_posts()
+    public List<DriveBoardPost> get_posts()
     {
-
         Runnable runnable = new Runnable() {
             public void run(){
-                posts = mapper.scan(Post.class, new DynamoDBScanExpression());}
-            };
-
+                posts = mapper.scan(DriveBoardPost.class, new DynamoDBScanExpression());
+            }
+        };
 
         Thread mythread = new Thread(runnable);
         mythread.start();
@@ -54,7 +45,7 @@ public class DataBaseInterface {
         return posts;
     }
 
-    public void push_post(final Post p) {
+    public void push_post(final DriveBoardPost p) {
         Runnable runnable = new Runnable() {
             public void run() {
                 mapper.save(p);
@@ -66,7 +57,7 @@ public class DataBaseInterface {
 
     }
 
-    public void push_posts(List<Post> posts)
+    public void push_posts(List<DriveBoardPost> posts)
     {
         for(int i = 0; i < posts.size(); i++)
             mapper.save(posts.get(i));

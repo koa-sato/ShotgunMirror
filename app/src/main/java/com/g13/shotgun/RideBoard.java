@@ -17,27 +17,44 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
 
-import static com.g13.shotgun.R.id.rideboard;
+import java.util.ArrayList;
 
 public class RideBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ArrayList<Post> posts;
-    ArrayAdapter<Post> postAdapter;
+    ArrayList<RideBoardPost> posts;
+    ArrayList<RideBoardPost> d_posts;
+
+    public void updateList(ArrayList<RideBoardPost> posts){
+        ArrayAdapter<RideBoardPost> postAdapter = new ArrayAdapter<RideBoardPost>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+        listView.setAdapter(postAdapter);
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
 
         if (requestCode == 1) {
             if(resultCode == RideBoard.RESULT_OK){
-                Post p = (Post)i.getSerializableExtra("the_new_post");
-                if (p != null)
+                RideBoardPost p = (RideBoardPost) i.getSerializableExtra("the_new_post");
+                if (p != null) {
                     posts.add(p);
-                postAdapter.notifyDataSetChanged();
+                    CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                            getApplicationContext(),
+                            "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
+                            Regions.US_WEST_2 // Region
+                    );
+                    RideBoardDataBaseInterface dbi = new RideBoardDataBaseInterface(credentialsProvider);
+                    dbi.push_post(p);
+                }
+
+                updateList(posts);
             }
-            if (resultCode == CreatePostActivity.RESULT_CANCELED) {
+            if (resultCode == CreateRideBoardPostActivity.RESULT_CANCELED) {
                 ;
             }
         }
@@ -45,10 +62,19 @@ public class RideBoard extends AppCompatActivity
 
     ListView listView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drive_board);
+        setContentView(R.layout.activity_ride_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
+                Regions.US_WEST_2 // Region
+        );
+        RideBoardDataBaseInterface dbi = new RideBoardDataBaseInterface(credentialsProvider);
+        d_posts = new ArrayList<RideBoardPost>(dbi.get_posts());
+        //
+        android.os.SystemClock.sleep(1000);
         setSupportActionBar(toolbar);
         listView = (ListView) findViewById(R.id.list);
         listView.setOnTouchListener(new View.OnTouchListener() {
@@ -58,67 +84,34 @@ public class RideBoard extends AppCompatActivity
                 return false;
             }
         });
-        posts = new ArrayList<>();
-        postAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
-        listView.setAdapter(postAdapter);
+        posts = new ArrayList<RideBoardPost>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                Intent i = new Intent(getApplicationContext(), CreateRideBoardPostActivity.class);
                 startActivityForResult(i, 1);
             }
         });
 
+       /* FloatingActionButton rfab = (FloatingActionButton) findViewById(R.id.rfab);
+        rfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i = 0; i < d_posts.size(); i++){
+                    if(!posts.contains(d_posts.get(i)))
+                        posts.add(d_posts.get(i));
+                }
 
-/*
-        posts.add(new Post("Santa Barbara", new Date (2017, 2, 16),
-                new Time(12, 12, 12), "FirstName LastName"));
-        posts.add(new Post("Goleta", new Date (2000, 1, 1),
-                new Time (1, 1, 1), "Bob Smith"));
-        posts.add(new Post("San Francisco", new Date(1990, 3,   4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("San Francisco", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-        posts.add(new Post("Last", new Date(1990, 3, 4),
-                new Time (5, 5, 5), "Bob Ross"));
-*/
-        postAdapter.notifyDataSetChanged();
+                updateList(posts);
+            }
+        });*/
+
+        for(int i = 0; i < d_posts.size(); i++){
+            if(!posts.contains(d_posts.get(i)))
+                posts.add(d_posts.get(i));
+        }
+        updateList(posts);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -189,8 +182,8 @@ public class RideBoard extends AppCompatActivity
         if (id == R.id.driveboard) {
             Intent intent = new Intent(RideBoard.this, DriveBoard.class);
             startActivity(intent);
-        } else if (id == rideboard) {
-            ;
+        } else if (id == R.id.rideboard) {
+
         } else if (id == R.id.messenger) {
             Intent intent = new Intent(RideBoard.this, Messenger.class);
             startActivity(intent);

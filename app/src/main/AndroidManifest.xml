@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
-        </activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".DriveBoard"
             android:label="@string/title_activity_drive_board"
@@ -35,15 +34,16 @@
             android:label="@string/title_activity_user_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CreatePostActivity"
+            android:name=".CreateDriveBoardPostActivity"
             android:label="Create Post Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.g13.shotgun.SignInActivity"
+            android:name=".SignInActivity"
             android:label="@string/title_activity_sign_in"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,7 +62,11 @@
         <activity
             android:name=".userpools.MFAActivity"
             android:label="@string/title_activity_mfa"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateRideBoardPostActivity"
+            android:label="@string/title_activity_create_ride_board_post"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
