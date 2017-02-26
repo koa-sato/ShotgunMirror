@@ -1,4 +1,4 @@
-package com.g13.shotgun;
+package com.g13.shotgun.RideBoard;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
@@ -8,10 +8,9 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class DriveBoardDataBaseInterface {
-    List<DriveBoardPost> posts;
+public class RideBoardDataBaseInterface {
+    private List<RideBoardPost> posts;
     /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
             getApplicationContext(),
             "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
@@ -21,20 +20,22 @@ public class DriveBoardDataBaseInterface {
     private AmazonDynamoDBClient ddbClient;
     private DynamoDBMapper mapper;
 
-    public DriveBoardDataBaseInterface(CognitoCachingCredentialsProvider cp)
+    public RideBoardDataBaseInterface(CognitoCachingCredentialsProvider cp)
     {
         credentialsProvider = cp;
 
         ddbClient = new AmazonDynamoDBClient(credentialsProvider);
         ddbClient.setRegion(Region.getRegion(Regions.US_WEST_2));
         mapper = new DynamoDBMapper(ddbClient);
+
+
     }
 
-    public List<DriveBoardPost> get_posts()
+    public List<RideBoardPost> get_posts()
     {
         Runnable runnable = new Runnable() {
             public void run(){
-                posts = mapper.scan(DriveBoardPost.class, new DynamoDBScanExpression());
+                posts = mapper.scan(RideBoardPost.class, new DynamoDBScanExpression());
             }
         };
 
@@ -45,7 +46,7 @@ public class DriveBoardDataBaseInterface {
         return posts;
     }
 
-    public void push_post(final DriveBoardPost p) {
+    public void push_post(final RideBoardPost p) {
         Runnable runnable = new Runnable() {
             public void run() {
                 mapper.save(p);
@@ -57,7 +58,7 @@ public class DriveBoardDataBaseInterface {
 
     }
 
-    public void push_posts(List<DriveBoardPost> posts)
+    public void push_posts(List<RideBoardPost> posts)
     {
         for(int i = 0; i < posts.size(); i++)
             mapper.save(posts.get(i));

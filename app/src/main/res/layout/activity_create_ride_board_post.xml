@@ -8,6 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.g13.shotgun.CreateRideBoardPostActivity">
+    tools:context="com.g13.shotgun.RideBoard.CreateRideBoardPostActivity">
 
 </RelativeLayout>

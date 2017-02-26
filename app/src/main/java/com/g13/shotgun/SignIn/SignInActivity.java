@@ -1,4 +1,4 @@
-package com.g13.shotgun;
+package com.g13.shotgun.SignIn;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,6 +13,8 @@ import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.mobile.user.IdentityProvider;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.user.signin.SignInManager;
+import com.g13.shotgun.DriveBoard.DriveBoard;
+import com.g13.shotgun.R;
 
 public class SignInActivity extends Activity {
     private static final String LOG_TAG = SignInActivity.class.getSimpleName();

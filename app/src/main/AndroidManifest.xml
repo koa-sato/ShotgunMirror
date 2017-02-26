@@ -15,14 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".DriveBoard"
+            android:name=".DriveBoard.DriveBoard"
             android:label="@string/title_activity_drive_board"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RideBoard"
+            android:name=".RideBoard.RideBoard"
             android:label="@string/title_activity_ride_board"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -34,11 +31,11 @@
             android:label="@string/title_activity_user_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CreateDriveBoardPostActivity"
+            android:name=".DriveBoard.CreateDriveBoardPostActivity"
             android:label="Create Post Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".SignIn.SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -64,7 +61,7 @@
             android:label="@string/title_activity_mfa"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CreateRideBoardPostActivity"
+            android:name=".RideBoard.CreateRideBoardPostActivity"
             android:label="@string/title_activity_create_ride_board_post"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

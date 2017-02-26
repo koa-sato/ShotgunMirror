@@ -14,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.g13.shotgun.DriveBoard.DriveBoard;
+import com.g13.shotgun.RideBoard.RideBoard;
+
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

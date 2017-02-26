@@ -1,19 +1,20 @@
-package com.g13.shotgun;
+package com.g13.shotgun.DriveBoard;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+import com.g13.shotgun.Post;
 
 import java.io.Serializable;
 
-@DynamoDBTable(tableName = "Shotgun_rides")
-public class RideBoardPost extends Post {
+@DynamoDBTable(tableName = "Shotgun_Posts")
+public class DriveBoardPost extends Post {
 
-    public RideBoardPost(){
+    public DriveBoardPost(){
         super();
-    };
+    }
 
     public int describeContents(){return 0;}
 
@@ -25,8 +26,8 @@ public class RideBoardPost extends Post {
 
     //public post(String __city ,int __date, String __user )
 
-    public RideBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
-                          int __am, String __user) {
+    public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
+                int __am, String __user) {
         super(__city, __month, __day, __year, __hour, __minute, __am, __user);
     }
 

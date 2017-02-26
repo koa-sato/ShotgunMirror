@@ -1,4 +1,4 @@
-package com.g13.shotgun;
+package com.g13.shotgun.DriveBoard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,10 @@ import android.widget.ListView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
+import com.g13.shotgun.Messenger;
+import com.g13.shotgun.R;
+import com.g13.shotgun.RideBoard.RideBoard;
+import com.g13.shotgun.UserProfile;
 
 import java.util.ArrayList;
 
@@ -29,7 +33,7 @@ public class DriveBoard extends AppCompatActivity
     ArrayList<DriveBoardPost> d_posts;
 
     public void updateList(ArrayList<DriveBoardPost> posts){
-        ArrayAdapter<DriveBoardPost> postAdapter = new ArrayAdapter<DriveBoardPost>(this,
+        ArrayAdapter<DriveBoardPost> postAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
@@ -72,7 +76,7 @@ public class DriveBoard extends AppCompatActivity
                 Regions.US_WEST_2 // Region
         );
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
-        d_posts = new ArrayList<DriveBoardPost>(dbi.get_posts());
+        d_posts = new ArrayList<>(dbi.get_posts());
         //
         android.os.SystemClock.sleep(1000);
         setSupportActionBar(toolbar);
@@ -84,7 +88,7 @@ public class DriveBoard extends AppCompatActivity
                 return false;
             }
         });
-        posts = new ArrayList<DriveBoardPost>();
+        posts = new ArrayList<>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

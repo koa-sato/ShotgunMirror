@@ -2,10 +2,6 @@ package com.g13.shotgun;
 
 import java.io.Serializable;
 
-/**
- * Created by koasa on 2/24/2017.
- */
-
 public class Post implements Serializable {
 
     protected String city;
