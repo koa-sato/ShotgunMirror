@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.g13.shotgun.R;
@@ -25,6 +26,8 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
     int hour;
     int minute;
     boolean am;
+    int num;
+    EditText e_num;
 
 
 
@@ -32,6 +35,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_post);
+        e_num = (EditText) findViewById(R.id.num);
         tp = (DatePicker) findViewById(R.id.tptp);
         dp = (DatePicker) findViewById(R.id.dpdp);
         final Button b = (Button) findViewById(R.id.add_button);
@@ -41,6 +45,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         day = dp.getDayOfMonth();
         month = dp.getMonth();
         year =  dp.getYear();
+
         //hour = tp.getHour();
         //minute = tp.getMinute();
         //am = STUB;
@@ -65,12 +70,11 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
                 //showDialog(DATE_DIALOG_ID);
                 String identityId = "";
 
-                int numSeats = 4;
-
+                num = Integer.parseInt(e_num.getText().toString());
                 SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
                 identityId = prefs.getString("us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14.identityId", null);
 
-                DriveBoardPost p = new DriveBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId, numSeats);
+                DriveBoardPost p = new DriveBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId, num);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);

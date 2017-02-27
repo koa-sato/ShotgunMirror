@@ -34,17 +34,25 @@
 
         <Button
             android:background="@color/white"
-            android:layout_marginLeft="120dp"
-            android:id="@+id/set"
-            android:layout_width="140dp"
+            android:layout_marginLeft="100dp"
+            android:id="@+id/sets"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Set Date"/>
+            android:text="Set Start Date"/>
+
+        <Button
+            android:background="@color/white"
+            android:layout_marginLeft="60dp"
+            android:id="@+id/sete"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Set End Date"/>
 
         <DatePicker
 
             android:id="@+id/dpdp"
             android:layout_width="wrap_content"
-            android:layout_height="140dp"
+            android:layout_height="120dp"
             android:datePickerMode="spinner"
             android:layout_marginLeft="80dp"
             android:calendarViewShown="true"
@@ -66,7 +74,7 @@
         android:id="@+id/num"
         android:gravity="center"
         android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="140dp"
         android:hint="# of Seats"/>

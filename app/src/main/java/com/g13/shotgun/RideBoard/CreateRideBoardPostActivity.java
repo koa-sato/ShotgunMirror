@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +16,8 @@ import com.g13.shotgun.R;
 import com.g13.shotgun.SignIn.SignInActivity;
 
 public class CreateRideBoardPostActivity extends AppCompatActivity {
-    static final int DATE_DIALOG_ID = 999;
+    static final int S_DATE_DIALOG_ID = 999;
+    static final int E_DATE_DIALOG_ID = 888;
     static final int TIME_DIALOG_ID = 666;
     DatePicker tp;
     DatePicker dp;
@@ -25,22 +27,30 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
     int hour;
     int minute;
     boolean am;
+    int end_day;
+    int end_month;
+    int end_year;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_post);
+        setContentView(R.layout.create_ride);
+       // final Calendar c = Calendar.getInstance();
         tp = (DatePicker) findViewById(R.id.tptp);
         dp = (DatePicker) findViewById(R.id.dpdp);
         final Button b = (Button) findViewById(R.id.add_button);
-        final Button s = (Button) findViewById(R.id.set);
+        final Button s = (Button) findViewById(R.id.sets);
+        final Button se = (Button) findViewById(R.id.sete);
         //TimePicker tp = (TimePicker) findViewById(R.id.tptp);
         final TextView tx = (TextView) findViewById(R.id.city);
         day = dp.getDayOfMonth();
         month = dp.getMonth();
         year =  dp.getYear();
+        end_day = dp.getDayOfMonth();
+        end_month = dp.getMonth();
+        end_year = dp.getYear();
         //hour = tp.getHour();
         //minute = tp.getMinute();
         //am = STUB;
@@ -52,9 +62,20 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
         s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s.setText("Change Date");
+                s.setText("Change Start Date");
 
-                showDialog(DATE_DIALOG_ID);
+                showDialog(S_DATE_DIALOG_ID);
+
+
+            }
+        });
+
+        se.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                se.setText("Change End Date");
+
+                showDialog(E_DATE_DIALOG_ID);
 
             }
         });
@@ -66,7 +87,8 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
                 String identityId = "";
                 SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
                 identityId = prefs.getString("us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14.identityId", null);
-                RideBoardPost p = new RideBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId);
+                RideBoardPost p = new RideBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId,
+                end_year, end_month, end_day);
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
                 setResult(RideBoard.RESULT_OK, returnIntent);
@@ -80,10 +102,15 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
-            case DATE_DIALOG_ID:
+            case S_DATE_DIALOG_ID:
                 // set date picker as current date
                 return new DatePickerDialog(this, datePickerListener,
                         year, month,day);
+
+            case E_DATE_DIALOG_ID:
+                // set date picker as current date
+                return new DatePickerDialog(this, datePickerListenerE,
+                        end_year, end_month,end_day);
 
             // case TIME_DIALOG_ID:
             //   return new TimePickerDialog(this, TimePickerFragment, hour, minute, am);
@@ -126,6 +153,23 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
 
             // set selected date into textview
             tp.updateDate(year, month, day);
+
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener datePickerListenerE
+            = new DatePickerDialog.OnDateSetListener() {
+
+        // when dialog box is closed, below method will be called.
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+            end_year = selectedYear;
+            end_month = selectedMonth;
+            end_day = selectedDay;
+
+
+            // set selected date into textview
+            tp.updateDate(end_year, end_month, end_day);
 
         }
     };
