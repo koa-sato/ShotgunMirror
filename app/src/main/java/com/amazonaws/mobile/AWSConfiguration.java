@@ -21,13 +21,19 @@ public class AWSConfiguration {
         "MobileHub 939c7581-479a-4d1b-850f-bcdad3898935 aws-my-sample-app-android-v0.15";
     // AMAZON COGNITO
     public static final Regions AMAZON_COGNITO_REGION =
-      Regions.fromName("us-west-2");
+            Regions.fromName("us-west-2");
+    public static final String AMAZON_COGNITO_ACCT_ID =
+            "208475174974";
     public static final String  AMAZON_COGNITO_IDENTITY_POOL_ID =
-        "us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14";
+            "us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14";
     public static final String AMAZON_COGNITO_USER_POOL_ID =
-        "us-west-2_9hqA6ltlM";
+            "us-west-2_9hqA6ltlM";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_ID =
-        "1lmp99231fb47cehd9pmnni8nn";
+            "1lmp99231fb47cehd9pmnni8nn";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_SECRET =
-        "1082dql7vlmnlfgua36f0s8vq4u639pe8ng48vl8dug60mf5bufj";
+            "1082dql7vlmnlfgua36f0s8vq4u639pe8ng48vl8dug60mf5bufj";
+    public static final String AMAZON_COGNITO_AUTH_ID =
+            "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolAuth_Role";
+    public static final String AMAZON_COGNITO_UNAUTH_ID =
+            "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolUnauth_Role";
 }

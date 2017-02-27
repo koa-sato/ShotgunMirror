@@ -33,8 +33,10 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.g13.shotgun.DriveBoard.DriveBoardPost;
 import com.g13.shotgun.R;
 import com.g13.shotgun.userpools.ForgotPasswordActivity;
 import com.g13.shotgun.userpools.MFAActivity;
@@ -244,9 +246,9 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             cognitoUserSession = userSession;
 
             if (null != resultsHandler) {
-                ViewHelper.showDialog(activity, activity.getString(title_activity_sign_in),
+            /*xxx    ViewHelper.showDialog(activity, activity.getString(title_activity_sign_in),
                         activity.getString(login_success) + " " + userSession.getIdToken());
-
+            */
                 resultsHandler.onSuccess(CognitoUserPoolsSignInProvider.this);
             }
 
@@ -256,19 +258,15 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             // Create a credentials provider, or use the existing provider.
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     context,
-                    "208475174974",
-                    "us-west-2_aiV3GvgnJ",
-                    "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolAuth_Role",
-                    "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolUnauth_Role",
+                    AWSConfiguration.AMAZON_COGNITO_ACCT_ID,
+                    AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                    AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
+                    AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
                     Regions.US_WEST_2);
-
             // Set up as a credentials provider.
             Map<String, String> logins = new HashMap<String, String>();
-            //logins.put("cognito-idp.us-west-2.amazon.com/us-west-2_aiV3GvgnJ", cognitoUserSession.getIdToken().getJWTToken());
             logins.put(getCognitoLoginKey(), cognitoUserSession.getIdToken().getJWTToken());
             credentialsProvider.setLogins(logins);
-
-            AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient(credentialsProvider);
 
             initializedLatch.countDown();
         }
