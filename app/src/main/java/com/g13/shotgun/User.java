@@ -6,6 +6,7 @@ public class User {
     private String lastName;
     private String email;
     private String identityId;
+    private double rating;
 
     public User() {
         firstName = "First Name";
