@@ -3,6 +3,7 @@ package com.g13.shotgun.RideBoard;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.g13.shotgun.R;
+import com.g13.shotgun.SignIn.SignInActivity;
 
 public class CreateRideBoardPostActivity extends AppCompatActivity {
     static final int DATE_DIALOG_ID = 999;
@@ -61,8 +63,10 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //showDialog(DATE_DIALOG_ID);
-
-                RideBoardPost p = new RideBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, "FRED");
+                String identityId = "";
+                SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
+                identityId = prefs.getString("us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14.identityId", null);
+                RideBoardPost p = new RideBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId);
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
                 setResult(RideBoard.RESULT_OK, returnIntent);
