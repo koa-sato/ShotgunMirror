@@ -42,7 +42,7 @@ public class RideBoardDataBaseInterface {
         Thread mythread = new Thread(runnable);
         mythread.start();
         //TimeUnit.SECONDS.sleep(2);
-        android.os.SystemClock.sleep(1000);
+        android.os.SystemClock.sleep(200);
         return posts;
     }
 

@@ -1,6 +1,7 @@
 package com.g13.shotgun.RideBoard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,8 +24,13 @@ import com.g13.shotgun.DriveBoard.DriveBoard;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class RideBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +62,7 @@ public class RideBoard extends AppCompatActivity
                     dbi.push_post(p);
                 }
 
+                orderPosts(posts);
                 updateList(posts);
             }
             if (resultCode == CreateRideBoardPostActivity.RESULT_CANCELED) {
@@ -76,9 +83,23 @@ public class RideBoard extends AppCompatActivity
                 Regions.US_WEST_2 // Region
         );
         RideBoardDataBaseInterface dbi = new RideBoardDataBaseInterface(credentialsProvider);
-        d_posts = new ArrayList<>(dbi.get_posts());
-        //
-        android.os.SystemClock.sleep(1000);
+        SharedPreferences sharedPrefs = getSharedPreferences("RideBoardPosts", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("RideBoardPostList", null);
+        Type type = new TypeToken<ArrayList<RideBoardPost>>() {
+        }.getType();
+        posts = gson.fromJson(json, type);
+
+
+        if (posts == null || !equalLists(posts, d_posts)) {
+            d_posts = new ArrayList<>(dbi.get_posts());
+            posts = new ArrayList<>();
+            for (int i = 0; i < d_posts.size(); i++) {
+                if (!posts.contains(d_posts.get(i)))
+                    posts.add(d_posts.get(i));
+            }
+        }
+
         setSupportActionBar(toolbar);
         listView = (ListView) findViewById(R.id.list);
         listView.setOnTouchListener(new View.OnTouchListener() {
@@ -88,7 +109,7 @@ public class RideBoard extends AppCompatActivity
                 return false;
             }
         });
-        posts = new ArrayList<>();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +132,8 @@ public class RideBoard extends AppCompatActivity
             }
         });*/
 
-        for(int i = 0; i < d_posts.size(); i++){
-            if(!posts.contains(d_posts.get(i)))
-                posts.add(d_posts.get(i));
-        }
+
+        orderPosts(posts);
         updateList(posts);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -205,5 +224,51 @@ public class RideBoard extends AppCompatActivity
         return true;
     }
 
+    public void orderPosts(ArrayList<RideBoardPost> posts) {
+        Collections.sort(posts, new Comparator<RideBoardPost>() {
+            @Override
+            public int compare(RideBoardPost o1, RideBoardPost o2) {
+                if (o1.get_year() == o2.get_year()) {
+                    if (o1.get_month() == o2.get_month()) {
+                        return o2.get_day() - o1.get_day();
+                    }
+                    else {
+                        return o2.get_month() - o1.get_month();
+                    }
+                }
+                else {
+                    return o2.get_year() - o1.get_year();
+                }
+            }
+        });
+    }
 
+    public  boolean equalLists(ArrayList<RideBoardPost> list1, ArrayList<RideBoardPost> list2){
+        if (list1 == null && list2 == null){
+            return true;
+        }
+
+        if((list1 == null && list2 != null)
+                || list1 != null && list2 == null
+                || list1.size() != list2.size()){
+            return false;
+        }
+
+        orderPosts(list1);
+        orderPosts(list2);
+        return list1.equals(list2);
+    }
+
+    @Override
+    public void onStop() {
+
+        SharedPreferences prefs = getSharedPreferences("RideBoardPosts", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(posts);
+        editor.putString("RideBoardPostList", json);
+        editor.commit();
+
+        super.onStop();
+    }
 }

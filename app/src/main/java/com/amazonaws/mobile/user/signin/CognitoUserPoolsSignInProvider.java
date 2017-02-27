@@ -33,10 +33,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.g13.shotgun.DriveBoard.DriveBoardPost;
 import com.g13.shotgun.R;
 import com.g13.shotgun.userpools.ForgotPasswordActivity;
 import com.g13.shotgun.userpools.MFAActivity;
@@ -51,7 +48,6 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
 import static com.g13.shotgun.R.string.login_failed;
-import static com.g13.shotgun.R.string.login_success;
 import static com.g13.shotgun.R.string.password_change_failed;
 import static com.g13.shotgun.R.string.password_change_success;
 import static com.g13.shotgun.R.string.sign_up_confirm_failed;
@@ -364,7 +360,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     final String phone = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
 
                     Log.d(LOG_TAG, "username = " + username);
-                    Log.d(LOG_TAG, "given_name = " + givenName);
+                    Log.d(LOG_TAG, "name = " + givenName);
                     Log.d(LOG_TAG, "email = " + email);
                     Log.d(LOG_TAG, "phone = " + phone);
 
@@ -372,7 +368,15 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, givenName);
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
 
-
+/*
+                    if(!email.endsWith("@umail.ucsb.edu") ||
+                            !email.endsWith(("@sbcc.edu"))) {
+                        ViewHelper.showDialog(activity, "Invalid email address",
+                                "Email must end with @umail.ucsb.edu or @sbcc.edu");
+                        username = "";
+                        password = "";
+                    }
+*/
                     /*XXX
                     if (null != phone && phone.length() > 0) {
                         userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);

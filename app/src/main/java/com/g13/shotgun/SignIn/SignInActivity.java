@@ -54,7 +54,9 @@ public class SignInActivity extends Activity {
                 @Override
                 public void run() {
                     Log.d(LOG_TAG, "Launching Main Activity...");
-                    startActivity(new Intent(SignInActivity.this, DriveBoard.class)
+                    Intent i = new Intent(SignInActivity.this, DriveBoard.class);
+                    i.putExtra("parent class", SignInActivity.class.toString());
+                    startActivity(i
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     // finish should always be called on the main thread.
                     finish();
