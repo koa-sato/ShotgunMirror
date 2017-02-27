@@ -40,7 +40,8 @@ public class DriveBoardDataBaseInterface {
         Thread mythread = new Thread(runnable);
         mythread.start();
         //TimeUnit.SECONDS.sleep(2);
-        android.os.SystemClock.sleep(500);
+        while(mythread.isAlive())
+            android.os.SystemClock.sleep(50);
         return posts;
     }
 

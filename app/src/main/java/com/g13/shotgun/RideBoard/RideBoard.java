@@ -90,7 +90,7 @@ public class RideBoard extends AppCompatActivity
         }.getType();
         posts = gson.fromJson(json, type);
 
-
+//xxx
         if (posts == null || !equalLists(posts, d_posts)) {
             d_posts = new ArrayList<>(dbi.get_posts());
             posts = new ArrayList<>();
