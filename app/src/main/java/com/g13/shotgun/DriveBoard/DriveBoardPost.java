@@ -5,30 +5,40 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
-import com.g13.shotgun.Post;
 
 import java.io.Serializable;
 
 @DynamoDBTable(tableName = "Shotgun_Posts")
-public class DriveBoardPost extends Post {
+public class DriveBoardPost implements Serializable {
+
+    protected String city;
+    protected int month;
+    protected int day;
+    protected int year;
+    protected int hour;
+    protected int minute;
+    protected int am;
+    protected String user;
+    protected String key;
 
     public DriveBoardPost(){
-        super();
+
     }
 
     public int describeContents(){return 0;}
 
-    /*public Post()
-    {
-        Random r = new Random(10);
-        key = Integer.toString(r.nextInt());
-    }*/
-
-    //public post(String __city ,int __date, String __user )
 
     public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
                 int __am, String __user) {
-        super(__city, __month, __day, __year, __hour, __minute, __am, __user);
+        city = __city;
+        user = __user;
+        month = __month;
+        day = __day;
+        year = __year;
+        hour = __hour;
+        minute = __minute;
+        am = __am;
+        key = user + city + Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
     }
 
     @DynamoDBHashKey(attributeName = "key")

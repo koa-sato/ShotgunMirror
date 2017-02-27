@@ -1,4 +1,4 @@
-package com.g13.shotgun;
+package com.g13.shotgun.RideBoard;
 
 import java.util.Date;
 
