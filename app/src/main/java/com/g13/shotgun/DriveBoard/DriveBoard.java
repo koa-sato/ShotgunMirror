@@ -1,5 +1,6 @@
 package com.g13.shotgun.DriveBoard;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class DriveBoard extends AppCompatActivity
     public void updateList(ArrayList<DriveBoardPost> posts){
         ArrayAdapter<DriveBoardPost> postAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+       // DriveBoardAdapter postAdapter = new DriveBoardAdapter(this,
+          //      android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
     }
@@ -85,7 +88,7 @@ public class DriveBoard extends AppCompatActivity
         );
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
         SharedPreferences sharedPrefs = getSharedPreferences("DriveBoardPosts", MODE_PRIVATE);
-        Gson gson = new Gson();
+        final Gson gson = new Gson();
         String json = sharedPrefs.getString("DriveBoardPostList", null);
         Type type = new TypeToken<ArrayList<DriveBoardPost>>() {
         }.getType();
@@ -101,6 +104,9 @@ public class DriveBoard extends AppCompatActivity
                     posts.add(d_posts.get(i));
             }
         }
+
+
+
 
         setSupportActionBar(toolbar);
         listView = (ListView) findViewById(R.id.list);
@@ -137,12 +143,17 @@ public class DriveBoard extends AppCompatActivity
         orderPosts();
         updateList(posts);
 
+
+        final ArrayList<Integer> id_array= new ArrayList<Integer>();
+        for(int i = 0; i < posts.size(); i++)
+            id_array.add(Integer.parseInt(posts.get(i).get_key()));
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
+                //id = id_array.get(position);
                 // ListView Clicked item value
                 /*String  itemValue    = (String) listView.getItemAtPosition(position);
 
@@ -151,6 +162,16 @@ public class DriveBoard extends AppCompatActivity
                         "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
                         */
+                Intent i = new Intent(getApplicationContext(), ViewDriveBoardPost.class);
+                SharedPreferences prefs = getSharedPreferences("The_post", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(posts.get(position));
+                editor.putString("THE_POST", json);
+                editor.commit();
+                startActivity(i);
+
+
             }
 
         });

@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class DriveBoardPost extends Post implements Serializable {
 
     private int numSeats;
+    private long id;
 
 
     public DriveBoardPost() {};
@@ -21,7 +22,9 @@ public class DriveBoardPost extends Post implements Serializable {
                 int __am, String __user, int __numSeats) {
         super(__city, __month, __day, __year, __hour, __minute, __am, __user);
         numSeats = __numSeats;
+        id = (long)Integer.parseInt(key);
     }
+    public long getId(){return id;}
 
     @DynamoDBHashKey(attributeName = "key")
     public String get_key(){ return key;}
@@ -66,6 +69,12 @@ public class DriveBoardPost extends Post implements Serializable {
     @DynamoDBAttribute(attributeName = "NumSeats")
     public void set_num_seats(int n) { numSeats = n; }
     public int get_num_seats() { return numSeats; }
+
+    public String date_to_string(){
+        return "" + (month + 1) + '/' + day+ '/' + year;
+    }
+
+    //public int getId(){return Integer.parseInt(key);}
 
     @Override
     public String toString() {
