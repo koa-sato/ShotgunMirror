@@ -15,7 +15,6 @@ public class DriveBoardPost extends Post implements Serializable {
     private int numSeats;
     private long id;
 
-
     public DriveBoardPost() {};
 
     public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
@@ -28,7 +27,7 @@ public class DriveBoardPost extends Post implements Serializable {
 
     @DynamoDBHashKey(attributeName = "key")
     public String get_key(){ return key;}
-    public void set_key(String d){ key = d;}
+    public void set_key(String d){ key = d.hashCode() + "";}
 
 
     @DynamoDBIndexHashKey(attributeName = "city")
@@ -75,6 +74,10 @@ public class DriveBoardPost extends Post implements Serializable {
     }
 
     //public int getId(){return Integer.parseInt(key);}
+
+    public void setId(long _id) {
+        id = _id;
+    }
 
     @Override
     public String toString() {

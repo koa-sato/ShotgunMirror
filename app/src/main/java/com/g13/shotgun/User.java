@@ -7,6 +7,8 @@ public class User {
     private String email;
     private String identityId;
     private double rating;
+    private boolean isMale;
+    private String phoneNumber;
 
     public User() {
         firstName = "First Name";
@@ -15,11 +17,14 @@ public class User {
         identityId = "";
     }
 
-    public User(String _firstName, String _lastName, String _email, String _identityId) {
+    public User(String _firstName, String _lastName, String _email, String _identityId, boolean _isMale, String _phoneNumber) {
         firstName = _firstName;
         lastName = _lastName;
         email = _email;
         identityId = _identityId;
+        isMale = _isMale;
+        phoneNumber = _phoneNumber;
+
     }
 
     private String getFirstName() { return firstName; }
@@ -33,5 +38,11 @@ public class User {
 
     private String getIdentityID() { return identityId; }
     private void setIdentityID(String newIdentityId) { identityId = newIdentityId; }
+
+    private boolean whichGender() { return isMale; }
+    private void setGender(boolean _isMale) { isMale = _isMale; }
+
+    private String getPhoneNumber() { return phoneNumber; }
+    private void setPhoneNumber(String _newPhoneNumber) { phoneNumber = _newPhoneNumber; }
 
 }

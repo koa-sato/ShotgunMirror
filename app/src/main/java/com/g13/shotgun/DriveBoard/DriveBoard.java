@@ -1,6 +1,5 @@
 package com.g13.shotgun.DriveBoard;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
@@ -37,14 +37,14 @@ import java.util.Comparator;
 public class DriveBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-  ArrayList<DriveBoardPost> posts;
+    ArrayList<DriveBoardPost> posts;
     ArrayList<DriveBoardPost> d_posts;
-
+    ArrayAdapter<DriveBoardPost> postAdapter;
     public void updateList(ArrayList<DriveBoardPost> posts){
-        ArrayAdapter<DriveBoardPost> postAdapter = new ArrayAdapter<>(this,
+         postAdapter= new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
        // DriveBoardAdapter postAdapter = new DriveBoardAdapter(this,
-          //      android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+       //         android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
     }
@@ -200,7 +200,22 @@ public class DriveBoard extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit (String query) { return false; }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                postAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
