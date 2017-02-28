@@ -22,10 +22,17 @@ public class AWSConfiguration {
     // AMAZON COGNITO
     public static final Regions AMAZON_COGNITO_REGION =
             Regions.fromName("us-west-2");
-    public static final String AMAZON_COGNITO_ACCT_ID =
+
+    // Top right of support center
+    public static final String AMAZON_ACCT_ID =
             "208475174974";
+
+    // Found through cognito federated activities
     public static final String  AMAZON_COGNITO_IDENTITY_POOL_ID =
             "us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14";
+
+
+    // Found through cognito user pools
     public static final String AMAZON_COGNITO_USER_POOL_ID =
             "us-west-2_9hqA6ltlM";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_ID =

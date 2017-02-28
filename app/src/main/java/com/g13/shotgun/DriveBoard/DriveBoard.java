@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.regions.Regions;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
@@ -59,8 +60,9 @@ public class DriveBoard extends AppCompatActivity
                     posts.add(p);
                     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                             getApplicationContext(),
-                            "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
-                            Regions.US_WEST_2 // Region
+                            //"us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
+                            AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                            AWSConfiguration.AMAZON_COGNITO_REGION // Region
                     );
                     DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
                     dbi.push_post(p);
@@ -83,11 +85,13 @@ public class DriveBoard extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
-                "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
-                Regions.US_WEST_2 // Region
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_REGION // Region
         );
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
         SharedPreferences sharedPrefs = getSharedPreferences("DriveBoardPosts", MODE_PRIVATE);
+
+
         final Gson gson = new Gson();
         String json = sharedPrefs.getString("DriveBoardPostList", null);
         Type type = new TypeToken<ArrayList<DriveBoardPost>>() {

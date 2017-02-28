@@ -27,22 +27,22 @@ public class User {
 
     }
 
-    private String getFirstName() { return firstName; }
-    private void setFirstName(String newFirsName) { firstName = newFirsName; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String newFirsName) { firstName = newFirsName; }
 
-    private String getLastName() { return lastName; }
-    private void setLastName(String newLastName) { lastName = newLastName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String newLastName) { lastName = newLastName; }
 
-    private String getEmail() { return email; }
-    private void setEmail(String newEmail) { email = newEmail; }
+    public String getEmail() { return email; }
+    public void setEmail(String newEmail) { email = newEmail; }
 
-    private String getIdentityID() { return identityId; }
-    private void setIdentityID(String newIdentityId) { identityId = newIdentityId; }
+    public String getIdentityID() { return identityId; }
+    public void setIdentityID(String newIdentityId) { identityId = newIdentityId; }
 
-    private boolean whichGender() { return isMale; }
-    private void setGender(boolean _isMale) { isMale = _isMale; }
+    public boolean whichGender() { return isMale; }
+    public void setGender(boolean _isMale) { isMale = _isMale; }
 
-    private String getPhoneNumber() { return phoneNumber; }
-    private void setPhoneNumber(String _newPhoneNumber) { phoneNumber = _newPhoneNumber; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String _newPhoneNumber) { phoneNumber = _newPhoneNumber; }
 
 }

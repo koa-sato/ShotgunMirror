@@ -254,7 +254,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             // Create a credentials provider, or use the existing provider.
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     context,
-                    AWSConfiguration.AMAZON_COGNITO_ACCT_ID,
+                    AWSConfiguration.AMAZON_ACCT_ID,
                     AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
                     AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                     AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
