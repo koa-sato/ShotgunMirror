@@ -29,16 +29,16 @@ public class AWSConfiguration {
 
     // Found through cognito federated activities
     public static final String  AMAZON_COGNITO_IDENTITY_POOL_ID =
-            "us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14";
+            "us-west-2:9e03d010-e65d-4c51-b69a-094dab3f412f";
 
 
     // Found through cognito user pools
     public static final String AMAZON_COGNITO_USER_POOL_ID =
-            "us-west-2_9hqA6ltlM";
+            "us-west-2_j64Xb1sYe";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_ID =
-            "1lmp99231fb47cehd9pmnni8nn";
+            "5f0vfohmmcjmmpcfp0hcu2cjus";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_SECRET =
-            "1082dql7vlmnlfgua36f0s8vq4u639pe8ng48vl8dug60mf5bufj";
+            "16roi6lt5a8vj4ohjnvb1tsvi3q2kfft0899e2vktnro74inhrub";
     public static final String AMAZON_COGNITO_AUTH_ID =
             "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolAuth_Role";
     public static final String AMAZON_COGNITO_UNAUTH_ID =

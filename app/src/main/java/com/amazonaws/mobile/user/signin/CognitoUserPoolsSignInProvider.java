@@ -367,7 +367,10 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     final CognitoUserAttributes userAttributes = new CognitoUserAttributes();
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, givenName);
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
-
+                    userAttributes.addAttribute("family_name", "Sato");
+                    userAttributes.addAttribute("gender", "male");
+                    userAttributes.addAttribute(AttributeKeys.PHONE_NUMBER, "+" + phone);
+                    Log.d("PHONE = ", phone);
 /*
                     if(!email.endsWith("@umail.ucsb.edu") ||
                             !email.endsWith(("@sbcc.edu"))) {
