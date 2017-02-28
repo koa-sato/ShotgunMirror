@@ -135,8 +135,10 @@
     <string name="mfa_code_sent_message">Code sent.</string>
     <string name="verify_button_text">Verify</string>
     <string name="username_text">Username</string>
-    <string name="given_name_text">Given name</string>
+    <string name="first_name_text">First name</string>
+    <string name="last_name_text">Last name</string>
     <string name="email_address_text">Email address</string>
+    <string name="gender">Gender (male or female)</string>
     <string name="phone_number_text">Phone number (+15551234567)</string>
     <string name="sign_up_header">Enter the following information to sign up.</string>
     <string name="sign_up_confirm_code">Confirmation code</string>

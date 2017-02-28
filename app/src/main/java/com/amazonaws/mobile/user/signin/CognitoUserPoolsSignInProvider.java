@@ -11,6 +11,7 @@ package com.amazonaws.mobile.user.signin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ import com.g13.shotgun.userpools.MFAActivity;
 import com.g13.shotgun.userpools.SignUpActivity;
 import com.g13.shotgun.userpools.SignUpConfirmActivity;
 import com.g13.shotgun.util.ViewHelper;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,6 +69,9 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
     /**
      * Cognito User Pools attributes.
      */
+
+    CognitoUserAttributes userAttributes;
+
     public final class AttributeKeys {
         /** Username attribute. */
         public static final String USERNAME = "username";
@@ -79,6 +84,12 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
         /** Given name attribute. */
         public static final String GIVEN_NAME = "given_name";
+
+        /** Family name attribute. */
+        public static final String FAMILY_NAME = "family_name";
+
+        /** Gender attribute*/
+        public static final String GENDER = "gender";
 
         /** Email address attribute. */
         public static final String EMAIL_ADDRESS = "email";
@@ -355,22 +366,24 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                 case SIGN_UP_REQUEST_CODE:
                     username = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
                     password = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PASSWORD);
-                    final String givenName = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
+                    final String firstName = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
+                    final String lastName = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME);
+                    final String gender = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER);
                     final String email = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
                     final String phone = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
 
-                    Log.d(LOG_TAG, "username = " + username);
-                    Log.d(LOG_TAG, "name = " + givenName);
-                    Log.d(LOG_TAG, "email = " + email);
-                    Log.d(LOG_TAG, "phone = " + phone);
-
-                    final CognitoUserAttributes userAttributes = new CognitoUserAttributes();
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, givenName);
+                    userAttributes = new CognitoUserAttributes();
+                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, firstName);
+                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME, lastName);
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
-                    userAttributes.addAttribute("family_name", "Sato");
-                    userAttributes.addAttribute("gender", "male");
-                    userAttributes.addAttribute(AttributeKeys.PHONE_NUMBER, "+" + phone);
-                    Log.d("PHONE = ", phone);
+                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER, gender);
+
+                    SharedPreferences prefs = context.getSharedPreferences("user_attributes", context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(userAttributes);
+                    editor.putString("attributes", json);
+                    editor.commit();
 /*
                     if(!email.endsWith("@umail.ucsb.edu") ||
                             !email.endsWith(("@sbcc.edu"))) {
@@ -380,11 +393,11 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                         password = "";
                     }
 */
-                    /*XXX
+
                     if (null != phone && phone.length() > 0) {
                         userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
                     }
-*/
+
 
                     cognitoUserPool.signUpInBackground(username, password, userAttributes,
                             null, signUpHandler);

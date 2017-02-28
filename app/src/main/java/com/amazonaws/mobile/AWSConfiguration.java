@@ -40,7 +40,7 @@ public class AWSConfiguration {
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_SECRET =
             "16roi6lt5a8vj4ohjnvb1tsvi3q2kfft0899e2vktnro74inhrub";
     public static final String AMAZON_COGNITO_AUTH_ID =
-            "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolAuth_Role";
+            "arn:aws:iam::208475174974:role/Cognito_Shotgun_New_Identity_User_PoolAuth_Role";
     public static final String AMAZON_COGNITO_UNAUTH_ID =
-            "arn:aws:iam::208475174974:role/Cognito_Shotgun_User_PoolUnauth_Role";
+            "arn:aws:iam::208475174974:role/Cognito_Shotgun_New_Identity_User_PoolUnauth_Role";
 }

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.R;
 import com.g13.shotgun.SignIn.SignInActivity;
 
@@ -86,7 +87,7 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
                 //showDialog(DATE_DIALOG_ID);
                 String identityId = "";
                 SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
-                identityId = prefs.getString("us-west-2:62219bfc-e563-454f-b3a5-4c36c1853c14.identityId", null);
+                identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
                 RideBoardPost p = new RideBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId,
                 end_year, end_month, end_day);
                 Intent returnIntent = new Intent();

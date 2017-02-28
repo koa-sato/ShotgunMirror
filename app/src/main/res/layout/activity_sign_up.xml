@@ -63,31 +63,61 @@
         android:layout_below="@id/signup_password" />
 
     <EditText
-        android:id="@+id/signup_given_name"
+        android:id="@+id/signup_first_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
         android:layout_below="@id/signup_space3"
         android:layout_centerHorizontal="true"
-        android:hint="@string/given_name_text"
+        android:hint="@string/first_name_text"
         android:inputType="textPersonName" />
 
     <Space
         android:id="@+id/signup_space4"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_intra_group_separation"
-        android:layout_below="@id/signup_given_name" />
+        android:layout_below="@id/signup_first_name" />
+
+    <EditText
+        android:id="@+id/signup_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_text_height"
+        android:layout_below="@id/signup_space4"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/last_name_text"
+        android:inputType="textPersonName" />
+
+    <Space
+        android:id="@+id/signup_space5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_intra_group_separation"
+        android:layout_below="@id/signup_last_name" />
+
+    <EditText
+        android:id="@+id/signup_gender"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_text_height"
+        android:layout_below="@+id/signup_space5"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/gender"
+        android:inputType="textPersonName" />
+
+    <Space
+        android:id="@+id/signup_space6"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_intra_group_separation"
+        android:layout_below="@id/signup_gender" />
 
     <EditText
         android:id="@+id/signup_email"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
-        android:layout_below="@id/signup_space4"
+        android:layout_below="@id/signup_space6"
         android:layout_centerHorizontal="true"
         android:hint="@string/email_address_text"
         android:inputType="textEmailAddress" />
 
     <Space
-        android:id="@+id/signup_space5"
+        android:id="@+id/signup_space7"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_intra_group_separation"
         android:layout_below="@id/signup_email" />
@@ -96,13 +126,13 @@
         android:id="@+id/signup_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_text_height"
-        android:layout_below="@id/signup_space5"
+        android:layout_below="@id/signup_space7"
         android:layout_centerHorizontal="true"
         android:hint="@string/phone_number_text"
         android:inputType="phone"/>
 
     <Space
-        android:id="@+id/signup_space6"
+        android:id="@+id/signup_space8"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_intra_group_separation"
         android:layout_below="@id/signup_phone" />
@@ -111,7 +141,7 @@
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_button_height"
-        android:layout_below="@id/signup_space6"
+        android:layout_below="@id/signup_space8"
         android:layout_centerHorizontal="true"
         android:onClick="signUp"
         android:text="@string/title_activity_sign_up"
