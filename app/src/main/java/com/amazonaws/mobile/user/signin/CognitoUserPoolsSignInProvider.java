@@ -11,7 +11,6 @@ package com.amazonaws.mobile.user.signin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +18,8 @@ import android.widget.EditText;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.IdentityManager;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
@@ -41,7 +42,6 @@ import com.g13.shotgun.userpools.MFAActivity;
 import com.g13.shotgun.userpools.SignUpActivity;
 import com.g13.shotgun.userpools.SignUpConfirmActivity;
 import com.g13.shotgun.util.ViewHelper;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -152,7 +152,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
     private Activity activity;
 
     /** Sign-in username. */
-    private String username;
+    public static String username;
 
     /** Sign-in password. */
     private String password;
@@ -378,12 +378,13 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
                     userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER, gender);
 
-                    SharedPreferences prefs = context.getSharedPreferences("user_attributes", context.MODE_PRIVATE);
+                   /* SharedPreferences prefs = context.getSharedPreferences("user_attributes", context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
                     Gson gson = new Gson();
                     String json = gson.toJson(userAttributes);
                     editor.putString("attributes", json);
                     editor.commit();
+                    */
 /*
                     if(!email.endsWith("@umail.ucsb.edu") ||
                             !email.endsWith(("@sbcc.edu"))) {
@@ -397,6 +398,64 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     if (null != phone && phone.length() > 0) {
                         userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
                     }
+
+                    // Create a credentials provider, or use the existing provider.
+                    CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                            context,
+                            AWSConfiguration.AMAZON_ACCT_ID,
+                            AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                            AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
+                            AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
+                            Regions.US_WEST_2);
+                    // Set up as a credentials provider.
+                    Map<String, String> logins = new HashMap<String, String>();
+                    logins.put(getCognitoLoginKey(), cognitoUserSession.getIdToken().getJWTToken());
+                    credentialsProvider.setLogins(logins);
+
+                    CognitoSyncManager client = new CognitoSyncManager(
+                            context,
+                            AWSConfiguration.AMAZON_COGNITO_REGION,
+                            credentialsProvider);
+
+                    Dataset dataset = client.openOrCreateDataset(username);
+
+                    dataset.put(AttributeKeys.USERNAME, username);
+                    dataset.put(AttributeKeys.GIVEN_NAME, firstName);
+                    dataset.put(AttributeKeys.FAMILY_NAME, lastName);
+                    dataset.put(AttributeKeys.EMAIL_ADDRESS, email);
+                    dataset.put(AttributeKeys.GENDER, gender);
+                    dataset.put(AttributeKeys.PHONE_NUMBER, phone);
+                   /* Dataset.SyncCallback syncCallBack = new Dataset.SyncCallback() {
+                        @Override
+                        public void onSuccess(Dataset dataset, List<Record> updatedRecords) {
+                            Log.d(LOG_TAG, "UserData synced");
+                        }
+
+                        @Override
+                        public boolean onConflict(Dataset dataset, List<SyncConflict> conflicts) {
+                            Log.d(LOG_TAG, dataset + " has conflicts with " + conflicts);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onDatasetDeleted(Dataset dataset, String datasetName) {
+                            Log.d(LOG_TAG, datasetName + " deleted");
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onDatasetsMerged(Dataset dataset, List<String> datasetNames) {
+                            Log.d(LOG_TAG, datasetNames + " merged");
+                            return false;
+                        }
+
+                        @Override
+                        public void onFailure(DataStorageException dse) {
+                            Log.d(LOG_TAG, "UserData sync failure");
+                        }
+                    };
+                    dataset.synchronize(syncCallBack);*/
+
 
 
                     cognitoUserPool.signUpInBackground(username, password, userAttributes,

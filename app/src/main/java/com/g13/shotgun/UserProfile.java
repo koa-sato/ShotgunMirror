@@ -4,29 +4,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.regions.Regions;
 import com.g13.shotgun.DriveBoard.DriveBoard;
 import com.g13.shotgun.RideBoard.RideBoard;
 import com.g13.shotgun.SignIn.SignInActivity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.Map;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +56,39 @@ public class UserProfile extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
         String identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
+
+
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                AWSConfiguration.AMAZON_ACCT_ID,
+                AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
+                AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
+                Regions.US_WEST_2);
+
+        CognitoSyncManager client = new CognitoSyncManager(
+                getApplicationContext(),
+                AWSConfiguration.AMAZON_COGNITO_REGION,
+                credentialsProvider);
+
+        Dataset dataset = client.openOrCreateDataset(CognitoUserPoolsSignInProvider.username);
+        String username = CognitoUserPoolsSignInProvider.username;
+        String firstName = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
+        String lastName = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME);
+        String gender = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER);
+        String email = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
+        String phoneNumber = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
+
+        //Log.d("identityid", identityId);
+        //Log.d("otherid", credentialsProvider.getIdentityId());
+        Log.d("Username = ", username);
+        Log.d("First Name = ", firstName);
+        Log.d("Last Name = ", lastName);
+        Log.d("Gender = ", gender);
+        Log.d("Email = ", email);
+        Log.d("PhoneNumber = ", phoneNumber);
+
+
 
         /*(CognitoUserPool userPool = new CognitoUserPool(getApplicationContext(),
                 AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
