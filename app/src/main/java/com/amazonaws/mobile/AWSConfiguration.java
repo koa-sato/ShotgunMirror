@@ -34,11 +34,11 @@ public class AWSConfiguration {
 
     // Found through cognito user pools
     public static final String AMAZON_COGNITO_USER_POOL_ID =
-            "us-west-2_j64Xb1sYe";
+            "us-west-2_Lrc6zRF3k";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_ID =
-            "5f0vfohmmcjmmpcfp0hcu2cjus";
+            "34jchuhrt69d5d5k3lvurnvs00";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_SECRET =
-            "16roi6lt5a8vj4ohjnvb1tsvi3q2kfft0899e2vktnro74inhrub";
+            "1c4mi60qae8fihi9h9nid2g13dgk8sceo9jisscuug2nic56gg58";
     public static final String AMAZON_COGNITO_AUTH_ID =
             "arn:aws:iam::208475174974:role/Cognito_Shotgun_New_Identity_User_PoolAuth_Role";
     public static final String AMAZON_COGNITO_UNAUTH_ID =

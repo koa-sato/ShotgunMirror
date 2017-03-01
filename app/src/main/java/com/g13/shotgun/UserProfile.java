@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +59,7 @@ public class UserProfile extends AppCompatActivity
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 AWSConfiguration.AMAZON_ACCT_ID,
-                AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                 AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                 AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
                 AWSConfiguration.AMAZON_COGNITO_REGION);
@@ -70,22 +69,33 @@ public class UserProfile extends AppCompatActivity
                 AWSConfiguration.AMAZON_COGNITO_REGION,
                 credentialsProvider);
 
-        Dataset dataset = client.openOrCreateDataset(CognitoUserPoolsSignInProvider.username);
+        Dataset dataset = client.openOrCreateDataset("DataSet");
+
         String username = CognitoUserPoolsSignInProvider.username;
+        dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
         String firstName = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
         String lastName = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME);
         String gender = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER);
         String email = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
         String phoneNumber = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
 
+        /*dataset.synchronize(new DefaultSyncCallback() {
+            @Override
+            public void onSuccess(Dataset dataset, List newRecords) {
+                //Your handler code here
+            }
+        });*/
+
         //Log.d("identityid", identityId);
         //Log.d("otherid", credentialsProvider.getIdentityId());
-        Log.d("Username = ", username);
+
+
+        /*Log.d("Username = ", username);
         Log.d("First Name = ", firstName);
         Log.d("Last Name = ", lastName);
         Log.d("Gender = ", gender);
         Log.d("Email = ", email);
-        Log.d("PhoneNumber = ", phoneNumber);
+        Log.d("PhoneNumber = ", phoneNumber);*/
 
 
 
@@ -134,7 +144,7 @@ public class UserProfile extends AppCompatActivity
         Log.d("Gender = ", gender);
         Log.d("Email = ", email);
         Log.d("PhoneNumber = ", phoneNumber);
-*/
+
 /*
         String accessIDToken = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".accessKey", null);
         Log.d("THE TOKEN", "TOKEN = " + accessIDToken);

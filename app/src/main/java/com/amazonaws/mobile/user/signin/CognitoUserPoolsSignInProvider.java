@@ -11,6 +11,7 @@ package com.amazonaws.mobile.user.signin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +21,9 @@ import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
 import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.mobileconnectors.cognito.Record;
+import com.amazonaws.mobileconnectors.cognito.SyncConflict;
+import com.amazonaws.mobileconnectors.cognito.exceptions.DataStorageException;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
@@ -36,6 +40,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPas
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.g13.shotgun.R;
+import com.g13.shotgun.SignIn.SignInActivity;
 import com.g13.shotgun.userpools.ForgotPasswordActivity;
 import com.g13.shotgun.userpools.MFAActivity;
 import com.g13.shotgun.userpools.SignUpActivity;
@@ -44,10 +49,12 @@ import com.g13.shotgun.util.ViewHelper;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
+import static com.amazonaws.mobile.AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID;
 import static com.g13.shotgun.R.string.login_failed;
 import static com.g13.shotgun.R.string.password_change_failed;
 import static com.g13.shotgun.R.string.password_change_success;
@@ -265,7 +272,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     context,
                     AWSConfiguration.AMAZON_ACCT_ID,
-                    AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                    AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                     AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                     AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
                     AWSConfiguration.AMAZON_COGNITO_REGION);
@@ -402,29 +409,23 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                             context,
                             AWSConfiguration.AMAZON_ACCT_ID,
-                            AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                            AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                             AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                             AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
                             AWSConfiguration.AMAZON_COGNITO_REGION);
                     // Set up as a credentials provider.
-                    Map<String, String> logins = new HashMap<String, String>();
+                    /*Map<String, String> logins = new HashMap<String, String>();
                     logins.put(getCognitoLoginKey(), cognitoUserSession.getIdToken().getJWTToken());
-                    credentialsProvider.setLogins(logins);
+                    credentialsProvider.setLogins(logins);*/
 
                     CognitoSyncManager client = new CognitoSyncManager(
                             context,
                             AWSConfiguration.AMAZON_COGNITO_REGION,
                             credentialsProvider);
 
-                    Dataset dataset = client.openOrCreateDataset(username);
+                    Dataset dataset = client.openOrCreateDataset("DataSet");
 
-                    dataset.put(AttributeKeys.USERNAME, username);
-                    dataset.put(AttributeKeys.GIVEN_NAME, firstName);
-                    dataset.put(AttributeKeys.FAMILY_NAME, lastName);
-                    dataset.put(AttributeKeys.EMAIL_ADDRESS, email);
-                    dataset.put(AttributeKeys.GENDER, gender);
-                    dataset.put(AttributeKeys.PHONE_NUMBER, phone);
-                   /* Dataset.SyncCallback syncCallBack = new Dataset.SyncCallback() {
+                    Dataset.SyncCallback syncCallBack = new Dataset.SyncCallback() {
                         @Override
                         public void onSuccess(Dataset dataset, List<Record> updatedRecords) {
                             Log.d(LOG_TAG, "UserData synced");
@@ -450,12 +451,20 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
                         @Override
                         public void onFailure(DataStorageException dse) {
-                            Log.d(LOG_TAG, "UserData sync failure");
+                            Log.d(LOG_TAG, dse.getMessage());
                         }
                     };
-                    dataset.synchronize(syncCallBack);*/
+                    dataset.put(AttributeKeys.USERNAME, username);
+                    dataset.put(AttributeKeys.GIVEN_NAME, firstName);
+                    dataset.put(AttributeKeys.FAMILY_NAME, lastName);
+                    dataset.put(AttributeKeys.EMAIL_ADDRESS, email);
+                    dataset.put(AttributeKeys.GENDER, gender);
+                    dataset.put(AttributeKeys.PHONE_NUMBER, phone);
+                    dataset.synchronize(syncCallBack);
 
-
+                    SharedPreferences prefs = context.getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
+                    String identityId = prefs.getString(AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
+                    Log.d(LOG_TAG, identityId);
 
                     cognitoUserPool.signUpInBackground(username, password, userAttributes,
                             null, signUpHandler);
@@ -486,6 +495,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         }
 
     }
+
 
     /** {@inheritDoc} */
     @Override
