@@ -35,7 +35,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
-import com.amazonaws.regions.Regions;
 import com.g13.shotgun.R;
 import com.g13.shotgun.userpools.ForgotPasswordActivity;
 import com.g13.shotgun.userpools.MFAActivity;
@@ -269,7 +268,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
                     AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                     AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
-                    Regions.US_WEST_2);
+                    AWSConfiguration.AMAZON_COGNITO_REGION);
             // Set up as a credentials provider.
             Map<String, String> logins = new HashMap<String, String>();
             logins.put(getCognitoLoginKey(), cognitoUserSession.getIdToken().getJWTToken());
@@ -406,7 +405,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                             AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
                             AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                             AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
-                            Regions.US_WEST_2);
+                            AWSConfiguration.AMAZON_COGNITO_REGION);
                     // Set up as a credentials provider.
                     Map<String, String> logins = new HashMap<String, String>();
                     logins.put(getCognitoLoginKey(), cognitoUserSession.getIdToken().getJWTToken());

@@ -21,7 +21,6 @@ import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
 import com.amazonaws.mobileconnectors.cognito.Dataset;
-import com.amazonaws.regions.Regions;
 import com.g13.shotgun.DriveBoard.DriveBoard;
 import com.g13.shotgun.RideBoard.RideBoard;
 import com.g13.shotgun.SignIn.SignInActivity;
@@ -64,7 +63,7 @@ public class UserProfile extends AppCompatActivity
                 AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
                 AWSConfiguration.AMAZON_COGNITO_AUTH_ID,
                 AWSConfiguration.AMAZON_COGNITO_UNAUTH_ID,
-                Regions.US_WEST_2);
+                AWSConfiguration.AMAZON_COGNITO_REGION);
 
         CognitoSyncManager client = new CognitoSyncManager(
                 getApplicationContext(),
