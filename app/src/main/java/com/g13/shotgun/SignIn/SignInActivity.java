@@ -8,13 +8,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.mobile.user.IdentityProvider;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.user.signin.SignInManager;
+import com.g13.shotgun.DatabaseUser;
 import com.g13.shotgun.DriveBoard.DriveBoard;
 import com.g13.shotgun.R;
+import com.g13.shotgun.User;
+import com.g13.shotgun.UserDatabaseInterface;
 
 public class SignInActivity extends Activity {
     private static final String LOG_TAG = SignInActivity.class.getSimpleName();
@@ -40,6 +45,16 @@ public class SignInActivity extends Activity {
             Log.d(LOG_TAG, String.format("User sign-in with %s succeeded",
                     provider.getDisplayName()));
 
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    getApplicationContext(),
+                    //"us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
+                    AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                    AWSConfiguration.AMAZON_COGNITO_REGION // Region
+            );
+            UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
+            DatabaseUser u = udbi.get_user(provider.getUserName());
+            User.getInstance(u);
+           // User.getInstance(udbi.get_user(provider.getUserName()));
             // The sign-in manager is no longer needed once signed in.
             SignInManager.dispose();
 
