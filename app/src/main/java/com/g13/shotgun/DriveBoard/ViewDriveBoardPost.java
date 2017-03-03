@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.g13.shotgun.Post;
 import com.g13.shotgun.R;
+import com.g13.shotgun.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +39,8 @@ public class ViewDriveBoardPost extends AppCompatActivity {
         date = (TextView) findViewById(R.id.date);
         num = (TextView) findViewById(R.id.num);
         city = (TextView) findViewById(R.id.city);
-        user.setText("User: " + p.get_user());
+        user.setText(User.getInstance().getUsername());
+       // user.setText("User: " + p.get_user());
         date.setText("Date: " + p.date_to_string());
         city.setText("City: " + p.get_city());
         num.setText("Number of Seats: " + Integer.toString(p.get_num_seats()));
