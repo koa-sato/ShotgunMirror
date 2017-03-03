@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.support.v4.util.AtomicFile;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.g13.shotgun.Post;
@@ -20,6 +22,7 @@ public class ViewDriveBoardPost extends AppCompatActivity {
     TextView city;
     TextView num;
     TextView user;
+    Button interested;
 
 
     @Override
@@ -39,12 +42,18 @@ public class ViewDriveBoardPost extends AppCompatActivity {
         date = (TextView) findViewById(R.id.date);
         num = (TextView) findViewById(R.id.num);
         city = (TextView) findViewById(R.id.city);
-        user.setText(User.getInstance().getUsername());
+        interested = (Button) findViewById(R.id.interested);
+        user.setText(p.get_user());
        // user.setText("User: " + p.get_user());
         date.setText("Date: " + p.date_to_string());
         city.setText("City: " + p.get_city());
         num.setText("Number of Seats: " + Integer.toString(p.get_num_seats()));
 
+        interested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 }

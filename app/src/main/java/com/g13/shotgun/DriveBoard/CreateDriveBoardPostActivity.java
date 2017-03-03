@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.R;
 import com.g13.shotgun.SignIn.SignInActivity;
+import com.g13.shotgun.User;
 
 public class CreateDriveBoardPostActivity extends AppCompatActivity {
     static final int DATE_DIALOG_ID = 999;
@@ -87,7 +88,8 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
                 identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
 
-                DriveBoardPost p = new DriveBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, identityId, num);
+                DriveBoardPost p = new DriveBoardPost(tx.getText().toString()
+                        ,month, day, year, 10, 12, 0, User.getInstance().getUsername(), num);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
