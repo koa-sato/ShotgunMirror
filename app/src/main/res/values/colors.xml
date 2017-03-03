@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
+    <color name="sendbird_purple_color">#824096</color>
     <color name="sign_in_separator_color">#DDDDDD</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>

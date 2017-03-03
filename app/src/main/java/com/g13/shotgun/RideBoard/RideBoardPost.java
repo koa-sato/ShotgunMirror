@@ -1,4 +1,4 @@
-package com.g13.shotgun.RideBoard;
+package com.g13.shotgun.rideboard;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;

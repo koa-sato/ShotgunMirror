@@ -1,4 +1,4 @@
-package com.g13.shotgun.SignIn;
+package com.g13.shotgun.signIn;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,15 +16,20 @@ import com.amazonaws.mobile.user.IdentityProvider;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.user.signin.SignInManager;
 import com.g13.shotgun.DatabaseUser;
-import com.g13.shotgun.DriveBoard.DriveBoard;
+import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
 import com.g13.shotgun.UserDatabaseInterface;
+import com.sendbird.android.SendBird;
+
+import com.sendbird.android.SendBirdException;
+
 
 public class SignInActivity extends Activity {
     private static final String LOG_TAG = SignInActivity.class.getSimpleName();
     private SignInManager signInManager;
 
+    private static final String appId = "3A4B37C7-A3CA-4112-B12E-83D89F99B3DB";
     /** Permission Request Code (Must be < 256). */
     private static final int GET_ACCOUNTS_PERMISSION_REQUEST_CODE = 93;
 
@@ -42,6 +47,7 @@ public class SignInActivity extends Activity {
          */
         @Override
         public void onSuccess(final IdentityProvider provider) {
+            SendBird.init(appId, getApplicationContext());
             Log.d(LOG_TAG, String.format("User sign-in with %s succeeded",
                     provider.getDisplayName()));
 
@@ -53,7 +59,7 @@ public class SignInActivity extends Activity {
             );
             UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
             DatabaseUser u = udbi.get_user(provider.getUserName());
-            User.getInstance(u);
+            com.g13.shotgun.User.getInstance(u);
            // User.getInstance(udbi.get_user(provider.getUserName()));
             // The sign-in manager is no longer needed once signed in.
             SignInManager.dispose();

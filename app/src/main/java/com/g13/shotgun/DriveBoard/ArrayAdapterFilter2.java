@@ -1,4 +1,4 @@
-package com.g13.shotgun.DriveBoard;
+package com.g13.shotgun.driveboard;
 
 import android.widget.Filter;
 

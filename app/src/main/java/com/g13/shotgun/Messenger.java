@@ -14,8 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.g13.shotgun.DriveBoard.DriveBoard;
-import com.g13.shotgun.RideBoard.RideBoard;
+import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.rideboard.RideBoard;
+import com.g13.shotgun.sendbird.MainActivity;
+
 
 public class Messenger extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +28,8 @@ public class Messenger extends AppCompatActivity
         setContentView(R.layout.activity_drive_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

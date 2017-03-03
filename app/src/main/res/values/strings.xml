@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Shotgun</string>
     <string name="large_text">
+
+    <string name="title_activity_sendbird">SendBird</string>
+    <string name="sendbird_version">SDK version %1$s</string>
+
         "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."

@@ -1,4 +1,4 @@
-package com.g13.shotgun.DriveBoard;
+package com.g13.shotgun.driveboard;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.R;
-import com.g13.shotgun.SignIn.SignInActivity;
+import com.g13.shotgun.signIn.SignInActivity;
 import com.g13.shotgun.User;
 
 public class CreateDriveBoardPostActivity extends AppCompatActivity {

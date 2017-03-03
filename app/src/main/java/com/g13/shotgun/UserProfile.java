@@ -16,9 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.amazonaws.mobile.AWSConfiguration;
-import com.g13.shotgun.DriveBoard.DriveBoard;
-import com.g13.shotgun.RideBoard.RideBoard;
-import com.g13.shotgun.SignIn.SignInActivity;
+import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.rideboard.RideBoard;
+import com.g13.shotgun.signIn.SignInActivity;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

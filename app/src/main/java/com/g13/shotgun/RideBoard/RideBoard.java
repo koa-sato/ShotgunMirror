@@ -1,4 +1,4 @@
-package com.g13.shotgun.RideBoard;
+package com.g13.shotgun.rideboard;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,8 +21,7 @@ import android.widget.SearchView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
-import com.amazonaws.regions.Regions;
-import com.g13.shotgun.DriveBoard.DriveBoard;
+import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;

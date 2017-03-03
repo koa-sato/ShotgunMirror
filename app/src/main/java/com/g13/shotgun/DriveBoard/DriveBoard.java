@@ -1,4 +1,4 @@
-package com.g13.shotgun.DriveBoard;
+package com.g13.shotgun.driveboard;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +22,8 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
-import com.g13.shotgun.RideBoard.RideBoard;
-import com.g13.shotgun.SignIn.SignInActivity;
+import com.g13.shotgun.rideboard.RideBoard;
+import com.g13.shotgun.signIn.SignInActivity;
 import com.g13.shotgun.UserProfile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
