@@ -15,13 +15,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
-import com.amazonaws.regions.Regions;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
 import com.g13.shotgun.RideBoard.RideBoard;
@@ -40,12 +38,12 @@ public class DriveBoard extends AppCompatActivity
 
     ArrayList<DriveBoardPost> posts;
     ArrayList<DriveBoardPost> d_posts;
-    ArrayAdapter<DriveBoardPost> postAdapter;
+    DriveBoardArrayAdapter<DriveBoardPost> postAdapter;
     public void updateList(ArrayList<DriveBoardPost> posts){
-         postAdapter= new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);
-       // DriveBoardAdapter postAdapter = new DriveBoardAdapter(this,
-       //         android.R.layout.simple_list_item_1, android.R.id.text1, posts);
+         /*postAdapter= new DriveBoardArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, posts);*/
+        postAdapter = new DriveBoardArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1,
+                android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
     }
@@ -213,9 +211,12 @@ public class DriveBoard extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                postAdapter.getFilter().filter(newText);
+                //posts = d_posts;
+                updateList(posts);
+                postAdapter.getFilter().performFiltering(newText);
                 return false;
             }
+
         });
 
 
