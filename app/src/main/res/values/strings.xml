@@ -156,5 +156,15 @@
     <string name="sign_up_confirm_failed">Sign up confirmation failed.</string>
     <string name="title_activity_create_ride_board_post">CreateRideBoardPostActivity</string>
 
+    <string-array name="seat_choices">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
 
 </resources>

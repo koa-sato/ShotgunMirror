@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.amazonaws.mobile.AWSConfiguration;
@@ -21,6 +23,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
     static final int TIME_DIALOG_ID = 666;
     DatePicker tp;
     DatePicker dp;
+    Spinner seats;
     int day;
     int month;
     int year;
@@ -41,6 +44,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         dp = (DatePicker) findViewById(R.id.dpdp);
         final Button b = (Button) findViewById(R.id.add_button);
         final Button s = (Button) findViewById(R.id.set);
+        seats = (Spinner) findViewById(R.id.seats);
         //TimePicker tp = (TimePicker) findViewById(R.id.tptp);
         final TextView tx = (TextView) findViewById(R.id.city);
         day = dp.getDayOfMonth();
@@ -54,6 +58,14 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         //calendar.set(year, month, day);
         //final Date the_date = calendar.getTime();
         //final Time the_time = new Time(tp.getCurrentHour(), tp.getCurrentMinute(),0);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.seat_choices, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        seats.setAdapter(adapter);
 
         s.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +83,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
                 //showDialog(DATE_DIALOG_ID);
                 String identityId = "";
 
-                num = Integer.parseInt(e_num.getText().toString());
+                num = Integer.parseInt(seats.getSelectedItem().toString());
                 SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
                 identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
 
