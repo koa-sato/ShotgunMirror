@@ -17,7 +17,7 @@ public class RideBoardPost extends Post {
     public RideBoardPost() {};
 
     public RideBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
-                          int __am, String __user, int e_year, int e_month, int e_day) {
+                         int __am, String __user, int e_year, int e_month, int e_day) {
         super(__city, __month, __day, __year, __hour, __minute, __am, __user);
         end_year = e_year;
         end_month = e_month;
@@ -81,7 +81,7 @@ public class RideBoardPost extends Post {
 
     @Override
     public String toString() {
-        return get_city() + "\n" + (month + 1) + '/' + day+ '/' + year
-                + " - " + (end_month+1) + '/' + end_day + '/' + end_year;
+        return get_city() + "\n" +
+                (month + 1) + '/' + day+ '/' + year + " - " + (end_month+1) + '/' + end_day + '/' + end_year;
     }
 }

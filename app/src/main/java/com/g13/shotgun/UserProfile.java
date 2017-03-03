@@ -15,11 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
-import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
-import com.amazonaws.mobileconnectors.cognito.Dataset;
 import com.g13.shotgun.DriveBoard.DriveBoard;
 import com.g13.shotgun.RideBoard.RideBoard;
 import com.g13.shotgun.SignIn.SignInActivity;
@@ -56,6 +52,7 @@ public class UserProfile extends AppCompatActivity
         String identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
 
 
+        /*
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 AWSConfiguration.AMAZON_ACCT_ID,
@@ -79,7 +76,34 @@ public class UserProfile extends AppCompatActivity
         String email = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
         String phoneNumber = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
 
+        CognitoUserPool cognitoUserPool = new CognitoUserPool(getApplicationContext(),
+                AWSConfiguration.AMAZON_COGNITO_USER_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_USER_POOL_CLIENT_ID,
+                AWSConfiguration.AMAZON_COGNITO_USER_POOL_CLIENT_SECRET,
+                AWSConfiguration.AMAZON_COGNITO_REGION);
+        final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
+        final CognitoUserDetails[] userDetails = new CognitoUserDetails[1];
+        cognitoUser.getDetails(new GetDetailsHandler() {
+            @Override
+            public void onSuccess(CognitoUserDetails cognitoUserDetails) {
+                userDetails[0] = cognitoUserDetails;
+                Log.d("UserProfile", "Got the goddamn details");
+            }
 
+            @Override
+            public void onFailure(Exception exception) {
+                Log.d("UserProfile", exception.getMessage());
+            }
+        });
+
+        final CognitoUserAttributes attributes = userDetails[0].getAttributes();
+        final Map<String, String> mapOfAttributes = attributes.getAttributes();
+        firstName = mapOfAttributes.get(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
+        lastName = mapOfAttributes.get(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME);
+        gender = mapOfAttributes.get(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER);
+        email = mapOfAttributes.get(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
+        phoneNumber = mapOfAttributes.get(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
+        */
         /*dataset.synchronize(new DefaultSyncCallback() {
             @Override
             public void onSuccess(Dataset dataset, List newRecords) {
@@ -90,14 +114,14 @@ public class UserProfile extends AppCompatActivity
         //Log.d("identityid", identityId);
         //Log.d("otherid", credentialsProvider.getIdentityId());
 
-/*
-        Log.d("Username = ", username);
-        Log.d("First Name = ", firstName);
+
+        //Log.d("Username = ", username);
+        /*Log.d("First Name = ", firstName);
         Log.d("Last Name = ", lastName);
         Log.d("Gender = ", gender);
         Log.d("Email = ", email);
-        Log.d("PhoneNumber = ", phoneNumber);
-*/
+        Log.d("PhoneNumber = ", phoneNumber);*/
+
 
 
         /*(CognitoUserPool userPool = new CognitoUserPool(getApplicationContext(),

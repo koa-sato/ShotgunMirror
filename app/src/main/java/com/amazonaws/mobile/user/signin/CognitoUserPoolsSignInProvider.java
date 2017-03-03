@@ -159,7 +159,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
     private Activity activity;
 
     /** Sign-in username. */
-    public static String username;
+    private static String username;
 
     /** Sign-in password. */
     private String password;
