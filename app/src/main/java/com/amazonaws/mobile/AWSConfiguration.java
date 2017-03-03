@@ -21,7 +21,7 @@ public class AWSConfiguration {
         "MobileHub 939c7581-479a-4d1b-850f-bcdad3898935 aws-my-sample-app-android-v0.15";
     // AMAZON COGNITO
     public static final Regions AMAZON_COGNITO_REGION =
-            Regions.fromName("us-west-2");
+            Regions.US_WEST_2;
 
     // Top right of support center
     public static final String AMAZON_ACCT_ID =
@@ -34,7 +34,7 @@ public class AWSConfiguration {
 
     // Found through cognito user pools
     public static final String AMAZON_COGNITO_USER_POOL_ID =
-            "us-west-2_Lrc6zRF3k";
+                "us-west-2_Lrc6zRF3k";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_ID =
             "34jchuhrt69d5d5k3lvurnvs00";
     public static final String AMAZON_COGNITO_USER_POOL_CLIENT_SECRET =

@@ -15,6 +15,7 @@ public class User {
         lastName = "Last Name";
         email = "Email";
         identityId = "";
+
     }
 
     public User(String _firstName, String _lastName, String _email, String _identityId, boolean _isMale, String _phoneNumber) {

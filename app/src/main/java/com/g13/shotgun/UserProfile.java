@@ -72,12 +72,13 @@ public class UserProfile extends AppCompatActivity
         Dataset dataset = client.openOrCreateDataset("DataSet");
 
         String username = CognitoUserPoolsSignInProvider.username;
-        dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
+        //dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
         String firstName = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
         String lastName = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME);
         String gender = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER);
         String email = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
         String phoneNumber = dataset.get(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
+
 
         /*dataset.synchronize(new DefaultSyncCallback() {
             @Override
@@ -89,14 +90,14 @@ public class UserProfile extends AppCompatActivity
         //Log.d("identityid", identityId);
         //Log.d("otherid", credentialsProvider.getIdentityId());
 
-
-        /*Log.d("Username = ", username);
+/*
+        Log.d("Username = ", username);
         Log.d("First Name = ", firstName);
         Log.d("Last Name = ", lastName);
         Log.d("Gender = ", gender);
         Log.d("Email = ", email);
-        Log.d("PhoneNumber = ", phoneNumber);*/
-
+        Log.d("PhoneNumber = ", phoneNumber);
+*/
 
 
         /*(CognitoUserPool userPool = new CognitoUserPool(getApplicationContext(),

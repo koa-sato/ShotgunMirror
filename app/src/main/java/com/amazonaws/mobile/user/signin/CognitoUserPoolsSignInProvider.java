@@ -77,6 +77,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
      */
 
     CognitoUserAttributes userAttributes;
+    CognitoCachingCredentialsProvider credentialsProvider;
 
     public final class AttributeKeys {
         /** Username attribute. */
@@ -269,7 +270,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             String idToken = cognitoUserSession.getIdToken().getJWTToken();
 
             // Create a credentials provider, or use the existing provider.
-            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+            credentialsProvider = new CognitoCachingCredentialsProvider(
                     context,
                     AWSConfiguration.AMAZON_ACCT_ID,
                     AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
@@ -360,8 +361,8 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         if (Activity.RESULT_OK == resultCode) {
             switch (requestCode) {
                 case FORGOT_PASSWORD_REQUEST_CODE:
-                    password = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PASSWORD);
-                    verificationCode = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.VERIFICATION_CODE);
+                    password = data.getStringExtra(AttributeKeys.PASSWORD);
+                    verificationCode = data.getStringExtra(AttributeKeys.VERIFICATION_CODE);
 
                     Log.d(LOG_TAG, "verificationCode = " + verificationCode);
 
@@ -370,19 +371,19 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     forgotPasswordContinuation.continueTask();
                     break;
                 case SIGN_UP_REQUEST_CODE:
-                    username = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
-                    password = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PASSWORD);
-                    final String firstName = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
-                    final String lastName = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME);
-                    final String gender = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER);
-                    final String email = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
-                    final String phone = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
+                    username = data.getStringExtra(AttributeKeys.USERNAME);
+                    password = data.getStringExtra(AttributeKeys.PASSWORD);
+                    final String firstName = data.getStringExtra(AttributeKeys.GIVEN_NAME);
+                    final String lastName = data.getStringExtra(AttributeKeys.FAMILY_NAME);
+                    final String gender = data.getStringExtra(AttributeKeys.GENDER);
+                    final String email = data.getStringExtra(AttributeKeys.EMAIL_ADDRESS);
+                    final String phone = data.getStringExtra(AttributeKeys.PHONE_NUMBER);
 
                     userAttributes = new CognitoUserAttributes();
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, firstName);
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.FAMILY_NAME, lastName);
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GENDER, gender);
+                    userAttributes.addAttribute(AttributeKeys.GIVEN_NAME, firstName);
+                    userAttributes.addAttribute(AttributeKeys.FAMILY_NAME, lastName);
+                    userAttributes.addAttribute(AttributeKeys.EMAIL_ADDRESS, email);
+                    userAttributes.addAttribute(AttributeKeys.GENDER, gender);
 
                    /* SharedPreferences prefs = context.getSharedPreferences("user_attributes", context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
@@ -402,7 +403,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 */
 
                     if (null != phone && phone.length() > 0) {
-                        userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
+                        userAttributes.addAttribute(AttributeKeys.PHONE_NUMBER, phone);
                     }
 
                     // Create a credentials provider, or use the existing provider.
@@ -471,7 +472,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
                     break;
                 case MFA_REQUEST_CODE:
-                    verificationCode = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.VERIFICATION_CODE);
+                    verificationCode = data.getStringExtra(AttributeKeys.VERIFICATION_CODE);
 
                     Log.d(LOG_TAG, "verificationCode = " + verificationCode);
 
@@ -480,8 +481,8 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
                     break;
                 case VERIFICATION_REQUEST_CODE:
-                    username = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
-                    verificationCode = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.VERIFICATION_CODE);
+                    username = data.getStringExtra(AttributeKeys.USERNAME);
+                    verificationCode = data.getStringExtra(AttributeKeys.VERIFICATION_CODE);
 
                     Log.d(LOG_TAG, "username = " + username);
                     Log.d(LOG_TAG, "verificationCode = " + verificationCode);
