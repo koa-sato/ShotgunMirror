@@ -43,15 +43,15 @@ public class UserProfile extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final TextView name = (TextView) findViewById(R.id.textView2);
+        final TextView name = (TextView) findViewById(R.id.textView8);
         name.setText(
                 "Name: " + Fred.getFirstName() + " " + Fred.getLastName());
 
-        final TextView email1 = (TextView) findViewById(R.id.textView3);
+        final TextView email1 = (TextView) findViewById(R.id.textView9);
         email1.setText(
                 "Email: " +  Fred.getEmail());
 
-        final TextView phone = (TextView) findViewById(R.id.textView6);
+        final TextView phone = (TextView) findViewById(R.id.textView10);
         phone.setText(
                 Fred.getPhoneNumber());
 
