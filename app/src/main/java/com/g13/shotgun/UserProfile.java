@@ -23,7 +23,7 @@ import com.g13.shotgun.signIn.SignInActivity;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private User Fred;
+    //private User Fred;
 
 
     @Override
@@ -45,15 +45,15 @@ public class UserProfile extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final TextView name = (TextView) findViewById(R.id.textView8);
         name.setText(
-                "Name: " + Fred.getFirstName() + " " + Fred.getLastName());
+                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName());
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
         email1.setText(
-                "Email: " +  Fred.getEmail());
+                "Email: " +  User.getInstance().getEmail());
 
         final TextView phone = (TextView) findViewById(R.id.textView10);
         phone.setText(
-                Fred.getPhoneNumber());
+                User.getInstance().getPhoneNumber());
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
