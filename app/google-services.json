@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "415899448227",
+    "firebase_url": "https://shotgun-52fe7.firebaseio.com",
+    "project_id": "shotgun-52fe7",
+    "storage_bucket": "shotgun-52fe7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415899448227:android:89e9dbd0205b4864",
+        "android_client_info": {
+          "package_name": "com.g13.shotgun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415899448227-hpp8h62emra6loubpnom8ujn9q5spufj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.g13.shotgun",
+            "certificate_hash": "314da73caeaf9c374f3a22982119521989fa99a6"
+          }
+        },
+        {
+          "client_id": "415899448227-u2m3vfukp1tur6uf3pk09qh36e1trr5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl_Lj6TnCqhEvXkAtacfbZJgTQCg5y0kw"
+        },
+        {
+          "current_key": "AIzaSyBUQrs_VwyYmD4NbsRzCGarK5pCfqoJTYM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415899448227-u2m3vfukp1tur6uf3pk09qh36e1trr5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
