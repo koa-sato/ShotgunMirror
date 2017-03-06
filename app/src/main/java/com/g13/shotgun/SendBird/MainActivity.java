@@ -35,20 +35,20 @@ public class MainActivity extends FragmentActivity {
      */
     private static final String appId = "3A4B37C7-A3CA-4112-B12E-83D89F99B3DB"; /* Sample SendBird Application */
 
-    public static String sUserId;
-    private String mNickname;
+    public static String sUserId = com.g13.shotgun.User.getInstance().getUsername();
+    private String mNickname = com.g13.shotgun.User.getInstance().getUsername();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sUserId = getPreferences(Context.MODE_PRIVATE).getString("user_id", "");
-        mNickname = getPreferences(Context.MODE_PRIVATE).getString("nickname", "");
+       // sUserId = getPreferences(Context.MODE_PRIVATE).getString("user_id", "");
+        //mNickname = getPreferences(Context.MODE_PRIVATE).getString("nickname", "");
 
         SendBird.init(appId, this);
 
-        ((EditText) findViewById(R.id.etxt_user_id)).setText(sUserId);
+        /*((EditText) findViewById(R.id.etxt_user_id)).setText(sUserId);
         ((EditText) findViewById(R.id.etxt_user_id)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                sUserId = s.toString();
+                //sUserId = s.toString();
             }
         });
 
@@ -76,14 +76,15 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mNickname = s.toString();
+                //mNickname = s.toString();
             }
         });
-
+*/
         findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Button btn = (Button) view;
+                //btn.setText(sUserId + " " + mNickname );
                 if (btn.getText().equals("Connect")) {
                     connect();
                 } else {
@@ -94,13 +95,13 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        findViewById(R.id.btn_open_channel_list).setOnClickListener(new View.OnClickListener() {
+       /* findViewById(R.id.btn_open_channel_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SendBirdOpenChannelListActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         findViewById(R.id.btn_group_channel_list).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,21 +148,20 @@ public class MainActivity extends FragmentActivity {
             case DISCONNECTED:
                 ((Button) findViewById(R.id.btn_connect)).setText("Connect");
                 findViewById(R.id.btn_connect).setEnabled(true);
-                findViewById(R.id.btn_open_channel_list).setEnabled(false);
+               // findViewById(R.id.btn_open_channel_list).setEnabled(false);
                 findViewById(R.id.btn_group_channel_list).setEnabled(false);
                 break;
 
             case CONNECTING:
                 ((Button) findViewById(R.id.btn_connect)).setText("Connecting...");
                 findViewById(R.id.btn_connect).setEnabled(false);
-                findViewById(R.id.btn_open_channel_list).setEnabled(false);
                 findViewById(R.id.btn_group_channel_list).setEnabled(false);
                 break;
 
             case CONNECTED:
                 ((Button) findViewById(R.id.btn_connect)).setText("Disconnect");
                 findViewById(R.id.btn_connect).setEnabled(true);
-                findViewById(R.id.btn_open_channel_list).setEnabled(true);
+               // findViewById(R.id.btn_open_channel_list).setEnabled(true);
                 findViewById(R.id.btn_group_channel_list).setEnabled(true);
                 break;
         }

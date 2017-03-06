@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.driveboard.DriveBoard;
@@ -22,6 +23,8 @@ import com.g13.shotgun.signIn.SignInActivity;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    //private User Fred;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,18 @@ public class UserProfile extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final TextView name = (TextView) findViewById(R.id.textView8);
+        name.setText(
+                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName());
+
+        final TextView email1 = (TextView) findViewById(R.id.textView9);
+        email1.setText(
+                "Email: " +  User.getInstance().getEmail());
+
+        final TextView phone = (TextView) findViewById(R.id.textView10);
+        phone.setText(
+                User.getInstance().getPhoneNumber());
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
