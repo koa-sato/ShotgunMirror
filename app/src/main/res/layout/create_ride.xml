@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    >
+    android:background="@drawable/side_nav_bar"
+    android:paddingTop="40dp">
+
+
+<TextView
+        android:text="New Post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Title"
+        android:textSize="40sp"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold" />
 
     <EditText
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="0dp"
         android:background="@color/white"
         android:id="@+id/city"
-        android:gravity="center"
-        android:layout_width="100dp"
+        android:gravity="left"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="140dp"
-        android:hint="City"/>
-
-    <DatePicker
-        android:layout_marginTop="20dp"
-        android:id="@+id/tptp"
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:layout_marginLeft="72dp"
-        >
-
-    </DatePicker>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="50dp"
+        android:hint="Destination"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="10dp" />
 
     <LinearLayout
         android:layout_marginBottom="20dp"
@@ -32,62 +37,96 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:background="@color/white"
-            android:layout_marginLeft="100dp"
-            android:id="@+id/sets"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Set Start Date"/>
-
-        <Button
-            android:background="@color/white"
-            android:layout_marginLeft="60dp"
-            android:id="@+id/sete"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Set End Date"/>
-
         <DatePicker
-
-            android:id="@+id/dpdp"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:datePickerMode="spinner"
-            android:layout_marginLeft="80dp"
-            android:calendarViewShown="true"
-            android:visibility="gone">
-
-
-
+            android:id="@+id/tptp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.03"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp">
 
         </DatePicker>
 
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
 
+            <Button
+                android:id="@+id/sets"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button"
+                android:text="Set Start Date" />
+
+            <Button
+                android:id="@+id/sete"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button"
+                android:text="Set End\nDate" />
+
+            <DatePicker
+                android:id="@+id/dpdp"
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:datePickerMode="spinner"
+                android:layout_marginLeft="80dp"
+                android:calendarViewShown="true"
+                android:visibility="gone">
+            </DatePicker>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
-        android:inputType="number"
-        android:background="@color/white"
-        android:id="@+id/num"
-        android:gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="140dp"
-        android:hint="# of Seats"/>
+        <Spinner
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bags"
+            android:layout_marginBottom="0dp"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical|end"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:background="@android:drawable/spinner_background" />
+        <TextView
+            android:text="# of Bags"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Bags_Label"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp" />
 
+    </LinearLayout>
 
     <Button
-        android:background="@color/white"
         android:id="@+id/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginBottom="20dp"
-        android:text="Add Post"/>
-
-
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="0.48"
+        android:background="@drawable/cartoon_car2"
+        android:text="Let's Ride->"
+        android:textColor="@color/gray"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:paddingRight="2dp"
+        android:paddingBottom="5dp"/>
 </LinearLayout>
