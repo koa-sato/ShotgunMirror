@@ -235,6 +235,10 @@ public class DriveBoard extends AppCompatActivity
             return true;
         }
 
+        if(id == R.id.logout){
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
