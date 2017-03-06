@@ -40,7 +40,6 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_post);
-        e_num = (EditText) findViewById(R.id.num);
         tp = (DatePicker) findViewById(R.id.tptp);
         dp = (DatePicker) findViewById(R.id.dpdp);
         final Button b = (Button) findViewById(R.id.add_button);
