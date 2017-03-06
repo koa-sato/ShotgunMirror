@@ -60,6 +60,8 @@ public class ViewDriveBoardPost extends AppCompatActivity {
         date.setText("Date: " + p.date_to_string());
         city.setText("City: " + p.get_city());
         num.setText("Number of Seats: " + Integer.toString(p.get_num_seats()));
+        if(p.get_user().equals(User.getInstance().getUsername()))
+            interested.setVisibility(View.INVISIBLE);
 
         interested.setOnClickListener(new View.OnClickListener() {
             @Override
