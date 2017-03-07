@@ -14,25 +14,42 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.driveboard.DriveBoardDataBaseInterface;
+import com.g13.shotgun.driveboard.DriveBoardPost;
 import com.g13.shotgun.rideboard.RideBoard;
+import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.SignInActivity;
+
+import java.util.ArrayList;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //private User Fred;
-
-
+    ArrayList<DriveBoardPost> the_users_posts;
+    ListView the_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        the_list = (ListView) findViewById(R.id.list);
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_REGION // Region
+        );
+        DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+         the_users_posts = new ArrayList<>(dbi.get_posts());
+        for(int i = 0; i < the_users_posts.size(); i++)
+            if(the_users_posts.get(i).get_user() != User.getInstance().getUsername())
+                the_users_posts.remove(i);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +65,13 @@ public class UserProfile extends AppCompatActivity
                 "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName());
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
-        email1.setText(
-                "Email: " +  User.getInstance().getEmail());
-
+        //email1.setText(User.getInstance().displayConnections());
+               // "Email: " +  User.getInstance().getEmail());
+        String posts = "";
+        for(int i = 0; i < the_users_posts.size();i++)
+            posts = posts + the_users_posts.get(i) + '\n';
+        posts = posts + User.getInstance().displayConnections();
+        email1.setText(posts);
         final TextView phone = (TextView) findViewById(R.id.textView10);
         phone.setText(
                 User.getInstance().getPhoneNumber());
@@ -272,7 +293,7 @@ public class UserProfile extends AppCompatActivity
             Intent intent = new Intent(UserProfile.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(UserProfile.this, Messenger.class);
+            Intent intent = new Intent(UserProfile.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
 

@@ -2,6 +2,7 @@ package com.g13.shotgun;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class Post implements Serializable {
     protected String city;
@@ -13,8 +14,16 @@ public abstract class Post implements Serializable {
     protected int am;
     protected String user;
     protected String key;
+    protected ArrayList<String> interested_users;
 
     public Post() {
+        interested_users = new ArrayList<>();
+    }
+
+    public void add_interested_user(String user){
+        if(interested_users ==null)
+            interested_users = new ArrayList<>();
+        interested_users.add(user);
     }
 
 
@@ -31,6 +40,7 @@ public abstract class Post implements Serializable {
         key = user + city + Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
         int newKey = key.hashCode();
         key = "" + newKey;
+        interested_users = new ArrayList<>();
     }
 
 }

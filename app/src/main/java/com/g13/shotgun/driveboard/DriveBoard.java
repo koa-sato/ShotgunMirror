@@ -23,6 +23,7 @@ import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
 import com.g13.shotgun.rideboard.RideBoard;
+import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.SignInActivity;
 import com.g13.shotgun.UserProfile;
 import com.google.gson.Gson;
@@ -262,7 +263,7 @@ public class DriveBoard extends AppCompatActivity
             Intent intent = new Intent(DriveBoard.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(DriveBoard.this, Messenger.class);
+            Intent intent = new Intent(DriveBoard.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
             Intent intent = new Intent(DriveBoard.this, UserProfile.class);

@@ -8,6 +8,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 import com.g13.shotgun.Post;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @DynamoDBTable(tableName = "Shotgun_Posts")
 public class DriveBoardPost extends Post implements Serializable {
@@ -49,7 +50,7 @@ public class DriveBoardPost extends Post implements Serializable {
     public void set_year(int t){ year = t;}
     public int get_year(){ return year;}
 
-    @DynamoDBAttribute(attributeName = "User")
+    @DynamoDBIndexHashKey(attributeName = "User")
     public String get_user(){ return user;}
     public void set_user(String u){ user = u;}
 
@@ -74,6 +75,10 @@ public class DriveBoardPost extends Post implements Serializable {
     }
 
     //public int getId(){return Integer.parseInt(key);}
+
+    @DynamoDBAttribute(attributeName = "Interested_Users")
+    public void set_interested_user(ArrayList<String> t){ interested_users = t;}
+    public ArrayList<String> get_interested_user(){ return interested_users;}
 
     public void setId(long _id) {
         id = _id;

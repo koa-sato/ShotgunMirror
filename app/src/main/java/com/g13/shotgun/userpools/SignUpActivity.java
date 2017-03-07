@@ -24,6 +24,8 @@ import com.g13.shotgun.UserDatabaseInterface;
 import com.g13.shotgun.util.ViewHelper;
 import com.g13.shotgun.R;
 
+import java.util.ArrayList;
+
 /**
  * Activity to prompt for account sign up information.
  */
@@ -58,7 +60,7 @@ public class SignUpActivity extends Activity {
 
         }
         else {
-            DatabaseUser u = new DatabaseUser(username, firstName, lastName, email, 3, g, phone);
+            DatabaseUser u = new DatabaseUser(username, firstName, lastName, email, 3, g, phone, new ArrayList<String>());
             //User.getInstance(username, firstName, lastName, email, 3, g, phone);
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     getApplicationContext(),

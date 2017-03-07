@@ -2,11 +2,13 @@ package com.g13.shotgun.driveboard;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DriveBoardDataBaseInterface {
@@ -42,6 +44,21 @@ public class DriveBoardDataBaseInterface {
         //TimeUnit.SECONDS.sleep(2);
         while(mythread.isAlive())
             android.os.SystemClock.sleep(5);
+        return posts;
+    }
+
+    public List<DriveBoardPost> get_users_posts(String user){
+        final DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                .withHashKeyValues(user)
+                //.withRangeKeyCondition("Title", rangeKeyCondition)
+                .withConsistentRead(false);
+        Runnable runnable = new Runnable() {
+            public void run(){
+              posts = mapper.query(DriveBoardPost.class, queryExpression);
+            }
+        };
+        if(posts == null)
+            return new ArrayList<>();
         return posts;
     }
 
