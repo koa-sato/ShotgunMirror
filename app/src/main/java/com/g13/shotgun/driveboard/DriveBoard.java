@@ -39,9 +39,8 @@ public class DriveBoard extends AppCompatActivity
     ArrayList<DriveBoardPost> posts;
     ArrayList<DriveBoardPost> d_posts;
     DriveBoardArrayAdapter<DriveBoardPost> postAdapter;
+
     public void updateList(ArrayList<DriveBoardPost> posts){
-         /*postAdapter= new DriveBoardArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, posts);*/
         postAdapter = new DriveBoardArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1,
                 android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
