@@ -87,7 +87,8 @@ public class RideBoard extends AppCompatActivity
         );
         RideBoardDataBaseInterface dbi = new RideBoardDataBaseInterface(credentialsProvider);
         SharedPreferences sharedPrefs = getSharedPreferences("RideBoardPosts", MODE_PRIVATE);
-        Gson gson = new Gson();
+
+        final Gson gson = new Gson();
         String json = sharedPrefs.getString("RideBoardPostList", null);
         Type type = new TypeToken<ArrayList<RideBoardPost>>() {
         }.getType();
