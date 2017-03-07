@@ -65,7 +65,7 @@ public class DriveBoard extends AppCompatActivity
                     dbi.push_post(p);
                 }
 
-                orderPosts();
+                orderPosts(posts);
                 updateList(posts);
             }
             if (resultCode == CreateDriveBoardPostActivity.RESULT_CANCELED) {
@@ -95,9 +95,18 @@ public class DriveBoard extends AppCompatActivity
         }.getType();
         posts = gson.fromJson(json, type);
 
-        Bundle bundle = getIntent().getExtras();
+        /*Bundle bundle = getIntent().getExtras();
 
         if (bundle != null && bundle.getString("parent class").equals(SignInActivity.class.toString()) || posts == null) {
+            d_posts = new ArrayList<>(dbi.get_posts());
+            posts = new ArrayList<>();
+            for (int i = 0; i < d_posts.size(); i++) {
+                if (!posts.contains(d_posts.get(i)))
+                    posts.add(d_posts.get(i));
+            }
+        }*/
+
+        if (posts == null || !equalLists(posts, d_posts)) {
             d_posts = new ArrayList<>(dbi.get_posts());
             posts = new ArrayList<>();
             for (int i = 0; i < d_posts.size(); i++) {
@@ -141,7 +150,7 @@ public class DriveBoard extends AppCompatActivity
             }
         });*/
 
-        orderPosts();
+        orderPosts(posts);
         updateList(posts);
 
 
@@ -269,7 +278,7 @@ public class DriveBoard extends AppCompatActivity
         return true;
     }
 
-    public void orderPosts() {
+    public void orderPosts(ArrayList<DriveBoardPost> posts) {
         Collections.sort(posts, new Comparator<DriveBoardPost>() {
             @Override
             public int compare(DriveBoardPost o1, DriveBoardPost o2) {
@@ -286,7 +295,22 @@ public class DriveBoard extends AppCompatActivity
                 }
             }
         });
-        updateList(posts);
+    }
+
+    public  boolean equalLists(ArrayList<DriveBoardPost> list1, ArrayList<DriveBoardPost> list2){
+        if (list1 == null && list2 == null){
+            return true;
+        }
+
+        if((list1 == null && list2 != null)
+                || list1 != null && list2 == null
+                || list1.size() != list2.size()){
+            return false;
+        }
+
+        orderPosts(list1);
+        orderPosts(list2);
+        return list1.equals(list2);
     }
 
     @Override
