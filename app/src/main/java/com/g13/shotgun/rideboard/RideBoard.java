@@ -15,16 +15,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
-import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;
+import com.g13.shotgun.driveboard.DriveBoard;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,10 +37,10 @@ public class RideBoard extends AppCompatActivity
 
     ArrayList<RideBoardPost> posts;
     ArrayList<RideBoardPost> d_posts;
-    ArrayAdapter<RideBoardPost> postAdapter;
+    RideBoardArrayAdapter<RideBoardPost> postAdapter;
 
     public void updateList(ArrayList<RideBoardPost> posts){
-        postAdapter = new ArrayAdapter<>(this,
+        postAdapter = new RideBoardArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, posts);
         listView.setAdapter(postAdapter);
 
@@ -191,7 +190,8 @@ public class RideBoard extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                postAdapter.getFilter().filter(newText);
+                updateList(posts);
+                postAdapter.getFilter().performFiltering(newText);
                 return false;
             }
         });

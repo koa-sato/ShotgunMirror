@@ -1,4 +1,4 @@
-package com.g13.shotgun.driveboard;
+package com.g13.shotgun.rideboard;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,18 +14,18 @@ import java.util.ArrayList;
  * Created by koasato on 3/2/17.
  */
 
-public class DriveBoardArrayAdapter<DriveBoardPost> extends BoardArrayAdapter<DriveBoardPost> implements Filterable {
+public class RideBoardArrayAdapter<RideBoardPost> extends BoardArrayAdapter<RideBoardPost> implements Filterable {
 
     private ArrayAdapterFilter mFilter;
 
 
-    public DriveBoardArrayAdapter(Context context, int listItem, int textViewResourceId, ArrayList<DriveBoardPost> objects) {
+    public RideBoardArrayAdapter(Context context, int listItem, int textViewResourceId, ArrayList<RideBoardPost> objects) {
         super(context, listItem, textViewResourceId, objects);
         postList = objects;
     }
 
     @Override
-    public DriveBoardPost getItem(int position) {
+    public RideBoardPost getItem(int position) {
         return postList.get(position);
     }
 
@@ -58,7 +58,7 @@ public class DriveBoardArrayAdapter<DriveBoardPost> extends BoardArrayAdapter<Dr
             }
 
             if (constraint == null || constraint.length() == 0) {
-                final ArrayList<DriveBoardPost> list;
+                final ArrayList<RideBoardPost> list;
                 synchronized (constraint) {
                     list = new ArrayList<>(postList);
                 }
@@ -67,16 +67,16 @@ public class DriveBoardArrayAdapter<DriveBoardPost> extends BoardArrayAdapter<Dr
             } else {
                 final String prefixString = constraint.toString().toLowerCase();
 
-                final ArrayList<DriveBoardPost> values;
+                final ArrayList<RideBoardPost> values;
                 synchronized (constraint) {
                     values = new ArrayList<>(postList);
                 }
 
                 final int count = values.size();
-                final ArrayList<DriveBoardPost> newValues = new ArrayList<>();
+                final ArrayList<RideBoardPost> newValues = new ArrayList<>();
 
                 for (int i = 0; i < count; i++) {
-                    final DriveBoardPost value = values.get(i);
+                    final RideBoardPost value = values.get(i);
                     final String valueText = value.toString().toLowerCase();
 
                     // First match against the whole, non-splitted value
@@ -102,7 +102,7 @@ public class DriveBoardArrayAdapter<DriveBoardPost> extends BoardArrayAdapter<Dr
 
         @Override
         protected void publishResults (CharSequence constraint, FilterResults results){
-            postList = (ArrayList<DriveBoardPost>) results.values;
+            postList = (ArrayList<RideBoardPost>) results.values;
             if (results.count > 0)
                 notifyDataSetChanged();
             else

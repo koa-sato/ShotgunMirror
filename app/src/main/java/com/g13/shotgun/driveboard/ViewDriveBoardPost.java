@@ -1,9 +1,8 @@
 package com.g13.shotgun.driveboard;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,8 +10,6 @@ import android.widget.Toast;
 
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
-import com.g13.shotgun.sendbird.MainActivity;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sendbird.android.GroupChannel;
@@ -21,7 +18,6 @@ import com.sendbird.android.SendBirdException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 
@@ -45,7 +41,7 @@ public class ViewDriveBoardPost extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("The_post", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString("THE_POST", null);
-        Type type = new TypeToken<DriveBoardPost>(){
+        Type type = new TypeToken<com.g13.shotgun.driveboard.DriveBoardPost>(){
 
         }.getType();
          p = gson.fromJson(json, type);
