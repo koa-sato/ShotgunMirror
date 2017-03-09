@@ -73,8 +73,6 @@ public class DriveBoardPost extends Post implements Serializable {
         return "" + (month + 1) + '/' + day+ '/' + year;
     }
 
-    //public int getId(){return Integer.parseInt(key);}
-
     public void setId(long _id) {
         id = _id;
     }

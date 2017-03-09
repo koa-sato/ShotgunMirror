@@ -32,26 +32,4 @@
         app:srcCompat="@drawable/cartoon_car2"
         app:backgroundTint="@android:color/darker_gray" />
 
-  <!--  <FrameLayout
-        android:layout_marginTop="60dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/rfab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:color/transparent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="R"
-            android:elevation="16dp"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </FrameLayout>-->
-
 </android.support.design.widget.CoordinatorLayout>

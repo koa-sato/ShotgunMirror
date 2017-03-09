@@ -1,4 +1,4 @@
-package com.g13.shotgun.driveboard;
+package com.g13.shotgun.rideboard;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,37 +19,38 @@ import com.sendbird.android.SendBirdException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ViewDriveBoardPost extends AppCompatActivity {
+public class ViewRideBoardPost extends AppCompatActivity {
 
-    TextView date;
+    TextView beginning_date;
+    TextView end_date;
     TextView city;
-    TextView num;
     TextView user;
     Button interested;
     ArrayList<String> USER_IDS;
-    DriveBoardPost p;
+    RideBoardPost p;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_drive_board_post);
+        setContentView(R.layout.activity_view_ride_board_post);
         SharedPreferences pref = getSharedPreferences("The_post", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = pref.getString("THE_POST", null);
-        Type type = new TypeToken<com.g13.shotgun.driveboard.DriveBoardPost>(){
+        Type type = new TypeToken<com.g13.shotgun.rideboard.RideBoardPost>(){
 
         }.getType();
-         p = gson.fromJson(json, type);
+        p = gson.fromJson(json, type);
 
         user = (TextView) findViewById(R.id.name);
-        date = (TextView) findViewById(R.id.date);
-        num = (TextView) findViewById(R.id.num);
+        beginning_date = (TextView) findViewById(R.id.beginning_date);
+        end_date = (TextView) findViewById(R.id.end_date);
         city = (TextView) findViewById(R.id.city);
         interested = (Button) findViewById(R.id.interested);
         user.setText(p.get_user());
-        date.setText("Date: " + p.date_to_string());
+        beginning_date.setText("From: " + p.beginning_date_to_string());
+        end_date.setText("Until: " + p.end_date_to_string());
         city.setText("City: " + p.get_city());
-        num.setText("Number of Seats: " + Integer.toString(p.get_num_seats()));
         if(p.get_user().equals(User.getInstance().getUsername()))
             interested.setVisibility(View.INVISIBLE);
 

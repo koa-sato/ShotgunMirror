@@ -11,11 +11,6 @@ import java.util.List;
 
 public class RideBoardDataBaseInterface {
     private List<RideBoardPost> posts;
-    /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-            getApplicationContext(),
-            "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
-            Regions.US_WEST_2 // Region
-    );*/
     private CognitoCachingCredentialsProvider credentialsProvider;
     private AmazonDynamoDBClient ddbClient;
     private DynamoDBMapper mapper;
@@ -41,7 +36,6 @@ public class RideBoardDataBaseInterface {
 
         Thread mythread = new Thread(runnable);
         mythread.start();
-        //TimeUnit.SECONDS.sleep(2);
         while (mythread.isAlive())
             android.os.SystemClock.sleep(5);
         return posts;

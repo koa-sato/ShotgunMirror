@@ -79,6 +79,11 @@ public class RideBoardPost extends Post {
     public void set_end_day(int t){ end_day = t;}
     public int get_end_day(){ return end_day;}
 
+    public String beginning_date_to_string(){
+        return "" + (month + 1) + '/' + day+ '/' + year;
+    }
+    public String end_date_to_string() { return "" + (end_month + 1)+ '/' + end_day + '/' + end_year; }
+
     @Override
     public String toString() {
         return get_city() + "\n" +

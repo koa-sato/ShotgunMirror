@@ -80,8 +80,6 @@ public class RideBoard extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
-                //xxxx
-                // "us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
                 AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                 AWSConfiguration.AMAZON_COGNITO_REGION// Region
         );
@@ -94,7 +92,6 @@ public class RideBoard extends AppCompatActivity
         }.getType();
         posts = gson.fromJson(json, type);
 
-//xxx
         if (posts == null || !equalLists(posts, d_posts)) {
             d_posts = new ArrayList<>(dbi.get_posts());
             posts = new ArrayList<>();
@@ -123,20 +120,6 @@ public class RideBoard extends AppCompatActivity
             }
         });
 
-       /* FloatingActionButton rfab = (FloatingActionButton) findViewById(R.id.rfab);
-        rfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for(int i = 0; i < d_posts.size(); i++){
-                    if(!posts.contains(d_posts.get(i)))
-                        posts.add(d_posts.get(i));
-                }
-
-                updateList(posts);
-            }
-        });*/
-
-
         orderPosts(posts);
         updateList(posts);
 
@@ -145,15 +128,14 @@ public class RideBoard extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                // ListView Clicked item value
-                /*String  itemValue    = (String) listView.getItemAtPosition(position);
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-                        */
+                Intent i = new Intent(getApplicationContext(), ViewRideBoardPost.class);
+                SharedPreferences prefs = getSharedPreferences("The_post", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(posts.get(position));
+                editor.putString("THE_POST", json);
+                editor.commit();
+                startActivity(i);
             }
 
         });
@@ -263,7 +245,7 @@ public class RideBoard extends AppCompatActivity
         });
     }
 
-    public  boolean equalLists(ArrayList<RideBoardPost> list1, ArrayList<RideBoardPost> list2){
+    public boolean equalLists(ArrayList<RideBoardPost> list1, ArrayList<RideBoardPost> list2){
         if (list1 == null && list2 == null){
             return true;
         }
