@@ -16,19 +16,27 @@ public class DriveBoardPost extends Post implements Serializable {
     private int numSeats;
     private long id;
 
+
+    public void add_interested_user(String u){
+        if(interested_users == null)
+            interested_users = new ArrayList<>();
+        interested_users.add(u);
+    }
+
     public DriveBoardPost() {};
 
     public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
-                int __am, String __user, int __numSeats) {
-        super(__city, __month, __day, __year, __hour, __minute, __am, __user);
+                int __am, String __user, int __numSeats, String t) {
+        super(__city, __month, __day, __year, __hour, __minute, __am, __user, t);
         numSeats = __numSeats;
         id = (long)Integer.parseInt(key);
+
     }
     public long getId(){return id;}
 
     @DynamoDBHashKey(attributeName = "key")
     public String get_key(){ return key;}
-    public void set_key(String d){ key = d.hashCode() + "";}
+    public void set_key(String d){ key = d;}
 
 
     @DynamoDBIndexHashKey(attributeName = "city")
@@ -77,8 +85,12 @@ public class DriveBoardPost extends Post implements Serializable {
     //public int getId(){return Integer.parseInt(key);}
 
     @DynamoDBAttribute(attributeName = "Interested_Users")
-    public void set_interested_user(ArrayList<String> t){ interested_users = t;}
-    public ArrayList<String> get_interested_user(){ return interested_users;}
+    public void set_interested_users(ArrayList<String> t){ interested_users = t;}
+    public ArrayList<String> get_interested_users(){ return interested_users;}
+
+    @DynamoDBAttribute(attributeName = "Time_of_day")
+    public void set_time_of_day(String t){ time_of_day = t;}
+    public String get_time_of_day(){ return time_of_day;}
 
     public void setId(long _id) {
         id = _id;

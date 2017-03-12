@@ -12,23 +12,23 @@ public abstract class Post implements Serializable {
     protected int hour;
     protected int minute;
     protected int am;
+    protected String time_of_day;
     protected String user;
     protected String key;
     protected ArrayList<String> interested_users;
 
+
     public Post() {
-        interested_users = new ArrayList<>();
+
     }
 
-    public void add_interested_user(String user){
-        if(interested_users ==null)
-            interested_users = new ArrayList<>();
-        interested_users.add(user);
-    }
+
 
 
     public Post(String __city, int __month, int __day, int __year, int __hour, int __minute,
-                int __am, String __user) {
+                int __am, String __user, String t) {
+        interested_users = new ArrayList<>();
+        time_of_day = t;
         city = __city;
         user = __user;
         month = __month;
@@ -38,9 +38,9 @@ public abstract class Post implements Serializable {
         minute = __minute;
         am = __am;
         key = user + city + Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
-        int newKey = key.hashCode();
+        int newKey = key.hashCode()%997;
         key = "" + newKey;
-        interested_users = new ArrayList<>();
+        //interested_users = new ArrayList<>();
     }
 
 }

@@ -19,12 +19,15 @@ import com.g13.shotgun.R;
 import com.g13.shotgun.signIn.SignInActivity;
 import com.g13.shotgun.User;
 
+import java.util.ArrayList;
+
 public class CreateDriveBoardPostActivity extends AppCompatActivity {
     static final int DATE_DIALOG_ID = 999;
     static final int TIME_DIALOG_ID = 666;
     DatePicker tp;
     DatePicker dp;
     Spinner seats;
+    Spinner time;
     int day;
     int month;
     int year;
@@ -33,7 +36,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
     boolean am;
     int num;
     EditText e_num;
-
+    String t;
 
 
     @Override
@@ -45,27 +48,19 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         final Button b = (Button) findViewById(R.id.add_button);
         final Button s = (Button) findViewById(R.id.set);
         seats = (Spinner) findViewById(R.id.seats);
-        //TimePicker tp = (TimePicker) findViewById(R.id.tptp);
+        time = (Spinner) findViewById(R.id.time);
+        ArrayAdapter<CharSequence> timeadapter = ArrayAdapter.createFromResource(this, R.array.Times, android.R.layout.simple_spinner_item);
         final TextView tx = (TextView) findViewById(R.id.city);
         day = dp.getDayOfMonth();
         month = dp.getMonth();
         year =  dp.getYear();
-
-        //hour = tp.getHour();
-        //minute = tp.getMinute();
-        //am = STUB;
-       // Calendar calendar = Calendar.getInstance();
-        //calendar.set(year, month, day);
-        //final Date the_date = calendar.getTime();
-        //final Time the_time = new Time(tp.getCurrentHour(), tp.getCurrentMinute(),0);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.seat_choices, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         seats.setAdapter(adapter);
+        time.setAdapter(timeadapter);
 
         s.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,15 +75,14 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //showDialog(DATE_DIALOG_ID);
                 String identityId = "";
-
+                t = time.getSelectedItem().toString();
                 num = Integer.parseInt(seats.getSelectedItem().toString());
                 SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
                 identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
 
                 DriveBoardPost p = new DriveBoardPost(tx.getText().toString()
-                        ,month, day, year, 10, 12, 0, User.getInstance().getUsername(), num);
+                        ,month, day, year, 10, 12, 0, User.getInstance().getUsername(), num,t);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
@@ -107,34 +101,11 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
                 // set date picker as current date
                 return new DatePickerDialog(this, datePickerListener,
                         year, month,day);
-
-           // case TIME_DIALOG_ID:
-             //   return new TimePickerDialog(this, TimePickerFragment, hour, minute, am);
         }
         return null;
     }
 
-   /* public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
-        }
-
-
-    }*/
 
     private DatePickerDialog.OnDateSetListener datePickerListener
             = new DatePickerDialog.OnDateSetListener() {

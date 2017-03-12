@@ -72,7 +72,7 @@ public class ViewDriveBoardPost extends AppCompatActivity {
         date.setText("Date: " + p.date_to_string());
         city.setText("City: " + p.get_city());
         num.setText("Number of Seats: " + Integer.toString(p.get_num_seats()));
-        if(p.get_user().equals(User.getInstance().getUsername()))
+        if(p.get_user().equals(User.getInstance().getUsername()) || p.get_interested_users().contains(User.getInstance().getUsername()))
             interested.setVisibility(View.INVISIBLE);
 
         interested.setOnClickListener(new View.OnClickListener() {
@@ -86,14 +86,15 @@ public class ViewDriveBoardPost extends AppCompatActivity {
                 UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
                 DatabaseUser the_user = udbi.get_user(p.get_user());
                 the_user.addConnection(User.getInstance().getUsername());
-                User.getInstance().addConnection(p.get_user());
+                //User.getInstance().addConnection(p.get_user());
                 udbi.push_user(the_user);
                 udbi.push_user(new DatabaseUser(User.getInstance()));
                 USER_IDS = new ArrayList<String>();
                 USER_IDS.add(User.getInstance().getUsername());
                 USER_IDS.add(p.get_user());
                 p.add_interested_user(User.getInstance().getUsername());
-
+                DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+                dbi.push_post(p);
                 GroupChannel.createChannelWithUserIds(USER_IDS, true, p.get_user() + " " + p.get_city(), null, null, new GroupChannel.GroupChannelCreateHandler() {
                     @Override
                     public void onResult(GroupChannel groupChannel, SendBirdException e) {
