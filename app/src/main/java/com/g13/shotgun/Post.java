@@ -16,6 +16,8 @@ public abstract class Post implements Serializable {
     protected String user;
     protected String key;
     protected ArrayList<String> interested_users;
+    protected ArrayList<String> going_users;
+    protected Boolean show;
 
 
     public Post() {
@@ -28,6 +30,8 @@ public abstract class Post implements Serializable {
     public Post(String __city, int __month, int __day, int __year, int __hour, int __minute,
                 int __am, String __user, String t) {
         interested_users = new ArrayList<>();
+        going_users = new ArrayList<>();
+        show = true;
         time_of_day = t;
         city = __city;
         user = __user;

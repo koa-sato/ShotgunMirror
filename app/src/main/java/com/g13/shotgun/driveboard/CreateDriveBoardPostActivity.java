@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.R;
@@ -75,6 +76,11 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (tx.getText().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Please Enter All The Information", Toast.LENGTH_LONG);
+                    return;
+                }
                 String identityId = "";
                 t = time.getSelectedItem().toString();
                 num = Integer.parseInt(seats.getSelectedItem().toString());

@@ -111,7 +111,7 @@ public class DriveBoard extends AppCompatActivity
             d_posts = new ArrayList<>(dbi.get_posts());
             posts = new ArrayList<>();
             for (int i = 0; i < d_posts.size(); i++) {
-                if (!posts.contains(d_posts.get(i)))
+                if (!posts.contains(d_posts.get(i)) || !posts.get(i).get_show())
                     posts.add(d_posts.get(i));
             }
         }

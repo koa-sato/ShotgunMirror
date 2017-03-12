@@ -16,6 +16,14 @@ public class DriveBoardPost extends Post implements Serializable {
     private int numSeats;
     private long id;
 
+    public void add_going_user(String u){
+        if(going_users == null)
+            going_users = new ArrayList<>();
+        going_users.add(u);
+        numSeats--;
+        if(numSeats == 0)
+            show = false;
+    }
 
     public void add_interested_user(String u){
         if(interested_users == null)
@@ -23,7 +31,7 @@ public class DriveBoardPost extends Post implements Serializable {
         interested_users.add(u);
     }
 
-    public DriveBoardPost() {};
+    public DriveBoardPost() {}
 
     public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
                 int __am, String __user, int __numSeats, String t) {
@@ -88,9 +96,17 @@ public class DriveBoardPost extends Post implements Serializable {
     public void set_interested_users(ArrayList<String> t){ interested_users = t;}
     public ArrayList<String> get_interested_users(){ return interested_users;}
 
+    @DynamoDBAttribute(attributeName = "Going_Users")
+    public void set_going_users(ArrayList<String> t){ going_users = t;}
+    public ArrayList<String> get_going_users(){ return going_users;}
+
     @DynamoDBAttribute(attributeName = "Time_of_day")
     public void set_time_of_day(String t){ time_of_day = t;}
     public String get_time_of_day(){ return time_of_day;}
+
+    @DynamoDBAttribute(attributeName = "Show")
+    public void set_show(Boolean n) { show = n; }
+    public Boolean get_show() { return show; }
 
     public void setId(long _id) {
         id = _id;

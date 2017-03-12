@@ -3,6 +3,8 @@ package com.g13.shotgun;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.driveboard.DriveBoardPost;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class User {
     private double rating;
     private boolean isMale;
     private String phoneNumber;
+    private DriveBoardPost d_highlighted_post;
 
    /* public User() {
         username = "username";
@@ -33,6 +36,14 @@ public class User {
         isMale = true;
         phoneNumber = "+12345678901";
     }*/
+
+    public DriveBoardPost getD_highlighted_post(){
+        return d_highlighted_post;
+    }
+
+    public void setD_highlighted_post(DriveBoardPost p){
+        d_highlighted_post = p;
+    }
 
     public static User getInstance(DatabaseUser u){
         the_user = new User(u.getUsername(), u.getFirstName(), u.getLastName(),

@@ -35,6 +35,7 @@ public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //private User Fred;
     ArrayList<DriveBoardPost> the_users_posts;
+    ArrayList<DriveBoardPost> post;
     ListView the_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class UserProfile extends AppCompatActivity
         );
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
          the_users_posts = new ArrayList<>(dbi.get_posts());
-        ArrayList<DriveBoardPost> post = new ArrayList<>();
+        post = new ArrayList<>();
         for(int i = 0; i < the_users_posts.size(); i++)
             if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
                 post.add(the_users_posts.get(i));
@@ -60,6 +61,7 @@ public class UserProfile extends AppCompatActivity
         the_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User.getInstance().setD_highlighted_post(post.get(position));
                 Intent i = new Intent(getApplicationContext(), EditPostActivity.class);
                 i.putExtra("Position", position);
                 startActivity(i);

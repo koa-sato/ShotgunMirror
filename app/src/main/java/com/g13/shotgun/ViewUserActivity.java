@@ -21,14 +21,15 @@ public class ViewUserActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         TextView name = (TextView) findViewById(R.id.the_name);
         Intent i = getIntent();
-        String the_user_name = i.getStringExtra("User");
+        final String the_user_name = i.getStringExtra("User");
         name.setText(the_user_name);
-        Button b = (Button) findViewById(R.id.confirm);
+        final Button b = (Button) findViewById(R.id.confirm);
         b.setText("Confirm Match");
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "One day", Toast.LENGTH_SHORT);
+                b.setVisibility(View.INVISIBLE);
+                User.getInstance().getD_highlighted_post().add_going_user(the_user_name);
 
             }
         });
