@@ -79,7 +79,9 @@ public class CreateRideBoardPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RideBoardPost p = new RideBoardPost(tx.getText().toString() ,month, day, year, 10, 12, 0, User.getInstance().getUsername(),
-                end_year, end_month, end_day);
+
+                        end_year, end_month, end_day, "Morning");
+
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
                 setResult(RideBoard.RESULT_OK, returnIntent);

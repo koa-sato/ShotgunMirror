@@ -16,13 +16,10 @@ import com.amazonaws.mobile.user.IdentityProvider;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.user.signin.SignInManager;
 import com.g13.shotgun.DatabaseUser;
-import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.R;
-import com.g13.shotgun.User;
 import com.g13.shotgun.UserDatabaseInterface;
+import com.g13.shotgun.driveboard.DriveBoard;
 import com.sendbird.android.SendBird;
-
-import com.sendbird.android.SendBirdException;
 
 
 public class SignInActivity extends Activity {
@@ -63,6 +60,7 @@ public class SignInActivity extends Activity {
            // User.getInstance(udbi.get_user(provider.getUserName()));
             // The sign-in manager is no longer needed once signed in.
             SignInManager.dispose();
+
 
             Toast.makeText(SignInActivity.this, "Sign-in succeeded.", Toast.LENGTH_LONG).show();
 
@@ -132,5 +130,9 @@ public class SignInActivity extends Activity {
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         signInManager.handleActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

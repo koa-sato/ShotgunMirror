@@ -14,43 +14,83 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
+import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.driveboard.DriveBoardDataBaseInterface;
+import com.g13.shotgun.driveboard.DriveBoardPost;
 import com.g13.shotgun.rideboard.RideBoard;
+import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.SignInActivity;
+
+import java.util.ArrayList;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //private User Fred;
-
-
+    ArrayList<DriveBoardPost> the_users_posts;
+    ArrayList<DriveBoardPost> post;
+    ListView the_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        the_list = (ListView) findViewById(R.id.list);
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_REGION // Region
+        );
+        DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+         the_users_posts = new ArrayList<>(dbi.get_posts());
+        post = new ArrayList<>();
+        for(int i = 0; i < the_users_posts.size(); i++)
+            if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
+                post.add(the_users_posts.get(i));
+        ArrayAdapter<DriveBoardPost> arrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
+        the_list.setAdapter(arrayAdapter);
+        the_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User.getInstance().setD_highlighted_post(post.get(position));
+                Intent i = new Intent(getApplicationContext(), EditPostActivity.class);
+                i.putExtra("Position", position);
+                startActivity(i);
+            }
+        });
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final TextView name = (TextView) findViewById(R.id.textView8);
         name.setText(
-                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName());
+                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
+        + '\n' + User.getInstance().getUsername());
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
-        email1.setText(
-                "Email: " +  User.getInstance().getEmail());
-
+        //email1.setText(User.getInstance().displayConnections());
+               // "Email: " +  User.getInstance().getEmail());
+        String posts = "";
+        //for(int i = 0; i < the_users_posts.size();i++)
+          //  posts = posts + the_users_posts.get(i) + '\n';
+        posts = posts + User.getInstance().displayConnections();
+        email1.setText(User.getInstance().getEmail());
         final TextView phone = (TextView) findViewById(R.id.textView10);
         phone.setText(
                 User.getInstance().getPhoneNumber());
@@ -255,8 +295,27 @@ public class UserProfile extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if(id == R.id.logout){
+            CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
+            signInProvider.signOut();
+            Intent intent = new Intent(UserProfile.this, SignInActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        the_users_posts = null;
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_REGION // Region
+        );
+        DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+        the_users_posts = new ArrayList<>(dbi.get_posts());
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -272,7 +331,7 @@ public class UserProfile extends AppCompatActivity
             Intent intent = new Intent(UserProfile.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(UserProfile.this, Messenger.class);
+            Intent intent = new Intent(UserProfile.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
 
