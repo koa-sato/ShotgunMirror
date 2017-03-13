@@ -18,10 +18,10 @@ public class MyNotifications {
     public String toString(){
         String s = "";
         if(type.equals("interested"))
-            s = user + " is interested in your post";
+            s = user + " is interested in your post" + '\n';
 
         if(type .equals("confirmed"))
-            s = user + " confirmed that you have a ride";
+            s = user + " confirmed that you have a ride"+ '\n';
         return s;
     }
 }
