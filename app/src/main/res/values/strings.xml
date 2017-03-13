@@ -188,7 +188,9 @@
     <string name="title_activity_edit_post">EditPostActivity</string>
     <string name="title_activity_view_ride_board_post">ViewRideBoardPost</string>
     <string name="title_activity_view_user">ViewUserActivity</string>
-
+    <string name="title_activity_opening__screen">Opening_Screen</string>
+    <string name="opening_message">Welcome to Shotgun! Please click on the menu button on the left to get started.</string>
+    <string name="welcome_title">Welcome to Shotgun!</string>
 
 
 </resources>
