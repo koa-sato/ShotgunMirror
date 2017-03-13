@@ -40,16 +40,6 @@ public class DriveBoardPost extends Post implements Serializable {
         super(__city, __month, __day, __year, __hour, __minute, __am, __user, t);
         numSeats = __numSeats;
         id = (long)Integer.parseInt(key);
-
-
-    public DriveBoardPost() {};
-
-    public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
-                int __am, String __user, int __numSeats) {
-        super(__city, __month, __day, __year, __hour, __minute, __am, __user);
-        numSeats = __numSeats;
-        id = (long)Integer.parseInt(key);
-
     }
     public long getId(){return id;}
 
