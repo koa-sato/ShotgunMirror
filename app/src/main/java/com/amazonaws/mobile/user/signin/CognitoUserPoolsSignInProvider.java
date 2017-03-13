@@ -40,7 +40,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPas
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.g13.shotgun.R;
-import com.g13.shotgun.signIn.SignInActivity;
+import com.g13.shotgun.signIn.Shotgun;
 import com.g13.shotgun.userpools.ForgotPasswordActivity;
 import com.g13.shotgun.userpools.MFAActivity;
 import com.g13.shotgun.userpools.SignUpActivity;
@@ -460,7 +460,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     dataset.put(AttributeKeys.PHONE_NUMBER, phone);
                     dataset.synchronize(syncCallBack);
 
-                    SharedPreferences prefs = context.getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
+                    SharedPreferences prefs = context.getSharedPreferences("com.amazonaws.android.auth", Shotgun.MODE_PRIVATE);
                     String identityId = prefs.getString(AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
                     Log.d(LOG_TAG, identityId);
 

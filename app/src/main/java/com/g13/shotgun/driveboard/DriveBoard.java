@@ -21,7 +21,6 @@ import android.widget.SearchView;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.g13.shotgun.Messenger;
 
 import com.g13.shotgun.NotificationViewActivity;
 import com.g13.shotgun.R;
@@ -30,7 +29,7 @@ import com.g13.shotgun.rideboard.RideBoard;
 
 import com.g13.shotgun.sendbird.MainActivity;
 
-import com.g13.shotgun.signIn.SignInActivity;
+import com.g13.shotgun.signIn.Shotgun;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -226,7 +225,7 @@ public class DriveBoard extends AppCompatActivity
         if(id == R.id.logout){
             CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
             signInProvider.signOut();
-            Intent intent = new Intent(DriveBoard.this, SignInActivity.class);
+            Intent intent = new Intent(DriveBoard.this, Shotgun.class);
             startActivity(intent);
         }
 

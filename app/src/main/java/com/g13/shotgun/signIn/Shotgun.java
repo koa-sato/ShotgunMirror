@@ -22,8 +22,8 @@ import com.g13.shotgun.UserDatabaseInterface;
 import com.sendbird.android.SendBird;
 
 
-public class SignInActivity extends Activity {
-    private static final String LOG_TAG = SignInActivity.class.getSimpleName();
+public class Shotgun extends Activity {
+    private static final String LOG_TAG = Shotgun.class.getSimpleName();
     private SignInManager signInManager;
 
     private static final String appId = "3A4B37C7-A3CA-4112-B12E-83D89F99B3DB";
@@ -62,7 +62,7 @@ public class SignInActivity extends Activity {
             SignInManager.dispose();
 
 
-            Toast.makeText(SignInActivity.this, "Sign-in succeeded.", Toast.LENGTH_LONG).show();
+            Toast.makeText(Shotgun.this, "Sign-in succeeded.", Toast.LENGTH_LONG).show();
 
             // Load user name and image.
             AWSMobileClient.defaultMobileClient()
@@ -70,8 +70,8 @@ public class SignInActivity extends Activity {
                 @Override
                 public void run() {
                     Log.d(LOG_TAG, "Launching Main Activity...");
-                    Intent i = new Intent(SignInActivity.this, Opening_Screen.class);
-                    i.putExtra("parent class", SignInActivity.class.toString());
+                    Intent i = new Intent(Shotgun.this, Opening_Screen.class);
+                    i.putExtra("parent class", Shotgun.class.toString());
                     startActivity(i
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     // finish should always be called on the main thread.
@@ -89,7 +89,7 @@ public class SignInActivity extends Activity {
             Log.d(LOG_TAG, String.format("User sign-in with %s canceled.",
                     provider.getDisplayName()));
 
-            Toast.makeText(SignInActivity.this, String.format("Sign-in with %s canceled.",
+            Toast.makeText(Shotgun.this, String.format("Sign-in with %s canceled.",
                     provider.getDisplayName()), Toast.LENGTH_LONG).show();
         }
 
@@ -103,7 +103,7 @@ public class SignInActivity extends Activity {
             Log.e(LOG_TAG, String.format("User Sign-in failed for %s : %s",
                     provider.getDisplayName(), ex.getMessage()), ex);
 
-            final AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(SignInActivity.this);
+            final AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(Shotgun.this);
             errorDialogBuilder.setTitle("Sign-In Error");
             errorDialogBuilder.setMessage(
                     String.format("Sign-in with %s failed.\n%s", provider.getDisplayName(), ex.getMessage()));

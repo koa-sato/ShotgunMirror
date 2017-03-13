@@ -120,7 +120,7 @@
 
     <!-- Strings for sign in -->
     <string name="sign_in_email">Email</string>
-    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_sign_in">Shotgun</string>
     <string name="sign_in_username">Username</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_in_new_account">Create New Account</string>

@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/cartoon_car2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -35,9 +35,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".driveboard.CreateDriveBoardPostActivity"
-            android:label="Create Post Activity" />
+            android:label="Create Post" />
         <activity
-            android:name=".signIn.SignInActivity"
+            android:name=".signIn.Shotgun"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -64,7 +64,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".rideboard.CreateRideBoardPostActivity"
-            android:label="@string/title_activity_create_ride_board_post" />
+            android:label="Create Post" />
         <activity
             android:name=".driveboard.ViewDriveBoardPost"
             android:label="@string/post_details"/>
@@ -72,11 +72,11 @@
             android:name=".sendbird.MainActivity"
             android:label="@string/title_activity_messenger"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-            <intent-filter>
+            <!--intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter-->
         </activity>
         <activity
             android:name=".sendbird.SendBirdOpenChatActivity"
