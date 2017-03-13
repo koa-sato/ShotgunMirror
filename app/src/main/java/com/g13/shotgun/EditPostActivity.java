@@ -2,8 +2,6 @@ package com.g13.shotgun;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
-import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.driveboard.DriveBoardDataBaseInterface;
 import com.g13.shotgun.driveboard.DriveBoardPost;
 
@@ -88,6 +85,9 @@ public class EditPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dbi.delete_post(p.get_key());
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("Deleted", true);
+                setResult(pos, returnIntent);
                 finish();
             }
         });

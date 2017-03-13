@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
@@ -24,6 +25,7 @@ public class NotificationViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_view);
+        User.getInstance().Update(getApplicationContext());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,8 +44,16 @@ public class NotificationViewActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                        getApplicationContext(),
+
+                        AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                        AWSConfiguration.AMAZON_COGNITO_REGION // Region
+                );
+                UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
+                DatabaseUser u = udbi.get_user(User.getInstance().getUsername());
+                u.clearNotifications();
+                udbi.push_user(u);
             }
         });
 

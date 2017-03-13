@@ -267,14 +267,14 @@ public class DriveBoard extends AppCompatActivity
             public int compare(DriveBoardPost o1, DriveBoardPost o2) {
                 if (o1.get_year() == o2.get_year()) {
                     if (o1.get_month() == o2.get_month()) {
-                        return o2.get_day() - o1.get_day();
+                        return o1.get_day() - o2.get_day();
                     }
                     else {
-                        return o2.get_month() - o1.get_month();
+                        return o1.get_month() - o2.get_month();
                     }
                 }
                 else {
-                    return o2.get_year() - o1.get_year();
+                    return o1.get_year() - o2.get_year();
                 }
             }
         });
