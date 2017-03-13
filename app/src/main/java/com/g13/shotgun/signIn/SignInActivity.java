@@ -61,6 +61,7 @@ public class SignInActivity extends Activity {
             // The sign-in manager is no longer needed once signed in.
             SignInManager.dispose();
 
+
             Toast.makeText(SignInActivity.this, "Sign-in succeeded.", Toast.LENGTH_LONG).show();
 
             // Load user name and image.
