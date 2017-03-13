@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
+import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.driveboard.DriveBoardDataBaseInterface;
 import com.g13.shotgun.driveboard.DriveBoardPost;
@@ -293,6 +294,12 @@ public class UserProfile extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id == R.id.logout){
+            CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
+            signInProvider.signOut();
+            Intent intent = new Intent(UserProfile.this, SignInActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

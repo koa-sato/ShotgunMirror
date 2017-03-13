@@ -32,13 +32,10 @@ public class DatabaseUser {
     public DatabaseUser(String _username, String _firstName, String _lastName, String _email,
                         double _rating, boolean _isMale, String _phoneNumber, ArrayList<String > s) {
 
-
-
             username = _username;
             firstName = _firstName;
             lastName = _lastName;
             email = _email;
-            //identityId = identityId;
             rating = _rating;
             isMale = _isMale;
             phoneNumber = _phoneNumber;

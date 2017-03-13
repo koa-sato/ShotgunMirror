@@ -121,11 +121,10 @@
     <!-- Strings for sign in -->
     <string name="sign_in_email">Email</string>
     <string name="title_activity_sign_in">SignInActivity</string>
-    <string name="sign_in_username">Username/Phone Number (+15551234567)</string>
+    <string name="sign_in_username">Username</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_in_new_account">Create New Account</string>
     <string name="sign_in_forgot_password">Forgot Your Password?</string>
-    <string name="sign_in_or">or sign in with</string>
     <string name="main_nav_menu_default_user_text">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
@@ -159,6 +158,7 @@
     <string name="sign_up_confirm_success">Sign up confirmation succeeded.</string>
     <string name="sign_up_confirm_failed">Sign up confirmation failed.</string>
     <string name="title_activity_create_ride_board_post">CreateRideBoardPostActivity</string>
+    <string name="log_out">Log out</string>
 
     <string-array name="seat_choices">
         <item>1</item>

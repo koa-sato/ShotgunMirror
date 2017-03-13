@@ -11,7 +11,6 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.g13.shotgun.EditPostActivity;
-import com.g13.shotgun.signIn.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
