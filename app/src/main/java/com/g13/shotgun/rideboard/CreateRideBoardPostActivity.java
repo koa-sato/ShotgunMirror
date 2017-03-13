@@ -3,7 +3,6 @@ package com.g13.shotgun.rideboard;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
-import com.g13.shotgun.signIn.SignInActivity;
 
 public class CreateRideBoardPostActivity extends AppCompatActivity {
     static final int S_DATE_DIALOG_ID = 999;

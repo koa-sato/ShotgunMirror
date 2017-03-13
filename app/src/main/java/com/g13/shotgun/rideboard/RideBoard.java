@@ -21,14 +21,13 @@ import android.widget.SearchView;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
-import com.g13.shotgun.Messenger;
 
 import com.g13.shotgun.NotificationViewActivity;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;
 import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.sendbird.MainActivity;
-import com.g13.shotgun.signIn.SignInActivity;
+import com.g13.shotgun.signIn.Shotgun;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -202,7 +201,7 @@ public class RideBoard extends AppCompatActivity
         if(id == R.id.logout){
             CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
             signInProvider.signOut();
-            Intent intent = new Intent(RideBoard.this, SignInActivity.class);
+            Intent intent = new Intent(RideBoard.this, Shotgun.class);
             startActivity(intent);
         }
 

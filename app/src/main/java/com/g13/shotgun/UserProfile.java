@@ -25,9 +25,7 @@ import com.g13.shotgun.driveboard.DriveBoardDataBaseInterface;
 import com.g13.shotgun.driveboard.DriveBoardPost;
 import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
-import com.g13.shotgun.signIn.SignInActivity;
-
-import org.w3c.dom.Text;
+import com.g13.shotgun.signIn.Shotgun;
 
 import java.util.ArrayList;
 
@@ -126,7 +124,7 @@ public class UserProfile extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", Shotgun.MODE_PRIVATE);
         String identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
 
 
@@ -321,7 +319,7 @@ public class UserProfile extends AppCompatActivity
         if(id == R.id.logout){
             CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
             signInProvider.signOut();
-            Intent intent = new Intent(UserProfile.this, SignInActivity.class);
+            Intent intent = new Intent(UserProfile.this, Shotgun.class);
             startActivity(intent);
         }
 

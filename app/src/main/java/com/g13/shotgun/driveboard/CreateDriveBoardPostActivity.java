@@ -19,10 +19,8 @@ import android.widget.Toast;
 
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.R;
-import com.g13.shotgun.signIn.SignInActivity;
+import com.g13.shotgun.signIn.Shotgun;
 import com.g13.shotgun.User;
-
-import java.util.ArrayList;
 
 public class CreateDriveBoardPostActivity extends AppCompatActivity {
     static final int DATE_DIALOG_ID = 999;
@@ -99,7 +97,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
                 String identityId = "";
                 t = time.getSelectedItem().toString();
                 num = Integer.parseInt(seats.getSelectedItem().toString());
-                SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", SignInActivity.MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences("com.amazonaws.android.auth", Shotgun.MODE_PRIVATE);
                 identityId = prefs.getString(AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID + ".identityId", null);
 
                 DriveBoardPost p = new DriveBoardPost(tx.getText().toString()

@@ -18,7 +18,7 @@ import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
-import com.g13.shotgun.signIn.SignInActivity;
+import com.g13.shotgun.signIn.Shotgun;
 
 
 public class Messenger extends AppCompatActivity
@@ -83,7 +83,7 @@ public class Messenger extends AppCompatActivity
         if(id == R.id.logout){
             CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
             signInProvider.signOut();
-            Intent intent = new Intent(Messenger.this, SignInActivity.class);
+            Intent intent = new Intent(Messenger.this, Shotgun.class);
             startActivity(intent);
         }
 
