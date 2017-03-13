@@ -1,5 +1,6 @@
 package com.g13.shotgun;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,23 +39,26 @@ public class UserProfile extends AppCompatActivity
     ArrayList<DriveBoardPost> confirmed;
     ListView the_list;
     ListView the_confirmed_list;
+    ArrayAdapter<DriveBoardPost> arrayAdapter;
+    ArrayAdapter<DriveBoardPost> carrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        User.getInstance().Update(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         the_list = (ListView) findViewById(R.id.list);
         the_confirmed_list = (ListView) findViewById(R.id.confirmed);
+
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                 AWSConfiguration.AMAZON_COGNITO_REGION // Region
         );
-        DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+        final DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
          the_users_posts = new ArrayList<>(dbi.get_posts());
-        post = new ArrayList<>();
-        confirmed = new ArrayList<>();
+
 
         final TextView noPosts = (TextView) findViewById(R.id.textView11);
         String noPostsMsg = "You have not made any posts!";
@@ -62,22 +67,26 @@ public class UserProfile extends AppCompatActivity
         final TextView postLabel = (TextView) findViewById(R.id.my_posts);
         String postsLabelMsg = "My Posts: ";
         postLabel.setText(postsLabelMsg);
-
-        for(int i = 0; i < the_users_posts.size();i++)
-            if(the_users_posts.get(i).get_going_users()!=null && the_users_posts.get(i).get_going_users().contains(User.getInstance().getUsername()))
-                confirmed.add(the_users_posts.get(i));
-        for(int i = 0; i < the_users_posts.size(); i++)
-            if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
-                post.add(the_users_posts.get(i));
-
+        if(post == null) {
+            post = new ArrayList<>();
+            confirmed = new ArrayList<>();
+            for (int i = 0; i < the_users_posts.size(); i++)
+                if (!confirmed.contains(the_users_posts.get(i)) && the_users_posts.get(i).get_going_users() != null && the_users_posts.get(i).get_going_users().contains(User.getInstance().getUsername()))
+                    confirmed.add(the_users_posts.get(i));
+            for (int i = 0; i < the_users_posts.size(); i++)
+                if (!post.contains(the_users_posts.get(i)) && the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
+                    post.add(the_users_posts.get(i));
+        }
         if(post.size() != 0)
             noPosts.setVisibility(View.GONE);
         else
             postLabel.setVisibility(View.GONE);
 
-        ArrayAdapter<DriveBoardPost> arrayAdapter =
-                new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
-        ArrayAdapter<DriveBoardPost> carrayAdapter =
+        final Context c = getApplicationContext();
+
+        arrayAdapter =
+                        new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
+        carrayAdapter =
                 new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, confirmed);
         the_list.setAdapter(arrayAdapter);
         the_confirmed_list.setAdapter(carrayAdapter);
@@ -87,7 +96,7 @@ public class UserProfile extends AppCompatActivity
                 User.getInstance().setD_highlighted_post(post.get(position));
                 Intent i = new Intent(getApplicationContext(), EditPostActivity.class);
                 i.putExtra("Position", position);
-                startActivity(i);
+                startActivityForResult(i, 4);
             }
         });
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -329,14 +338,73 @@ public class UserProfile extends AppCompatActivity
     @Override
     public void onResume(){
         super.onResume();
-        the_users_posts = null;
+        /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_REGION // Region
+        );
+        final DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+        the_users_posts = new ArrayList<>(dbi.get_posts());
+        for(int j = 0; j < the_users_posts.size();j++)
+            if(the_users_posts.get(j).get_going_users()!=null && the_users_posts.get(j).get_going_users().contains(User.getInstance().getUsername()))
+                confirmed.add(the_users_posts.get(j));
+        for(int k = 0; k < the_users_posts.size(); k++)
+            if(the_users_posts.get(k).get_user().equals(User.getInstance().getUsername()))
+                post.add(the_users_posts.get(k));
+
+        arrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(getApplicationContext(), android.R.layout.simple_list_item_1, post);
+        carrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(getApplicationContext(), android.R.layout.simple_list_item_1, confirmed);
+*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        boolean deleted = data.getBooleanExtra("Deleted", false);
+        if(!deleted)
+            return;
+
+        // Check which request we're responding to
+        super.onActivityResult(requestCode, resultCode, data);
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                 AWSConfiguration.AMAZON_COGNITO_REGION // Region
         );
-        DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
-        the_users_posts = new ArrayList<>(dbi.get_posts());
+        final DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
+        ArrayList<DriveBoardPost> newList = new ArrayList<>(dbi.get_posts());
+        //the_users_posts = new ArrayList<>(dbi.get_posts());
+        //the_users_posts.set(0, new DriveBoardPost("QS", 1, 1, 1, 1, 1, 1, "string,", 1, "String"));
+        String x = "";
+        //the_users_posts = new ArrayList<>();
+        x = newList.get(0).toString();
+        Log.d("UserProfile", x);
+        if(the_list == null) {
+            for (int i = 0; i < newList.size(); i++)
+                if (!confirmed.contains(newList.get(i)) && newList.get(i).get_going_users() != null && newList.get(i).get_going_users().contains(User.getInstance().getUsername()))
+                    confirmed.add(newList.get(i));
+            for (int i = 0; i < newList.size(); i++)
+                if (!post.contains(newList.get(i)) && newList.get(i).get_user().equals(User.getInstance().getUsername()))
+                    post.add(newList.get(i));
+        }
+        post.remove(resultCode);
+        if (post.isEmpty())
+            x = "null";
+        else
+            x = post.get(0).toString();
+
+        Log.d("UserProfile", x);
+
+        the_list = (ListView) findViewById(R.id.list);
+        the_confirmed_list = (ListView) findViewById(R.id.confirmed);
+
+        arrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, android.R.id.text1, post);
+        carrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, android.R.id.text1, confirmed);
+        the_list.setAdapter(arrayAdapter);
+        the_confirmed_list.setAdapter(carrayAdapter);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
