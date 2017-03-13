@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 
 
 import com.g13.shotgun.Messenger;
+import com.g13.shotgun.NotificationViewActivity;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;
 import com.g13.shotgun.driveboard.DriveBoard;
@@ -75,6 +76,9 @@ public class MainActivity extends FragmentActivity {
 
                 } else if (id == R.id.profile) {
                     Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                    startActivity(intent);
+                } else if (id == R.id.notification) {
+                    Intent intent = new Intent(MainActivity.this, NotificationViewActivity.class);
                     startActivity(intent);
                 }
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

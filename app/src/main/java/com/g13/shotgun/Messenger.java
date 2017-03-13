@@ -112,9 +112,6 @@ public class Messenger extends AppCompatActivity
             Intent intent = new Intent(Messenger.this, NotificationViewActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
-
-
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

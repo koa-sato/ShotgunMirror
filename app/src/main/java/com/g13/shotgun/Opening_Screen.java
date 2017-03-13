@@ -105,6 +105,9 @@ public class Opening_Screen extends AppCompatActivity
         } else if (id == R.id.profile) {
             Intent intent = new Intent(Opening_Screen.this, UserProfile.class);
             startActivity(intent);
+        } else if (id == R.id.notification) {
+            Intent intent = new Intent(Opening_Screen.this, NotificationViewActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

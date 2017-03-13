@@ -346,9 +346,6 @@ public class UserProfile extends AppCompatActivity
         } else if (id == R.id.notification) {
             Intent intent = new Intent(UserProfile.this, NotificationViewActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_send) {
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
