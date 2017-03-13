@@ -53,9 +53,16 @@ public class UserProfile extends AppCompatActivity
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
          the_users_posts = new ArrayList<>(dbi.get_posts());
         post = new ArrayList<>();
-        for(int i = 0; i < the_users_posts.size(); i++)
-            if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
+
+        final TextView noPosts = (TextView) findViewById(R.id.textView11);
+        String noPostsMessage = "You have not made any posts!";
+        noPosts.setText(noPostsMessage);
+        for(int i = 0; i < the_users_posts.size(); i++) {
+            if (the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
                 post.add(the_users_posts.get(i));
+            if (post.size() != 0)
+                noPosts.setVisibility(View.GONE);
+        }
         ArrayAdapter<DriveBoardPost> arrayAdapter =
                 new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
         the_list.setAdapter(arrayAdapter);
@@ -80,8 +87,8 @@ public class UserProfile extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final TextView name = (TextView) findViewById(R.id.textView8);
         name.setText(
-                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
-        + '\n' + User.getInstance().getUsername());
+                "\nName: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
+        + "\n\n" + "Username: " +  User.getInstance().getUsername() + "\n");
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
         //email1.setText(User.getInstance().displayConnections());
@@ -90,11 +97,23 @@ public class UserProfile extends AppCompatActivity
         //for(int i = 0; i < the_users_posts.size();i++)
           //  posts = posts + the_users_posts.get(i) + '\n';
         posts = posts + User.getInstance().displayConnections();
-        email1.setText(User.getInstance().getEmail());
-        final TextView phone = (TextView) findViewById(R.id.textView10);
-        phone.setText(
-                User.getInstance().getPhoneNumber());
 
+        String emailText = "Email: " + User.getInstance().getEmail() + "\n";
+        email1.setText(emailText);
+
+        final TextView phone = (TextView) findViewById(R.id.textView10);
+        String phoneText = "Phone Number: " + User.getInstance().getPhoneNumber() + "\n";
+        phone.setText(phoneText);
+
+        /*
+        final TextView gender = (TextView) findViewById(R.id.textView11);
+        String genderText;
+        if(User.getInstance().whichGender() == true)
+            genderText = "Gender: Male\n";
+        else
+            genderText = "Gender: Female\n";
+        gender.setText(genderText);
+        */
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
