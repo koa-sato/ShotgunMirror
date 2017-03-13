@@ -72,7 +72,7 @@ public class EditPostActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), ViewUserActivity.class);
-                i.putExtra("User", p.get_interested_users().get(position));
+                i.putExtra("User", p.get_going_users().get(position));
                 i.putExtra("Going", true);
                 startActivity(i);
             }
