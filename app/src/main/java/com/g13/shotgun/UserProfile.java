@@ -27,6 +27,8 @@ import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.SignInActivity;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class UserProfile extends AppCompatActivity
@@ -54,12 +56,27 @@ public class UserProfile extends AppCompatActivity
          the_users_posts = new ArrayList<>(dbi.get_posts());
         post = new ArrayList<>();
         confirmed = new ArrayList<>();
+
+        final TextView noPosts = (TextView) findViewById(R.id.textView11);
+        String noPostsMsg = "You have not made any posts!";
+        noPosts.setText(noPostsMsg);
+
+        final TextView postLabel = (TextView) findViewById(R.id.my_posts);
+        String postsLabelMsg = "My Posts: ";
+        postLabel.setText(postsLabelMsg);
+
         for(int i = 0; i < the_users_posts.size();i++)
             if(the_users_posts.get(i).get_going_users()!=null && the_users_posts.get(i).get_going_users().contains(User.getInstance().getUsername()))
                 confirmed.add(the_users_posts.get(i));
         for(int i = 0; i < the_users_posts.size(); i++)
             if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
                 post.add(the_users_posts.get(i));
+
+        if(post.size() != 0)
+            noPosts.setVisibility(View.GONE);
+        else
+            postLabel.setVisibility(View.GONE);
+
         ArrayAdapter<DriveBoardPost> arrayAdapter =
                 new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
         ArrayAdapter<DriveBoardPost> carrayAdapter =
@@ -87,8 +104,8 @@ public class UserProfile extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final TextView name = (TextView) findViewById(R.id.textView8);
         name.setText(
-                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
-        + '\n' + User.getInstance().getUsername());
+                "\nName: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
+        + "\n\n" + "Username: " + User.getInstance().getUsername() + "\n");
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
         //email1.setText(User.getInstance().displayConnections());
@@ -97,10 +114,9 @@ public class UserProfile extends AppCompatActivity
         //for(int i = 0; i < the_users_posts.size();i++)
           //  posts = posts + the_users_posts.get(i) + '\n';
         posts = posts + User.getInstance().displayConnections();
-        email1.setText("Email: " + User.getInstance().getEmail());
+        email1.setText("Email: " + User.getInstance().getEmail() + "\n");
         final TextView phone = (TextView) findViewById(R.id.textView10);
-        phone.setText(
-                User.getInstance().getPhoneNumber());
+        phone.setText("Phone Number: " + User.getInstance().getPhoneNumber() + "\n");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
