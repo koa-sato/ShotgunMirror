@@ -23,6 +23,15 @@
         android:layout_height="wrap_content"></ListView>
 
     <TextView
+        android:text="Confirmed Matches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ListView
+        android:id="@+id/confirmed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+    <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

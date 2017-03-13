@@ -37,7 +37,9 @@ public class UserProfile extends AppCompatActivity
     //private User Fred;
     ArrayList<DriveBoardPost> the_users_posts;
     ArrayList<DriveBoardPost> post;
+    ArrayList<DriveBoardPost> confirmed;
     ListView the_list;
+    ListView the_confirmed_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class UserProfile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         the_list = (ListView) findViewById(R.id.list);
+        the_confirmed_list = (ListView) findViewById(R.id.confirmed);
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
@@ -53,12 +56,19 @@ public class UserProfile extends AppCompatActivity
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
          the_users_posts = new ArrayList<>(dbi.get_posts());
         post = new ArrayList<>();
+        confirmed = new ArrayList<>();
+        for(int i = 0; i < the_users_posts.size();i++)
+            if(the_users_posts.get(i).get_going_users()!=null && the_users_posts.get(i).get_going_users().contains(User.getInstance().getUsername()))
+                confirmed.add(the_users_posts.get(i));
         for(int i = 0; i < the_users_posts.size(); i++)
             if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
                 post.add(the_users_posts.get(i));
         ArrayAdapter<DriveBoardPost> arrayAdapter =
                 new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
+        ArrayAdapter<DriveBoardPost> carrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, confirmed);
         the_list.setAdapter(arrayAdapter);
+        the_confirmed_list.setAdapter(carrayAdapter);
         the_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -335,8 +345,9 @@ public class UserProfile extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.profile) {
 
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.notification) {
+            Intent intent = new Intent(UserProfile.this, NotificationViewActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_send) {
 
         }

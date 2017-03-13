@@ -147,8 +147,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.g13.shotgun.EditPostActivity" />
         </activity>
+        <activity
+            android:name=".NotificationViewActivity"
+            android:label="@string/title_activity_notification_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
-
-

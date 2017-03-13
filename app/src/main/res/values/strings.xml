@@ -188,7 +188,7 @@
     <string name="title_activity_edit_post">EditPostActivity</string>
     <string name="title_activity_view_ride_board_post">ViewRideBoardPost</string>
     <string name="title_activity_view_user">ViewUserActivity</string>
-
+    <string name="title_activity_notification_view">NotificationViewActivity</string>
 
 
 </resources>
