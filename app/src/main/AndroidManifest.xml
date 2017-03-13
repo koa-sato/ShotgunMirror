@@ -35,8 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".driveboard.CreateDriveBoardPostActivity"
-            android:label="Create Post Activity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Create Post Activity" />
         <activity
             android:name=".signIn.SignInActivity"
             android:label="@string/title_activity_sign_in"
@@ -65,12 +64,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".rideboard.CreateRideBoardPostActivity"
-            android:label="@string/title_activity_create_ride_board_post"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".driveboard.ViewDriveBoardPost" />
+            android:label="@string/title_activity_create_ride_board_post" />
+        <activity
+            android:name=".driveboard.ViewDriveBoardPost"
+            android:label="@string/post_details"/>
         <activity
             android:name=".sendbird.MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_messenger"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -136,8 +136,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".rideboard.ViewRideBoardPost"
-            android:label="@string/title_activity_view_ride_board_post"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/post_details"
+        />
         <activity
             android:name=".ViewUserActivity"
             android:label="@string/title_activity_view_user"
@@ -148,8 +148,13 @@
                 android:value="com.g13.shotgun.EditPostActivity" />
         </activity>
         <activity
+
             android:name=".NotificationViewActivity"
-            android:label="@string/title_activity_notification_view"
+                  android:label="@string/title_activity_notification_view"/> </activity>
+          <activity
+            android:name=".Opening_Screen"
+            android:label="@string/welcome_title"
+
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

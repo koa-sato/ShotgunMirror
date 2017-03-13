@@ -2,9 +2,7 @@ package com.g13.shotgun;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.g13.shotgun.driveboard.DriveBoard;
@@ -20,28 +18,20 @@ import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.SignInActivity;
 
-
-public class Messenger extends AppCompatActivity
+public class Opening_Screen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drive_board);
+        setContentView(R.layout.activity_opening__screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final TextView message = (TextView) findViewById(R.id.textView2);
+        message.setText(
+                "Welcome to Shotgun, " + User.getInstance().getFirstName() + "!" + " Please click the menu on the left to get started.");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -50,9 +40,17 @@ public class Messenger extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setOnClickListener(new View.OnClickListener() {
+            //@Override
+           // public void onClick(View view) {
+             //   Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+               //         .setAction("Action", null).show();
+            //}
+        //});
     }
 
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -83,41 +81,35 @@ public class Messenger extends AppCompatActivity
         if(id == R.id.logout){
             CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
             signInProvider.signOut();
-            Intent intent = new Intent(Messenger.this, SignInActivity.class);
+            Intent intent = new Intent(Opening_Screen.this, SignInActivity.class);
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.driveboard) {
-            Intent intent = new Intent(Messenger.this, DriveBoard.class);
+            Intent intent = new Intent(Opening_Screen.this, DriveBoard.class);
             startActivity(intent);
+
         } else if (id == R.id.rideboard) {
-            Intent intent = new Intent(Messenger.this, RideBoard.class);
+            Intent intent = new Intent(Opening_Screen.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-
+            Intent intent = new Intent(Opening_Screen.this, MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(Messenger.this, UserProfile.class);
+            Intent intent = new Intent(Opening_Screen.this, UserProfile.class);
             startActivity(intent);
-
-        } else if (id == R.id.notification) {
-            Intent intent = new Intent(Messenger.this, NotificationViewActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_send) {
-
-
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

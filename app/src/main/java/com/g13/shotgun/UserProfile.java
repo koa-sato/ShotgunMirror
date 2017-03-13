@@ -3,9 +3,7 @@ package com.g13.shotgun;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -100,7 +97,7 @@ public class UserProfile extends AppCompatActivity
         //for(int i = 0; i < the_users_posts.size();i++)
           //  posts = posts + the_users_posts.get(i) + '\n';
         posts = posts + User.getInstance().displayConnections();
-        email1.setText(User.getInstance().getEmail());
+        email1.setText("Email: " + User.getInstance().getEmail());
         final TextView phone = (TextView) findViewById(R.id.textView10);
         phone.setText(
                 User.getInstance().getPhoneNumber());
@@ -345,10 +342,12 @@ public class UserProfile extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.profile) {
 
+
         } else if (id == R.id.notification) {
             Intent intent = new Intent(UserProfile.this, NotificationViewActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_send) {
+
 
         }
 

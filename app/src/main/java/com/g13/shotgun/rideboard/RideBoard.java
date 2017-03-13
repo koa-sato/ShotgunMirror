@@ -225,10 +225,12 @@ public class RideBoard extends AppCompatActivity
         } else if (id == R.id.profile) {
             Intent intent = new Intent(RideBoard.this, UserProfile.class);
             startActivity(intent);
+
         } else if (id == R.id.notification) {
             Intent intent = new Intent(RideBoard.this, NotificationViewActivity.class);
             startActivity(intent);
         }else if (id == R.id.nav_send) {
+
 
         }
 
