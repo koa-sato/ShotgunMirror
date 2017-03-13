@@ -3,9 +3,8 @@ package com.g13.shotgun;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,10 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.g13.shotgun.driveboard.DriveBoard;
 import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
+import com.g13.shotgun.signIn.SignInActivity;
 
 
 public class Messenger extends AppCompatActivity
@@ -76,6 +78,12 @@ public class Messenger extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id == R.id.logout){
+            CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
+            signInProvider.signOut();
+            Intent intent = new Intent(Messenger.this, SignInActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
