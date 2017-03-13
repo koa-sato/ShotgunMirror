@@ -136,8 +136,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".rideboard.ViewRideBoardPost"
-            android:label="@string/post_details"
-        />
+            android:label="@string/post_details" />
         <activity
             android:name=".ViewUserActivity"
             android:label="@string/title_activity_view_user"
@@ -148,14 +147,12 @@
                 android:value="com.g13.shotgun.EditPostActivity" />
         </activity>
         <activity
-
             android:name=".NotificationViewActivity"
-                  android:label="@string/title_activity_notification_view"/>
-          <activity
+            android:label="@string/title_activity_notification_view"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".Opening_Screen"
             android:label="@string/welcome_title"
-
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 </manifest>

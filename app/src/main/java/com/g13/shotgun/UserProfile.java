@@ -3,9 +3,7 @@ package com.g13.shotgun;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,7 +34,9 @@ public class UserProfile extends AppCompatActivity
     //private User Fred;
     ArrayList<DriveBoardPost> the_users_posts;
     ArrayList<DriveBoardPost> post;
+    ArrayList<DriveBoardPost> confirmed;
     ListView the_list;
+    ListView the_confirmed_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +44,7 @@ public class UserProfile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         the_list = (ListView) findViewById(R.id.list);
+        the_confirmed_list = (ListView) findViewById(R.id.confirmed);
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
@@ -53,19 +53,19 @@ public class UserProfile extends AppCompatActivity
         DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
          the_users_posts = new ArrayList<>(dbi.get_posts());
         post = new ArrayList<>();
-
-        final TextView noPosts = (TextView) findViewById(R.id.textView11);
-        String noPostsMessage = "You have not made any posts!";
-        noPosts.setText(noPostsMessage);
-        for(int i = 0; i < the_users_posts.size(); i++) {
-            if (the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
+        confirmed = new ArrayList<>();
+        for(int i = 0; i < the_users_posts.size();i++)
+            if(the_users_posts.get(i).get_going_users()!=null && the_users_posts.get(i).get_going_users().contains(User.getInstance().getUsername()))
+                confirmed.add(the_users_posts.get(i));
+        for(int i = 0; i < the_users_posts.size(); i++)
+            if(the_users_posts.get(i).get_user().equals(User.getInstance().getUsername()))
                 post.add(the_users_posts.get(i));
-            if (post.size() != 0)
-                noPosts.setVisibility(View.GONE);
-        }
         ArrayAdapter<DriveBoardPost> arrayAdapter =
                 new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, post);
+        ArrayAdapter<DriveBoardPost> carrayAdapter =
+                new ArrayAdapter<DriveBoardPost>(this, android.R.layout.simple_list_item_1, confirmed);
         the_list.setAdapter(arrayAdapter);
+        the_confirmed_list.setAdapter(carrayAdapter);
         the_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,8 +87,8 @@ public class UserProfile extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final TextView name = (TextView) findViewById(R.id.textView8);
         name.setText(
-                "\nName: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
-        + "\n\n" + "Username: " +  User.getInstance().getUsername() + "\n");
+                "Name: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName()
+        + '\n' + User.getInstance().getUsername());
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
         //email1.setText(User.getInstance().displayConnections());
@@ -97,23 +97,11 @@ public class UserProfile extends AppCompatActivity
         //for(int i = 0; i < the_users_posts.size();i++)
           //  posts = posts + the_users_posts.get(i) + '\n';
         posts = posts + User.getInstance().displayConnections();
-
-        String emailText = "Email: " + User.getInstance().getEmail() + "\n";
-        email1.setText(emailText);
-
+        email1.setText("Email: " + User.getInstance().getEmail());
         final TextView phone = (TextView) findViewById(R.id.textView10);
-        String phoneText = "Phone Number: " + User.getInstance().getPhoneNumber() + "\n";
-        phone.setText(phoneText);
+        phone.setText(
+                User.getInstance().getPhoneNumber());
 
-        /*
-        final TextView gender = (TextView) findViewById(R.id.textView11);
-        String genderText;
-        if(User.getInstance().whichGender() == true)
-            genderText = "Gender: Male\n";
-        else
-            genderText = "Gender: Female\n";
-        gender.setText(genderText);
-        */
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -354,14 +342,12 @@ public class UserProfile extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.profile) {
 
-        }
-        /*
-        else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.notification) {
+            Intent intent = new Intent(UserProfile.this, NotificationViewActivity.class);
+            startActivity(intent);
         }
-        */
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -27,6 +27,7 @@ import com.g13.shotgun.NotificationViewActivity;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;
 import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.SignInActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -220,7 +221,7 @@ public class RideBoard extends AppCompatActivity
         } else if (id == R.id.rideboard) {
 
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(RideBoard.this, Messenger.class);
+            Intent intent = new Intent(RideBoard.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
             Intent intent = new Intent(RideBoard.this, UserProfile.class);
@@ -230,7 +231,6 @@ public class RideBoard extends AppCompatActivity
             Intent intent = new Intent(RideBoard.this, NotificationViewActivity.class);
             startActivity(intent);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
