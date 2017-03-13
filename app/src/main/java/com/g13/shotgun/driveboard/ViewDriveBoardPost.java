@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.DatabaseUser;
+import com.g13.shotgun.MyNotifications;
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
 import com.g13.shotgun.UserDatabaseInterface;
@@ -87,6 +88,10 @@ public class ViewDriveBoardPost extends AppCompatActivity {
             if(p.get_interested_users().contains(User.getInstance().getUsername()))
                 interested.setVisibility(View.INVISIBLE);
 
+        if(p.get_going_users() != null)
+            if(p.get_going_users().contains(User.getInstance().getUsername()))
+                interested.setVisibility(View.INVISIBLE);
+
         interested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +102,8 @@ public class ViewDriveBoardPost extends AppCompatActivity {
                 );
                 UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
                 DatabaseUser the_user = udbi.get_user(p.get_user());
-                the_user.addConnection(User.getInstance().getUsername());
+                the_user.addNotification(new MyNotifications("interested", User.getInstance().getUsername()));
+                //the_user.addConnection(User.getInstance().getUsername());
                 //User.getInstance().addConnection(p.get_user());
                 udbi.push_user(the_user);
                 udbi.push_user(new DatabaseUser(User.getInstance()));
