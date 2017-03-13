@@ -23,7 +23,9 @@ import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
 import com.g13.shotgun.rideboard.RideBoard;
+
 import com.g13.shotgun.sendbird.MainActivity;
+
 import com.g13.shotgun.signIn.SignInActivity;
 import com.g13.shotgun.UserProfile;
 import com.google.gson.Gson;
@@ -58,7 +60,7 @@ public class DriveBoard extends AppCompatActivity
                     posts.add(p);
                     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                             getApplicationContext(),
-                            //"us-west-2:7252aed7-1cdf-439f-a16a-a97ef8ca7697", // Identity Pool ID
+
                             AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                             AWSConfiguration.AMAZON_COGNITO_REGION // Region
                     );
@@ -96,27 +98,17 @@ public class DriveBoard extends AppCompatActivity
         }.getType();
         posts = gson.fromJson(json, type);
 
-        /*Bundle bundle = getIntent().getExtras();
-
-        if (bundle != null && bundle.getString("parent class").equals(SignInActivity.class.toString()) || posts == null) {
-            d_posts = new ArrayList<>(dbi.get_posts());
-            posts = new ArrayList<>();
-            for (int i = 0; i < d_posts.size(); i++) {
-                if (!posts.contains(d_posts.get(i)))
-                    posts.add(d_posts.get(i));
-            }
-        }*/
 
         if (posts == null || !equalLists(posts, d_posts)) {
             d_posts = new ArrayList<>(dbi.get_posts());
             posts = new ArrayList<>();
             for (int i = 0; i < d_posts.size(); i++) {
+
                 if (!posts.contains(d_posts.get(i)) || !posts.get(i).get_show())
+
                     posts.add(d_posts.get(i));
             }
         }
-
-
 
 
         setSupportActionBar(toolbar);
@@ -138,18 +130,6 @@ public class DriveBoard extends AppCompatActivity
             }
         });
 
-       /* FloatingActionButton rfab = (FloatingActionButton) findViewById(R.id.rfab);
-        rfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for(int i = 0; i < d_posts.size(); i++){
-                    if(!posts.contains(d_posts.get(i)))
-                        posts.add(d_posts.get(i));
-                }
-
-                updateList(posts);
-            }
-        });*/
 
         orderPosts(posts);
         updateList(posts);
@@ -159,20 +139,17 @@ public class DriveBoard extends AppCompatActivity
         for(int i = 0; i < posts.size(); i++)
             id_array.add(Integer.parseInt(posts.get(i).get_key()));
 
+
+        orderPosts(posts);
+        updateList(posts);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //id = id_array.get(position);
-                // ListView Clicked item value
-                /*String  itemValue    = (String) listView.getItemAtPosition(position);
 
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+position+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-                        */
                 Intent i = new Intent(getApplicationContext(), ViewDriveBoardPost.class);
                 SharedPreferences prefs = getSharedPreferences("The_post", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
@@ -181,7 +158,6 @@ public class DriveBoard extends AppCompatActivity
                 editor.putString("THE_POST", json);
                 editor.commit();
                 startActivity(i);
-
 
             }
 
@@ -220,7 +196,7 @@ public class DriveBoard extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //posts = d_posts;
+
                 updateList(posts);
                 postAdapter.getFilter().performFiltering(newText);
                 return false;
@@ -263,7 +239,9 @@ public class DriveBoard extends AppCompatActivity
             Intent intent = new Intent(DriveBoard.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
+
             Intent intent = new Intent(DriveBoard.this, MainActivity.class);
+
             startActivity(intent);
         } else if (id == R.id.profile) {
             Intent intent = new Intent(DriveBoard.this, UserProfile.class);

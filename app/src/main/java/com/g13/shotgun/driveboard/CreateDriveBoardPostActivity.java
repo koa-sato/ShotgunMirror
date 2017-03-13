@@ -3,6 +3,7 @@ package com.g13.shotgun.driveboard;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +42,8 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
     String t;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,26 +53,36 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         final Button b = (Button) findViewById(R.id.add_button);
         final Button s = (Button) findViewById(R.id.set);
         seats = (Spinner) findViewById(R.id.seats);
+
         time = (Spinner) findViewById(R.id.time);
         ArrayAdapter<CharSequence> timeadapter = ArrayAdapter.createFromResource(this, R.array.Times, android.R.layout.simple_spinner_item);
+
         final TextView tx = (TextView) findViewById(R.id.city);
         day = dp.getDayOfMonth();
         month = dp.getMonth();
         year =  dp.getYear();
+
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.seat_choices, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         seats.setAdapter(adapter);
+
         time.setAdapter(timeadapter);
+
 
         s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 s.setText("Change Date");
 
+
                 showDialog(DATE_DIALOG_ID);
+
 
             }
         });
@@ -76,6 +90,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (tx.getText().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(), "Please Enter All The Information", Toast.LENGTH_LONG);
@@ -89,6 +104,7 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
 
                 DriveBoardPost p = new DriveBoardPost(tx.getText().toString()
                         ,month, day, year, 10, 12, 0, User.getInstance().getUsername(), num,t);
+
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("the_new_post", p);
@@ -110,7 +126,6 @@ public class CreateDriveBoardPostActivity extends AppCompatActivity {
         }
         return null;
     }
-
 
 
     private DatePickerDialog.OnDateSetListener datePickerListener

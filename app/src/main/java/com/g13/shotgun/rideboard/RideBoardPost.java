@@ -17,8 +17,11 @@ public class RideBoardPost extends Post {
     public RideBoardPost() {};
 
     public RideBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
+
                          int __am, String __user, int e_year, int e_month, int e_day, String t) {
-        super(__city, __month, __day, __year, __hour, __minute, __am, __user,t);
+        super(__city, __month, __day, __year, __hour, __minute, __am, __user, t);
+        end_year = e_year;
+
         end_month = e_month;
         end_day = e_day;
     }
