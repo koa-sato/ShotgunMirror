@@ -8,7 +8,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 import com.g13.shotgun.Post;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
+
 
 @DynamoDBTable(tableName = "Shotgun_Posts")
 public class DriveBoardPost extends Post implements Serializable {
@@ -39,12 +41,23 @@ public class DriveBoardPost extends Post implements Serializable {
         numSeats = __numSeats;
         id = (long)Integer.parseInt(key);
 
+
+    public DriveBoardPost() {};
+
+    public DriveBoardPost(String __city, int __month, int __day, int __year, int __hour, int __minute,
+                int __am, String __user, int __numSeats) {
+        super(__city, __month, __day, __year, __hour, __minute, __am, __user);
+        numSeats = __numSeats;
+        id = (long)Integer.parseInt(key);
+
     }
     public long getId(){return id;}
 
     @DynamoDBHashKey(attributeName = "key")
     public String get_key(){ return key;}
+
     public void set_key(String d){ key = d;}
+
 
 
     @DynamoDBIndexHashKey(attributeName = "city")
@@ -90,7 +103,7 @@ public class DriveBoardPost extends Post implements Serializable {
         return "" + (month + 1) + '/' + day+ '/' + year;
     }
 
-    //public int getId(){return Integer.parseInt(key);}
+
 
     @DynamoDBAttribute(attributeName = "Interested_Users")
     public void set_interested_users(ArrayList<String> t){ interested_users = t;}
@@ -107,6 +120,7 @@ public class DriveBoardPost extends Post implements Serializable {
     @DynamoDBAttribute(attributeName = "Show")
     public void set_show(Boolean n) { show = n; }
     public Boolean get_show() { return show; }
+
 
     public void setId(long _id) {
         id = _id;

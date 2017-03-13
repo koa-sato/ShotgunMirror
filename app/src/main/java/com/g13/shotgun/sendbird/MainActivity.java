@@ -172,7 +172,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onConnected(User user, SendBirdException e) {
                 if (e != null) {
-                    //Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
                     setState(State.DISCONNECTED);
                     return;
                 }
@@ -183,7 +183,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onUpdated(SendBirdException e) {
                         if (e != null) {
-                           // Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
                             setState(State.DISCONNECTED);
                             return;
                         }
@@ -203,7 +203,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onRegistered(SendBird.PushTokenRegistrationStatus pushTokenRegistrationStatus, SendBirdException e) {
                         if (e != null) {
-                            //Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
                             return;
                         }
                     }

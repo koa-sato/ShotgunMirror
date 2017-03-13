@@ -1,10 +1,8 @@
 package com.g13.shotgun.driveboard;
 
+
 import android.util.Log;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -19,11 +17,7 @@ public class DriveBoardDataBaseInterface {
     private static final String LOG_TAG = EditPostActivity.class.getSimpleName();
     private DriveBoardPost post;
     private List<DriveBoardPost> posts;
-    /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-            getApplicationContext(),
-            "us-west-2:a1e05d5b-80d8-4be4-afdd-8fe55238156d", // Identity Pool ID
-            Regions.US_WEST_2 // Region
-    );*/
+   
     private CognitoCachingCredentialsProvider credentialsProvider;
     private AmazonDynamoDBClient ddbClient;
     private DynamoDBMapper mapper;
@@ -48,7 +42,7 @@ public class DriveBoardDataBaseInterface {
 
         Thread mythread = new Thread(runnable);
         mythread.start();
-        //TimeUnit.SECONDS.sleep(2);
+
         while(mythread.isAlive())
             android.os.SystemClock.sleep(5);
         return posts;
@@ -91,6 +85,9 @@ public class DriveBoardDataBaseInterface {
             android.os.SystemClock.sleep(5);
         if(posts == null)
             return new ArrayList<>();
+
+        while(mythread.isAlive())
+            android.os.SystemClock.sleep(5);
         return posts;
     }
 
@@ -103,9 +100,10 @@ public class DriveBoardDataBaseInterface {
         };
         Thread mythread = new Thread(runnable);
         mythread.start();
-        //TimeUnit.SECONDS.sleep(2);
+
         while(mythread.isAlive())
             android.os.SystemClock.sleep(5);
+
 
     }
 
