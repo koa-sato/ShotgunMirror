@@ -96,7 +96,6 @@ public class DriveBoardPost extends Post implements Serializable {
     }
 
 
-
     @DynamoDBAttribute(attributeName = "Interested_Users")
     public void set_interested_users(ArrayList<String> t){ interested_users = t;}
     public ArrayList<String> get_interested_users(){ return interested_users;}

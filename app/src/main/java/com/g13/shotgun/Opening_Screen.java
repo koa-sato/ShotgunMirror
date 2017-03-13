@@ -109,6 +109,11 @@ public class Opening_Screen extends AppCompatActivity
             Intent intent = new Intent(Opening_Screen.this, NotificationViewActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.notification) {
+            Intent intent = new Intent(Opening_Screen.this, NotificationViewActivity.class);
+            startActivity(intent);
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
