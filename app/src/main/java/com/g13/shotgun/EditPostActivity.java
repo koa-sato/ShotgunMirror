@@ -93,4 +93,10 @@ public class EditPostActivity extends AppCompatActivity {
         });
     }
 
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        setResult(-1, returnIntent);
+        super.onBackPressed();
+    }
+
 }
