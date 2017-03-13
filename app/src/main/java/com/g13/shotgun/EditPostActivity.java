@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -81,8 +82,9 @@ public class EditPostActivity extends AppCompatActivity {
         //city.setText(p.get_city());
         date.setText(p.date_to_string());
         //num.setText(p.get_time_of_day());
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button delete = (Button) findViewById(R.id.delete);
+       // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dbi.delete_post(p.get_key());

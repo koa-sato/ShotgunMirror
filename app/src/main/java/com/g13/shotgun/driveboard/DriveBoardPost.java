@@ -42,6 +42,7 @@ public class DriveBoardPost extends Post implements Serializable {
         id = (long)Integer.parseInt(key);}
 
 
+
     public long getId(){return id;}
 
     @DynamoDBHashKey(attributeName = "key")

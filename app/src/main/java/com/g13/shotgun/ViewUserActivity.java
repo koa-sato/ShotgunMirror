@@ -27,6 +27,8 @@ public class ViewUserActivity extends AppCompatActivity {
                 AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                 AWSConfiguration.AMAZON_COGNITO_REGION // Region
         );
+        UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
+
         final DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,12 +36,16 @@ public class ViewUserActivity extends AppCompatActivity {
         Intent i = getIntent();
         final String the_user_name = i.getStringExtra("User");
         name.setText(the_user_name);
+        DatabaseUser the_user = udbi.get_user(the_user_name);
+        the_user.addConnection(User.getInstance().getUsername());
+        the_user.addNotification(new MyNotifications("confirmed", User.getInstance().getUsername()));
+        udbi.push_user(the_user);
         boolean g = i.getBooleanExtra("Going", false);
 
         final Button b = (Button) findViewById(R.id.confirm);
         b.setText("Confirm Match");
-        //if(g)
-          //  b.setVisibility(View.INVISIBLE);
+        if(g)
+            b.setVisibility(View.INVISIBLE);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

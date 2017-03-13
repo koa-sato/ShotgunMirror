@@ -21,7 +21,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-
+    private ArrayList<MyNotifications> notifications;
     private ArrayList<String> connections;
     //private String identityId;
 
@@ -30,7 +30,15 @@ public class User {
     private String phoneNumber;
     private DriveBoardPost d_highlighted_post;
 
+    public void add_notification(MyNotifications n){
+        if(notifications == null)
+            notifications = new ArrayList<>();
+        notifications.add(n);
+    }
 
+    public ArrayList<MyNotifications> getNotifications(){
+        return notifications;
+    }
 
     public DriveBoardPost getD_highlighted_post(){
         return d_highlighted_post;
@@ -42,7 +50,7 @@ public class User {
 
     public static User getInstance(DatabaseUser u){
         the_user = new User(u.getUsername(), u.getFirstName(), u.getLastName(),
-                u.getEmail(), u.getRating(), u.whichGender(), u.getPhoneNumber(), u.getConnections());
+                u.getEmail(), u.getRating(), u.whichGender(), u.getPhoneNumber(), u.getConnections(), u.gettNotifications(), u.getuNotifications());//, u.getNotifications());
         return the_user;
     }
 
@@ -66,7 +74,7 @@ public class User {
     }
 
     private User(String _username, String _firstName, String _lastName, String _email,
-                 double _rating, boolean _isMale, String _phoneNumber, ArrayList<String> s) {
+                 double _rating, boolean _isMale, String _phoneNumber, ArrayList<String> s, ArrayList<String> tn, ArrayList<String> un) {
         username = _username;
         firstName = _firstName;
         lastName = _lastName;
@@ -75,6 +83,16 @@ public class User {
         isMale = _isMale;
         phoneNumber = _phoneNumber;
         connections = s;
+        notifications = new ArrayList<>();
+        if(tn == null)
+            return;
+        else{
+            for(int i =0; i < tn.size(); i++){
+                notifications.add(i, new MyNotifications(tn.get(i), un.get(i)));
+            }
+
+        }
+
     }
 
 

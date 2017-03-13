@@ -22,6 +22,8 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.g13.shotgun.Messenger;
+
+import com.g13.shotgun.NotificationViewActivity;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserProfile;
 import com.g13.shotgun.driveboard.DriveBoard;
@@ -223,6 +225,13 @@ public class RideBoard extends AppCompatActivity
         } else if (id == R.id.profile) {
             Intent intent = new Intent(RideBoard.this, UserProfile.class);
             startActivity(intent);
+
+        } else if (id == R.id.notification) {
+            Intent intent = new Intent(RideBoard.this, NotificationViewActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_send) {
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
