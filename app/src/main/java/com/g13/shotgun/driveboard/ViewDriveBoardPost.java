@@ -1,16 +1,20 @@
 package com.g13.shotgun.driveboard;
 
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
@@ -18,6 +22,8 @@ import com.g13.shotgun.DatabaseUser;
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
 import com.g13.shotgun.UserDatabaseInterface;
+import com.g13.shotgun.UserProfile;
+import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -28,9 +34,7 @@ import com.sendbird.android.SendBirdException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
 import java.util.Arrays;
-
 
 
 
@@ -40,9 +44,7 @@ public class ViewDriveBoardPost extends AppCompatActivity {
     TextView date;
     TextView city;
     TextView num;
-
     TextView buser;
-
     Button interested;
     ArrayList<String> USER_IDS;
     DriveBoardPost p;
@@ -52,7 +54,6 @@ public class ViewDriveBoardPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_drive_board_post);
-
         SendBird.connect(User.getInstance().getUsername(), new SendBird.ConnectHandler() {
             @Override
             public void onConnected(com.sendbird.android.User user, SendBirdException e) {
@@ -70,26 +71,25 @@ public class ViewDriveBoardPost extends AppCompatActivity {
         }.getType();
          p = gson.fromJson(json, type);
 
-
         buser = (TextView) findViewById(R.id.name);
         date = (TextView) findViewById(R.id.date);
         num = (TextView) findViewById(R.id.num);
         city = (TextView) findViewById(R.id.city);
         interested = (Button) findViewById(R.id.interested);
-
         buser.setText(p.get_user());
        // user.setText("User: " + p.get_user());
         date.setText("Date: " + p.date_to_string());
         city.setText("City: " + p.get_city());
         num.setText("Number of Seats: " + Integer.toString(p.get_num_seats()));
-        if(p.get_user().equals(User.getInstance().getUsername()) || p.get_interested_users().contains(User.getInstance().getUsername()))
-
+        if(p.get_user().equals(User.getInstance().getUsername()))
             interested.setVisibility(View.INVISIBLE);
+        if(p.get_interested_users() != null)
+            if(p.get_interested_users().contains(User.getInstance().getUsername()))
+                interested.setVisibility(View.INVISIBLE);
 
         interested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                         getApplicationContext(),
                         AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
@@ -116,17 +116,14 @@ public class ViewDriveBoardPost extends AppCompatActivity {
                         }
 
 
-
                     }
 
                 });
 
 
-
                 interested.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Check your Messenger App to Chat with the driver", Toast.LENGTH_LONG ).show();
              //   setState(MainActivity.State.CONNECTING);
-
             }
         });
     }
