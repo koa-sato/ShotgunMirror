@@ -50,15 +50,30 @@ public class EditPostActivity extends AppCompatActivity {
         if(p.get_interested_users() == null)
              num.setText("NULL");
         ListView listView = (ListView) findViewById(R.id.list);
+        ListView glistView = (ListView) findViewById(R.id.glist);
         if(p.get_interested_users() != null){
         ArrayAdapter<String> arrayAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, p.get_interested_users());
         listView.setAdapter(arrayAdapter);}
+        if(p.get_going_users() != null){
+            ArrayAdapter<String> garrayAdapter =
+                    new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, p.get_going_users());
+        glistView.setAdapter(garrayAdapter);}
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), ViewUserActivity.class);
                 i.putExtra("User", p.get_interested_users().get(position));
+                i.putExtra("Going", false);
+                startActivity(i);
+            }
+        });
+        glistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), ViewUserActivity.class);
+                i.putExtra("User", p.get_interested_users().get(position));
+                i.putExtra("Going", true);
                 startActivity(i);
             }
         });

@@ -109,6 +109,21 @@ public class DriveBoardDataBaseInterface {
 
     }
 
+    public DriveBoardPost get_post(final String key){
+        Runnable runnable = new Runnable() {
+            public void run() {
+                 post = mapper.load(DriveBoardPost.class, key);
+
+            }
+        };
+        Thread mythread = new Thread(runnable);
+        mythread.start();
+        //TimeUnit.SECONDS.sleep(2);
+        while(mythread.isAlive())
+            android.os.SystemClock.sleep(5);
+        return post;
+    }
+
     public void push_posts(List<DriveBoardPost> posts)
     {
         for(int i = 0; i < posts.size(); i++)
