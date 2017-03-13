@@ -38,6 +38,11 @@ public class DatabaseUser {
         return notifications;
     }*/
 
+    public void clearNotifications(){
+        t_notifications.clear();
+        u_notifications.clear();
+    }
+
     public DatabaseUser(String _username, String _firstName, String _lastName, String _email,
                         double _rating, boolean _isMale, String _phoneNumber, ArrayList<String > s) {
 

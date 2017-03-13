@@ -1,10 +1,10 @@
 package com.g13.shotgun;
 
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
-import com.g13.shotgun.driveboard.DriveBoard;
+import android.content.Context;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.driveboard.DriveBoardPost;
 
 import java.util.ArrayList;
@@ -71,6 +71,19 @@ public class User {
         if(connections == null)
             connections = new ArrayList<>();
         connections.add(s);
+    }
+
+    public void Update(Context c){
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                c,
+
+                AWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
+                AWSConfiguration.AMAZON_COGNITO_REGION // Region
+        );
+        UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
+        DatabaseUser u = udbi.get_user(User.getInstance().getUsername());
+        User.getInstance(u);
+
     }
 
     private User(String _username, String _firstName, String _lastName, String _email,
