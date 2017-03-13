@@ -38,8 +38,8 @@ public class ViewUserActivity extends AppCompatActivity {
 
         final Button b = (Button) findViewById(R.id.confirm);
         b.setText("Confirm Match");
-        if(g)
-            b.setVisibility(View.INVISIBLE);
+        //if(g)
+          //  b.setVisibility(View.INVISIBLE);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

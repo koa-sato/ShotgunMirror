@@ -39,8 +39,10 @@ public class DriveBoardPost extends Post implements Serializable {
                 int __am, String __user, int __numSeats, String t) {
         super(__city, __month, __day, __year, __hour, __minute, __am, __user, t);
         numSeats = __numSeats;
-        id = (long)Integer.parseInt(key);
-    }
+        id = (long)Integer.parseInt(key);}
+
+
+
     public long getId(){return id;}
 
     @DynamoDBHashKey(attributeName = "key")
