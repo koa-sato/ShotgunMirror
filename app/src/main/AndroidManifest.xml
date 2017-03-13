@@ -35,8 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".driveboard.CreateDriveBoardPostActivity"
-            android:label="Create Post Activity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Create Post Activity" />
         <activity
             android:name=".signIn.SignInActivity"
             android:label="@string/title_activity_sign_in"
@@ -65,8 +64,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".rideboard.CreateRideBoardPostActivity"
-            android:label="@string/title_activity_create_ride_board_post"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_create_ride_board_post" />
         <activity
             android:name=".driveboard.ViewDriveBoardPost"
             android:label="@string/post_details"/>

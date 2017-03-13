@@ -76,12 +76,7 @@ public class MainActivity extends FragmentActivity {
                 } else if (id == R.id.profile) {
                     Intent intent = new Intent(MainActivity.this, UserProfile.class);
                     startActivity(intent);
-                } else if (id == R.id.nav_share) {
-
-                } else if (id == R.id.nav_send) {
-
                 }
-
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;

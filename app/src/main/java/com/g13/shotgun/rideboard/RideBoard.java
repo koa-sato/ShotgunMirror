@@ -223,10 +223,6 @@ public class RideBoard extends AppCompatActivity
         } else if (id == R.id.profile) {
             Intent intent = new Intent(RideBoard.this, UserProfile.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
