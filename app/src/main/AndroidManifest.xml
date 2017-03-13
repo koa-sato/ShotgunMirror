@@ -67,10 +67,12 @@
             android:name=".rideboard.CreateRideBoardPostActivity"
             android:label="@string/title_activity_create_ride_board_post"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".driveboard.ViewDriveBoardPost" />
+        <activity
+            android:name=".driveboard.ViewDriveBoardPost"
+            android:label="@string/post_details"/>
         <activity
             android:name=".sendbird.MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_messenger"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -136,8 +138,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".rideboard.ViewRideBoardPost"
-            android:label="@string/title_activity_view_ride_board_post"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/post_details"
+        />
         <activity
             android:name=".ViewUserActivity"
             android:label="@string/title_activity_view_user"

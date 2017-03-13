@@ -4,17 +4,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
+
+import com.g13.shotgun.Messenger;
 import com.g13.shotgun.R;
+import com.g13.shotgun.UserProfile;
+import com.g13.shotgun.driveboard.DriveBoard;
+import com.g13.shotgun.rideboard.RideBoard;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
@@ -42,8 +50,46 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toolbar.setTitle("Messenger");
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-       // sUserId = getPreferences(Context.MODE_PRIVATE).getString("user_id", "");
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(final MenuItem menuItem) {
+                // Handle navigation view item clicks here.
+                int id = menuItem.getItemId();
+
+                if (id == R.id.driveboard) {
+                    Intent intent = new Intent(MainActivity.this, DriveBoard.class);
+                    startActivity(intent);
+                } else if (id == R.id.rideboard) {
+                    Intent intent = new Intent(MainActivity.this, RideBoard.class);
+                    startActivity(intent);
+                } else if (id == R.id.messenger) {
+
+                } else if (id == R.id.profile) {
+                    Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                    startActivity(intent);
+                } else if (id == R.id.nav_share) {
+
+                } else if (id == R.id.nav_send) {
+
+                }
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+
+        });
+
+        // sUserId = getPreferences(Context.MODE_PRIVATE).getString("user_id", "");
         //mNickname = getPreferences(Context.MODE_PRIVATE).getString("nickname", "");
 
         SendBird.init(appId, this);
@@ -148,7 +194,7 @@ public class MainActivity extends FragmentActivity {
             case DISCONNECTED:
                 ((Button) findViewById(R.id.btn_connect)).setText("Connect");
                 findViewById(R.id.btn_connect).setEnabled(true);
-               // findViewById(R.id.btn_open_channel_list).setEnabled(false);
+                // findViewById(R.id.btn_open_channel_list).setEnabled(false);
                 findViewById(R.id.btn_group_channel_list).setEnabled(false);
                 break;
 
@@ -161,7 +207,7 @@ public class MainActivity extends FragmentActivity {
             case CONNECTED:
                 ((Button) findViewById(R.id.btn_connect)).setText("Disconnect");
                 findViewById(R.id.btn_connect).setEnabled(true);
-               // findViewById(R.id.btn_open_channel_list).setEnabled(true);
+                // findViewById(R.id.btn_open_channel_list).setEnabled(true);
                 findViewById(R.id.btn_group_channel_list).setEnabled(true);
                 break;
         }
@@ -222,4 +268,5 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
+
 }

@@ -1,9 +1,16 @@
 package com.g13.shotgun.driveboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +22,8 @@ import com.g13.shotgun.DatabaseUser;
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
 import com.g13.shotgun.UserDatabaseInterface;
+import com.g13.shotgun.UserProfile;
+import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
