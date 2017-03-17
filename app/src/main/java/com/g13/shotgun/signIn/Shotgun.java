@@ -16,7 +16,7 @@ import com.amazonaws.mobile.user.IdentityProvider;
 import com.amazonaws.mobile.user.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.user.signin.SignInManager;
 import com.g13.shotgun.DatabaseUser;
-import com.g13.shotgun.Opening_Screen;
+import com.g13.shotgun.OpeningScreenActivity;
 import com.g13.shotgun.R;
 import com.g13.shotgun.UserDatabaseInterface;
 import com.sendbird.android.SendBird;
@@ -70,7 +70,7 @@ public class Shotgun extends Activity {
                 @Override
                 public void run() {
                     Log.d(LOG_TAG, "Launching Main Activity...");
-                    Intent i = new Intent(Shotgun.this, Opening_Screen.class);
+                    Intent i = new Intent(Shotgun.this, OpeningScreenActivity.class);
                     i.putExtra("parent class", Shotgun.class.toString());
                     startActivity(i
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

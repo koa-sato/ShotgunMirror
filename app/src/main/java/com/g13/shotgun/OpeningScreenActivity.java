@@ -18,7 +18,7 @@ import com.g13.shotgun.rideboard.RideBoard;
 import com.g13.shotgun.sendbird.MainActivity;
 import com.g13.shotgun.signIn.Shotgun;
 
-public class Opening_Screen extends AppCompatActivity
+public class OpeningScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -81,7 +81,7 @@ public class Opening_Screen extends AppCompatActivity
         if(id == R.id.logout){
             CognitoUserPoolsSignInProvider signInProvider = new CognitoUserPoolsSignInProvider(getApplicationContext());
             signInProvider.signOut();
-            Intent intent = new Intent(Opening_Screen.this, Shotgun.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, Shotgun.class);
             startActivity(intent);
         }
 
@@ -93,24 +93,24 @@ public class Opening_Screen extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.driveboard) {
-            Intent intent = new Intent(Opening_Screen.this, DriveBoard.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, DriveBoard.class);
             startActivity(intent);
 
         } else if (id == R.id.rideboard) {
-            Intent intent = new Intent(Opening_Screen.this, RideBoard.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, RideBoard.class);
             startActivity(intent);
         } else if (id == R.id.messenger) {
-            Intent intent = new Intent(Opening_Screen.this, MainActivity.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(Opening_Screen.this, UserProfile.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, UserProfile.class);
             startActivity(intent);
         } else if (id == R.id.notification) {
-            Intent intent = new Intent(Opening_Screen.this, NotificationViewActivity.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, NotificationViewActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.notification) {
-            Intent intent = new Intent(Opening_Screen.this, NotificationViewActivity.class);
+            Intent intent = new Intent(OpeningScreenActivity.this, NotificationViewActivity.class);
             startActivity(intent);
 
         }
