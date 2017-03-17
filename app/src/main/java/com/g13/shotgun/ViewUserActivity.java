@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.AWSConfiguration;
 import com.g13.shotgun.driveboard.DriveBoardDataBaseInterface;
-import com.g13.shotgun.driveboard.DriveBoardPost;
 
 public class ViewUserActivity extends AppCompatActivity {
 
@@ -30,8 +27,8 @@ public class ViewUserActivity extends AppCompatActivity {
         UserDatabaseInterface udbi = new UserDatabaseInterface(credentialsProvider);
 
         final DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
         TextView name = (TextView) findViewById(R.id.the_name);
         Intent i = getIntent();
         final String the_user_name = i.getStringExtra("User");
@@ -65,7 +62,7 @@ public class ViewUserActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }
