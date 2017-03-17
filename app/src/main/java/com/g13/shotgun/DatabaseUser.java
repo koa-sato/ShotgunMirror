@@ -29,15 +29,6 @@ public class DatabaseUser {
     private ArrayList<String> u_notifications;
     public DatabaseUser(){}
 
-    /*public ArrayList<MyNotifications> shh(){
-        if(t_notifications == null)
-            return null;
-        ArrayList<MyNotifications> notifications = new ArrayList<>();
-        for(int i = 0; i < t_notifications.size(); i++)
-            notifications.add(new MyNotifications(t_notifications.get(i), u_notifications.get(i)));
-        return notifications;
-    }*/
-
     public void clearNotifications(){
         t_notifications.clear();
         u_notifications.clear();

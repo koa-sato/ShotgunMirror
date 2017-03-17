@@ -38,7 +38,6 @@ public class UserDatabaseInterface {
 
         Thread mythread = new Thread(runnable);
         mythread.start();
-        //TimeUnit.SECONDS.sleep(2);
         while (mythread.isAlive())
             android.os.SystemClock.sleep(5);
         return u;

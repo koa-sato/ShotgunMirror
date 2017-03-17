@@ -76,11 +76,8 @@ public class EditPostActivity extends AppCompatActivity {
             }
         });
         city.setText(p.get_user());
-        //city.setText(p.get_city());
         date.setText(p.date_to_string());
-        //num.setText(p.get_time_of_day());
         Button delete = (Button) findViewById(R.id.delete);
-       // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -99,14 +99,6 @@ public class UserProfile extends AppCompatActivity
                 startActivityForResult(i, 4);
             }
         });
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final TextView name = (TextView) findViewById(R.id.textView8);
@@ -115,11 +107,7 @@ public class UserProfile extends AppCompatActivity
         + "\n\n" + "Username: " + User.getInstance().getUsername() + "\n");
 
         final TextView email1 = (TextView) findViewById(R.id.textView9);
-        //email1.setText(User.getInstance().displayConnections());
-               // "Email: " +  User.getInstance().getEmail());
         String posts = "";
-        //for(int i = 0; i < the_users_posts.size();i++)
-          //  posts = posts + the_users_posts.get(i) + '\n';
         posts = posts + User.getInstance().displayConnections();
         email1.setText("Email: " + User.getInstance().getEmail() + "\n");
         final TextView phone = (TextView) findViewById(R.id.textView10);
@@ -193,10 +181,7 @@ public class UserProfile extends AppCompatActivity
         );
         final DriveBoardDataBaseInterface dbi = new DriveBoardDataBaseInterface(credentialsProvider);
         ArrayList<DriveBoardPost> newList = new ArrayList<>(dbi.get_posts());
-        //the_users_posts = new ArrayList<>(dbi.get_posts());
-        //the_users_posts.set(0, new DriveBoardPost("QS", 1, 1, 1, 1, 1, 1, "string,", 1, "String"));
         String x = "";
-        //the_users_posts = new ArrayList<>();
         x = newList.get(0).toString();
         Log.d("UserProfile", x);
         if(the_list == null) {

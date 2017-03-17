@@ -1,15 +1,8 @@
 package com.g13.shotgun.rideboard;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,9 +10,6 @@ import android.widget.Toast;
 
 import com.g13.shotgun.R;
 import com.g13.shotgun.User;
-import com.g13.shotgun.UserProfile;
-import com.g13.shotgun.driveboard.DriveBoard;
-import com.g13.shotgun.sendbird.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sendbird.android.GroupChannel;
@@ -104,15 +94,6 @@ public class ViewRideBoardPost extends AppCompatActivity {
                     }
                 });
 
-               /* GroupChannel.createChannelWithUserIds(USER_IDS, true, new GroupChannel.GroupChannelCreateHandler() {
-                    @Override
-                    public void onResult(GroupChannel groupChannel, SendBirdException e) {
-                        if (e != null) {
-                            // Error.
-                            return;
-                        }
-                    }
-                });*/
                 interested.setText(USER_IDS.get(0) + " " + USER_IDS.get(1));
             }
         });

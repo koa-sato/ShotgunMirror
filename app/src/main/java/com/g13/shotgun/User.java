@@ -23,7 +23,6 @@ public class User {
     private String email;
     private ArrayList<MyNotifications> notifications;
     private ArrayList<String> connections;
-    //private String identityId;
 
     private double rating;
     private boolean isMale;
